@@ -528,12 +528,12 @@ mod xion {
     const XION_PACKAGE: &str = "xion.v1";
 
     impl_name!(
-        xion::v1,
+        xion::v1::AuthzAllowance,
         XION_PACKAGE,
         "AuthzAllowance"
     );
     impl_name!(
-        xion::v1,
+        xion::v1::ContractsAllowance,
         XION_PACKAGE,
         "ContractsAllowance"
     );
