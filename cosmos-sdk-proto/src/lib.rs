@@ -344,9 +344,7 @@ pub mod ics23 {
 #[cfg(feature = "xion")]
 pub mod xion {
     /// Messages and services handling Xion.
-    pub mod xion {
         pub mod v1 {
             include!("prost/xion/xion.v1.rs");
         }
-    }
 }
