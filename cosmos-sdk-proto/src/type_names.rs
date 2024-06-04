@@ -520,3 +520,21 @@ mod wasm {
         "ContractMigrationAuthorization"
     );
 }
+
+#[cfg(feature = "xion")]
+mod xion {
+    use crate::{xion, traits::Name};
+
+    const XION_PACKAGE: &str = "xion.v1";
+
+    impl_name!(
+        xion::xion::v1,
+        XION_PACKAGE,
+        "AuthzAllowance"
+    );
+    impl_name!(
+        xion::xion::v1,
+        XION_PACKAGE,
+        "ContractsAllowance"
+    );
+}

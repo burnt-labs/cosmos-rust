@@ -31,6 +31,7 @@ default = ["grpc-transport"]
 grpc = ["tonic"]
 grpc-transport = ["grpc", "tonic/transport"]
 cosmwasm = []
+xion = []
 
 [package.metadata.docs.rs]
 all-features = true
