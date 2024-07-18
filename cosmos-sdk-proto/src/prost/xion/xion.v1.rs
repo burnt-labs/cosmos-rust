@@ -13,11 +13,19 @@ pub struct AuthzAllowance {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ContractsAllowance {
-    /// allowance can be any of basic and periodic fee allowance.
+    /// allowance can be any allowance interface type.
     #[prost(message, optional, tag = "1")]
     pub allowance: ::core::option::Option<::pbjson_types::Any>,
     #[prost(string, repeated, tag = "2")]
     pub contract_addresses: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// MultiAnyAllowance creates an allowance that pays if any of the internal allowances are met
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MultiAnyAllowance {
+    /// allowance can be any allowance interface type.
+    #[prost(message, repeated, tag = "1")]
+    pub allowances: ::prost::alloc::vec::Vec<::pbjson_types::Any>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

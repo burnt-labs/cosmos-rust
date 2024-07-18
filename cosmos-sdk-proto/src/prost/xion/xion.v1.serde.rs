@@ -901,6 +901,98 @@ impl<'de> serde::Deserialize<'de> for MsgSetPlatformPercentageResponse {
         )
     }
 }
+impl serde::Serialize for MultiAnyAllowance {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.allowances.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.v1.MultiAnyAllowance", len)?;
+        if !self.allowances.is_empty() {
+            struct_ser.serialize_field("allowances", &self.allowances)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MultiAnyAllowance {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["allowances"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Allowances,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "allowances" => Ok(GeneratedField::Allowances),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MultiAnyAllowance;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.v1.MultiAnyAllowance")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MultiAnyAllowance, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut allowances__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Allowances => {
+                            if allowances__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("allowances"));
+                            }
+                            allowances__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MultiAnyAllowance {
+                    allowances: allowances__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.v1.MultiAnyAllowance", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for QueryWebAuthNVerifyAuthenticateRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
