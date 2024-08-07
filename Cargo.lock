@@ -287,7 +287,7 @@ checksum = "e496a50fda8aacccc86d7529e2c1e0892dbd0f898a6b5645b5561b89c3210efa"
 
 [[package]]
 name = "cosmos-sdk-proto"
-version = "0.23.0-pre"
+version = "0.23.0"
 dependencies = [
  "informalsystems-pbjson",
  "informalsystems-pbjson-types",
@@ -300,7 +300,7 @@ dependencies = [
 
 [[package]]
 name = "cosmrs"
-version = "0.18.0-pre"
+version = "0.18.0"
 dependencies = [
  "bip32",
  "cosmos-sdk-proto",
