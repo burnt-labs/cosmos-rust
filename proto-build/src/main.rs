@@ -31,6 +31,9 @@ const WASMD_REV: &str = "v0.45.0";
 /// The xion commit or tag to be cloned and used to build the proto files
 const XION_REV: &str = "054ee5024b4c0d6a0e5ade651128417ac76e0d92";
 
+/// the tokenfactory commit or tag to be cloned and used to build the proto files
+const TOKENFACTORY_REV: &str = "v0.50.3-wasmvm2";
+
 // All paths must end with a / and either be absolute or include a ./ to reference the current
 // working directory.
 
@@ -44,6 +47,8 @@ const IBC_DIR: &str = "../ibc-go";
 const WASMD_DIR: &str = "../wasmd";
 /// Directory where the xion output is located
 const XION_DIR: &str = "../xion";
+/// Directory where the tokenfactory output is located
+const TOKENFACTORY_DIR: &str = "../tokenfactory";
 /// A temporary directory for proto building
 const TMP_BUILD_DIR: &str = "/tmp/tmp-protobuf/";
 
@@ -82,26 +87,31 @@ fn main() {
     let temp_ibc_dir = tmp_build_dir.join("ibc-go");
     let temp_wasmd_dir = tmp_build_dir.join("wasmd");
     let temp_xion_dir = tmp_build_dir.join("xion");
+    let temp_tf_dir = tmp_build_dir.join("tokenfactory");
 
     fs::create_dir_all(&temp_sdk_dir).unwrap();
     fs::create_dir_all(&temp_ibc_dir).unwrap();
     fs::create_dir_all(&temp_wasmd_dir).unwrap();
     fs::create_dir_all(&temp_xion_dir).unwrap();
+    fs::create_dir_all(&temp_tf_dir).unwrap();
 
     update_submodules();
     output_sdk_version(&temp_sdk_dir);
     output_ibc_version(&temp_ibc_dir);
     output_wasmd_version(&temp_wasmd_dir);
     output_xion_version(&temp_xion_dir);
+    output_tf_version(&temp_tf_dir);
     compile_sdk_protos_and_services(&temp_sdk_dir);
     compile_ibc_protos_and_services(&temp_ibc_dir);
     compile_wasmd_proto_and_services(&temp_wasmd_dir);
     compile_xion_proto_and_services(&temp_xion_dir);
+    compile_tokenfactory_proto_and_services(&temp_tf_dir);
 
     copy_generated_files(&temp_sdk_dir, &proto_dir.join("cosmos-sdk"));
     copy_generated_files(&temp_ibc_dir, &proto_dir.join("ibc-go"));
     copy_generated_files(&temp_wasmd_dir, &proto_dir.join("wasmd"));
     copy_generated_files(&temp_xion_dir, &proto_dir.join("xion"));
+    copy_generated_files(&temp_tf_dir, &proto_dir.join("tokenfactory"));
 
     apply_patches(&proto_dir);
 
@@ -214,6 +224,11 @@ fn update_submodules() {
     run_git(["submodule", "update", "--init"]);
     run_git(["-C", XION_DIR, "fetch"]);
     run_git(["-C", XION_DIR, "reset", "--hard", XION_REV]);
+
+    info!("Updating tokenfactory submodule...");
+    run_git(["submodule", "update", "--init"]);
+    run_git(["-C", TOKENFACTORY_DIR, "fetch"]);
+    run_git(["-C", TOKENFACTORY_DIR, "reset", "--hard", TOKENFACTORY_REV]);
 }
 
 fn output_sdk_version(out_dir: &Path) {
@@ -234,6 +249,11 @@ fn output_wasmd_version(out_dir: &Path) {
 fn output_xion_version(out_dir: &Path) {
     let path = out_dir.join("XION_COMMIT");
     fs::write(path, XION_REV).unwrap();
+}
+
+fn output_tf_version(out_dir: &Path) {
+    let path = out_dir.join("TOKENFACTORY_COMMIT");
+    fs::write(path, TOKENFACTORY_REV).unwrap();
 }
 
 fn compile_sdk_protos_and_services(out_dir: &Path) {
@@ -281,6 +301,23 @@ fn compile_xion_proto_and_services(out_dir: &Path) {
 
     // Compile all proto client for GRPC services
     info!("Compiling xion proto clients for GRPC services!");
+    run_buf("buf.sdk.gen.yaml", proto_path, out_dir);
+    info!("=> Done!");
+}
+
+fn compile_tokenfactory_proto_and_services(out_dir: &Path) {
+    let sdk_dir = Path::new(TOKENFACTORY_DIR);
+    let proto_path = sdk_dir.join("proto");
+    let proto_paths = [
+        format!("{}/proto/osmosis/tokenfactory", sdk_dir.display()),
+    ];
+
+    // List available proto files
+    let mut protos: Vec<PathBuf> = vec![];
+    collect_protos(&proto_paths, &mut protos);
+
+    // Compile all proto client for GRPC services
+    info!("Compiling tokenfactory proto clients for GRPC services!");
     run_buf("buf.sdk.gen.yaml", proto_path, out_dir);
     info!("=> Done!");
 }

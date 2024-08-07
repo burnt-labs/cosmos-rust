@@ -33,6 +33,7 @@ grpc = ["std", "tonic"]
 grpc-transport = ["grpc", "tonic/transport"]
 cosmwasm = []
 xion = []
+tokenfactory = []
 
 [package.metadata.docs.rs]
 all-features = true
