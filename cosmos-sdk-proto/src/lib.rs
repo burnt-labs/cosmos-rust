@@ -356,9 +356,12 @@ pub mod xion {
 }
 
 #[cfg(feature = "tokenfactory")]
-pub mod tokenfactory {
-    /// Messages and services handling Tokenfactory.
-    pub mod v1beta1 {
-        include!("prost/tokenfactory/osmosis.tokenfactory.v1beta1.rs");
+pub mod osmosis {
+    pub mod tokenfactory {
+        /// Messages and services handling Tokenfactory.
+        pub mod v1beta1 {
+            include!("prost/tokenfactory/osmosis.tokenfactory.v1beta1.rs");
+        }
     }
 }
+
