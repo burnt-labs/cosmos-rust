@@ -354,6 +354,7 @@ fn copy_generated_files(from_dir: &Path, to_dir: &Path) {
 
 fn copy_and_patch(src: impl AsRef<Path>, dest: impl AsRef<Path>) -> io::Result<()> {
     /// Regex substitutions to apply to the prost-generated output
+    // TODO(tarcieri): use prost-build/tonic-build config for this instead
     const REPLACEMENTS: &[(&str, &str)] = &[
         // Use `tendermint-proto` proto definitions
         ("(super::)+tendermint", "tendermint_proto"),
@@ -375,6 +376,9 @@ fn copy_and_patch(src: impl AsRef<Path>, dest: impl AsRef<Path>) -> io::Result<(
             "/// Generated server implementations.\n\
              #[cfg(feature = \"grpc\")]",
         ),
+        // Use `tendermint_proto` as source of `google.protobuf` types
+        // TODO(tarcieri): figure out what's wrong with our `buf` config and do it there
+        ("::prost_types::", "::tendermint_proto::google::protobuf::"),
     ];
 
     // Skip proto files belonging to `EXCLUDED_PROTO_PACKAGES`
@@ -419,5 +423,23 @@ fn apply_patches(proto_dir: &Path) {
             replacement,
         )
         .expect("error patching cosmos.staking.v1beta1.rs");
+    }
+
+    for (pattern, replacement) in [
+        (
+            "stake_authorization::Validators::AllowList",
+            "stake_authorization::Policy::AllowList",
+        ),
+        (
+            "stake_authorization::Validators::DenyList",
+            "stake_authorization::Policy::DenyList",
+        ),
+    ] {
+        patch_file(
+            &proto_dir.join("cosmos-sdk/cosmos.staking.v1beta1.serde.rs"),
+            &Regex::new(pattern).unwrap(),
+            replacement,
+        )
+        .expect("error patching cosmos.staking.v1beta1.serde.rs");
     }
 }
