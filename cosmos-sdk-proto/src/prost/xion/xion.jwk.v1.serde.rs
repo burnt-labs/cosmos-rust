@@ -1,4 +1,5 @@
 // @generated
+#[cfg(feature = "serde")]
 impl serde::Serialize for Audience {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -29,6 +30,7 @@ impl serde::Serialize for Audience {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Audience {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -43,6 +45,7 @@ impl<'de> serde::Deserialize<'de> for Audience {
             Key,
             Admin,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -123,6 +126,7 @@ impl<'de> serde::Deserialize<'de> for Audience {
         deserializer.deserialize_struct("xion.jwk.v1.Audience", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for AudienceClaim {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -141,6 +145,7 @@ impl serde::Serialize for AudienceClaim {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for AudienceClaim {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -153,6 +158,7 @@ impl<'de> serde::Deserialize<'de> for AudienceClaim {
         enum GeneratedField {
             Signer,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -215,6 +221,7 @@ impl<'de> serde::Deserialize<'de> for AudienceClaim {
         deserializer.deserialize_struct("xion.jwk.v1.AudienceClaim", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for GenesisState {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -239,6 +246,7 @@ impl serde::Serialize for GenesisState {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for GenesisState {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -252,6 +260,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             Params,
             AudienceList,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -323,6 +332,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
         deserializer.deserialize_struct("xion.jwk.v1.GenesisState", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgCreateAudience {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -353,6 +363,7 @@ impl serde::Serialize for MsgCreateAudience {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgCreateAudience {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -367,6 +378,7 @@ impl<'de> serde::Deserialize<'de> for MsgCreateAudience {
             Aud,
             Key,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -447,6 +459,7 @@ impl<'de> serde::Deserialize<'de> for MsgCreateAudience {
         deserializer.deserialize_struct("xion.jwk.v1.MsgCreateAudience", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgCreateAudienceClaim {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -476,6 +489,7 @@ impl serde::Serialize for MsgCreateAudienceClaim {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgCreateAudienceClaim {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -489,6 +503,7 @@ impl<'de> serde::Deserialize<'de> for MsgCreateAudienceClaim {
             Admin,
             AudHash,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -570,6 +585,7 @@ impl<'de> serde::Deserialize<'de> for MsgCreateAudienceClaim {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgCreateAudienceClaimResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -583,6 +599,7 @@ impl serde::Serialize for MsgCreateAudienceClaimResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgCreateAudienceClaimResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -593,6 +610,7 @@ impl<'de> serde::Deserialize<'de> for MsgCreateAudienceClaimResponse {
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {}
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -649,6 +667,7 @@ impl<'de> serde::Deserialize<'de> for MsgCreateAudienceClaimResponse {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgCreateAudienceResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -668,6 +687,7 @@ impl serde::Serialize for MsgCreateAudienceResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgCreateAudienceResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -680,6 +700,7 @@ impl<'de> serde::Deserialize<'de> for MsgCreateAudienceResponse {
         enum GeneratedField {
             Audience,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -749,6 +770,7 @@ impl<'de> serde::Deserialize<'de> for MsgCreateAudienceResponse {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgDeleteAudience {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -773,6 +795,7 @@ impl serde::Serialize for MsgDeleteAudience {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgDeleteAudience {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -786,6 +809,7 @@ impl<'de> serde::Deserialize<'de> for MsgDeleteAudience {
             Admin,
             Aud,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -857,6 +881,7 @@ impl<'de> serde::Deserialize<'de> for MsgDeleteAudience {
         deserializer.deserialize_struct("xion.jwk.v1.MsgDeleteAudience", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgDeleteAudienceClaim {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -886,6 +911,7 @@ impl serde::Serialize for MsgDeleteAudienceClaim {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceClaim {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -899,6 +925,7 @@ impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceClaim {
             Admin,
             AudHash,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -980,6 +1007,7 @@ impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceClaim {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgDeleteAudienceClaimResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -993,6 +1021,7 @@ impl serde::Serialize for MsgDeleteAudienceClaimResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceClaimResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1003,6 +1032,7 @@ impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceClaimResponse {
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {}
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1059,6 +1089,7 @@ impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceClaimResponse {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgDeleteAudienceResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1072,6 +1103,7 @@ impl serde::Serialize for MsgDeleteAudienceResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1082,6 +1114,7 @@ impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceResponse {
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {}
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1138,6 +1171,7 @@ impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceResponse {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgUpdateAudience {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1174,6 +1208,7 @@ impl serde::Serialize for MsgUpdateAudience {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgUpdateAudience {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1189,6 +1224,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAudience {
             Aud,
             Key,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1278,6 +1314,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAudience {
         deserializer.deserialize_struct("xion.jwk.v1.MsgUpdateAudience", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgUpdateAudienceResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1297,6 +1334,7 @@ impl serde::Serialize for MsgUpdateAudienceResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgUpdateAudienceResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1309,6 +1347,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAudienceResponse {
         enum GeneratedField {
             Audience,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1378,6 +1417,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAudienceResponse {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for Params {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1410,6 +1450,7 @@ impl serde::Serialize for Params {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Params {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1428,6 +1469,7 @@ impl<'de> serde::Deserialize<'de> for Params {
             TimeOffset,
             DeploymentGas,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1505,6 +1547,7 @@ impl<'de> serde::Deserialize<'de> for Params {
         deserializer.deserialize_struct("xion.jwk.v1.Params", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for PrivateClaim {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1529,6 +1572,7 @@ impl serde::Serialize for PrivateClaim {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for PrivateClaim {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1542,6 +1586,7 @@ impl<'de> serde::Deserialize<'de> for PrivateClaim {
             Key,
             Value,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1613,6 +1658,7 @@ impl<'de> serde::Deserialize<'de> for PrivateClaim {
         deserializer.deserialize_struct("xion.jwk.v1.PrivateClaim", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryAllAudienceRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1632,6 +1678,7 @@ impl serde::Serialize for QueryAllAudienceRequest {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryAllAudienceRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1644,6 +1691,7 @@ impl<'de> serde::Deserialize<'de> for QueryAllAudienceRequest {
         enum GeneratedField {
             Pagination,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1713,6 +1761,7 @@ impl<'de> serde::Deserialize<'de> for QueryAllAudienceRequest {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryAllAudienceResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1738,6 +1787,7 @@ impl serde::Serialize for QueryAllAudienceResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryAllAudienceResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1751,6 +1801,7 @@ impl<'de> serde::Deserialize<'de> for QueryAllAudienceResponse {
             Audience,
             Pagination,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1829,6 +1880,7 @@ impl<'de> serde::Deserialize<'de> for QueryAllAudienceResponse {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryGetAudienceClaimRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1850,6 +1902,7 @@ impl serde::Serialize for QueryGetAudienceClaimRequest {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryGetAudienceClaimRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1862,6 +1915,7 @@ impl<'de> serde::Deserialize<'de> for QueryGetAudienceClaimRequest {
         enum GeneratedField {
             Hash,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1934,6 +1988,7 @@ impl<'de> serde::Deserialize<'de> for QueryGetAudienceClaimRequest {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryGetAudienceClaimResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1953,6 +2008,7 @@ impl serde::Serialize for QueryGetAudienceClaimResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryGetAudienceClaimResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1965,6 +2021,7 @@ impl<'de> serde::Deserialize<'de> for QueryGetAudienceClaimResponse {
         enum GeneratedField {
             Claim,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -2032,6 +2089,7 @@ impl<'de> serde::Deserialize<'de> for QueryGetAudienceClaimResponse {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryGetAudienceRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2051,6 +2109,7 @@ impl serde::Serialize for QueryGetAudienceRequest {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryGetAudienceRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2063,6 +2122,7 @@ impl<'de> serde::Deserialize<'de> for QueryGetAudienceRequest {
         enum GeneratedField {
             Aud,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -2132,6 +2192,7 @@ impl<'de> serde::Deserialize<'de> for QueryGetAudienceRequest {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryGetAudienceResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2151,6 +2212,7 @@ impl serde::Serialize for QueryGetAudienceResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryGetAudienceResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2163,6 +2225,7 @@ impl<'de> serde::Deserialize<'de> for QueryGetAudienceResponse {
         enum GeneratedField {
             Audience,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -2232,6 +2295,7 @@ impl<'de> serde::Deserialize<'de> for QueryGetAudienceResponse {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryParamsRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2244,6 +2308,7 @@ impl serde::Serialize for QueryParamsRequest {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2254,6 +2319,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {}
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -2303,6 +2369,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
         deserializer.deserialize_struct("xion.jwk.v1.QueryParamsRequest", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryParamsResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2321,6 +2388,7 @@ impl serde::Serialize for QueryParamsResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2333,6 +2401,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
         enum GeneratedField {
             Params,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -2393,6 +2462,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
         deserializer.deserialize_struct("xion.jwk.v1.QueryParamsResponse", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryValidateJwtRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2424,6 +2494,7 @@ impl serde::Serialize for QueryValidateJwtRequest {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryValidateJwtRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2438,6 +2509,7 @@ impl<'de> serde::Deserialize<'de> for QueryValidateJwtRequest {
             Sub,
             SigBytes,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -2525,6 +2597,7 @@ impl<'de> serde::Deserialize<'de> for QueryValidateJwtRequest {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryValidateJwtResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2544,6 +2617,7 @@ impl serde::Serialize for QueryValidateJwtResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryValidateJwtResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2556,6 +2630,7 @@ impl<'de> serde::Deserialize<'de> for QueryValidateJwtResponse {
         enum GeneratedField {
             PrivateClaims,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where

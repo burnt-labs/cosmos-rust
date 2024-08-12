@@ -1,4 +1,5 @@
 // @generated
+#[cfg(feature = "serde")]
 impl serde::Serialize for AuthzAllowance {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -23,6 +24,7 @@ impl serde::Serialize for AuthzAllowance {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for AuthzAllowance {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -36,6 +38,7 @@ impl<'de> serde::Deserialize<'de> for AuthzAllowance {
             Allowance,
             AuthzGrantee,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -107,6 +110,7 @@ impl<'de> serde::Deserialize<'de> for AuthzAllowance {
         deserializer.deserialize_struct("xion.v1.AuthzAllowance", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for ContractsAllowance {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -131,6 +135,7 @@ impl serde::Serialize for ContractsAllowance {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for ContractsAllowance {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -144,6 +149,7 @@ impl<'de> serde::Deserialize<'de> for ContractsAllowance {
             Allowance,
             ContractAddresses,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -217,6 +223,7 @@ impl<'de> serde::Deserialize<'de> for ContractsAllowance {
         deserializer.deserialize_struct("xion.v1.ContractsAllowance", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for GenesisState {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -235,6 +242,7 @@ impl serde::Serialize for GenesisState {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for GenesisState {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -247,6 +255,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
         enum GeneratedField {
             PlatformPercentage,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -316,6 +325,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
         deserializer.deserialize_struct("xion.v1.GenesisState", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgMultiSend {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -340,6 +350,7 @@ impl serde::Serialize for MsgMultiSend {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgMultiSend {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -353,6 +364,7 @@ impl<'de> serde::Deserialize<'de> for MsgMultiSend {
             Inputs,
             Outputs,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -424,6 +436,7 @@ impl<'de> serde::Deserialize<'de> for MsgMultiSend {
         deserializer.deserialize_struct("xion.v1.MsgMultiSend", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgMultiSendResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -436,6 +449,7 @@ impl serde::Serialize for MsgMultiSendResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgMultiSendResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -446,6 +460,7 @@ impl<'de> serde::Deserialize<'de> for MsgMultiSendResponse {
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {}
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -498,6 +513,7 @@ impl<'de> serde::Deserialize<'de> for MsgMultiSendResponse {
         deserializer.deserialize_struct("xion.v1.MsgMultiSendResponse", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgSend {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -528,6 +544,7 @@ impl serde::Serialize for MsgSend {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgSend {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -548,6 +565,7 @@ impl<'de> serde::Deserialize<'de> for MsgSend {
             ToAddress,
             Amount,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -628,6 +646,7 @@ impl<'de> serde::Deserialize<'de> for MsgSend {
         deserializer.deserialize_struct("xion.v1.MsgSend", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgSendResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -640,6 +659,7 @@ impl serde::Serialize for MsgSendResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgSendResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -650,6 +670,7 @@ impl<'de> serde::Deserialize<'de> for MsgSendResponse {
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {}
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -699,6 +720,7 @@ impl<'de> serde::Deserialize<'de> for MsgSendResponse {
         deserializer.deserialize_struct("xion.v1.MsgSendResponse", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgSetPlatformPercentage {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -724,6 +746,7 @@ impl serde::Serialize for MsgSetPlatformPercentage {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgSetPlatformPercentage {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -737,6 +760,7 @@ impl<'de> serde::Deserialize<'de> for MsgSetPlatformPercentage {
             Authority,
             PlatformPercentage,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -822,6 +846,7 @@ impl<'de> serde::Deserialize<'de> for MsgSetPlatformPercentage {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgSetPlatformPercentageResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -835,6 +860,7 @@ impl serde::Serialize for MsgSetPlatformPercentageResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgSetPlatformPercentageResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -845,6 +871,7 @@ impl<'de> serde::Deserialize<'de> for MsgSetPlatformPercentageResponse {
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {}
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -901,6 +928,7 @@ impl<'de> serde::Deserialize<'de> for MsgSetPlatformPercentageResponse {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for MultiAnyAllowance {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -919,6 +947,7 @@ impl serde::Serialize for MultiAnyAllowance {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MultiAnyAllowance {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -931,6 +960,7 @@ impl<'de> serde::Deserialize<'de> for MultiAnyAllowance {
         enum GeneratedField {
             Allowances,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -993,6 +1023,7 @@ impl<'de> serde::Deserialize<'de> for MultiAnyAllowance {
         deserializer.deserialize_struct("xion.v1.MultiAnyAllowance", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryWebAuthNVerifyAuthenticateRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1042,6 +1073,7 @@ impl serde::Serialize for QueryWebAuthNVerifyAuthenticateRequest {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyAuthenticateRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1058,6 +1090,7 @@ impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyAuthenticateRequest {
             Credential,
             Data,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1169,6 +1202,7 @@ impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyAuthenticateRequest {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryWebAuthNVerifyAuthenticateResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1182,6 +1216,7 @@ impl serde::Serialize for QueryWebAuthNVerifyAuthenticateResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyAuthenticateResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1192,6 +1227,7 @@ impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyAuthenticateResponse {
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {}
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1248,6 +1284,7 @@ impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyAuthenticateResponse {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryWebAuthNVerifyRegisterRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1287,6 +1324,7 @@ impl serde::Serialize for QueryWebAuthNVerifyRegisterRequest {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyRegisterRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1302,6 +1340,7 @@ impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyRegisterRequest {
             Rp,
             Data,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -1401,6 +1440,7 @@ impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyRegisterRequest {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryWebAuthNVerifyRegisterResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1424,6 +1464,7 @@ impl serde::Serialize for QueryWebAuthNVerifyRegisterResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyRegisterResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -1436,6 +1477,7 @@ impl<'de> serde::Deserialize<'de> for QueryWebAuthNVerifyRegisterResponse {
         enum GeneratedField {
             Credential,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where

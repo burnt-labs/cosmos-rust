@@ -1,4 +1,5 @@
 // @generated
+#[cfg(feature = "serde")]
 impl serde::Serialize for GenesisState {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -17,6 +18,7 @@ impl serde::Serialize for GenesisState {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for GenesisState {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -29,6 +31,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
         enum GeneratedField {
             Params,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -89,6 +92,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
         deserializer.deserialize_struct("xion.globalfee.v1.GenesisState", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for Params {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -123,6 +127,7 @@ impl serde::Serialize for Params {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Params {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -144,6 +149,7 @@ impl<'de> serde::Deserialize<'de> for Params {
             BypassMinFeeMsgTypes,
             MaxTotalBypassMinFeeMsgGasUsage,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -239,6 +245,7 @@ impl<'de> serde::Deserialize<'de> for Params {
         deserializer.deserialize_struct("xion.globalfee.v1.Params", FIELDS, GeneratedVisitor)
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryParamsRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -252,6 +259,7 @@ impl serde::Serialize for QueryParamsRequest {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -262,6 +270,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {}
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -315,6 +324,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
         )
     }
 }
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryParamsResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -334,6 +344,7 @@ impl serde::Serialize for QueryParamsResponse {
         struct_ser.end()
     }
 }
+#[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -346,6 +357,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
         enum GeneratedField {
             Params,
         }
+        #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where

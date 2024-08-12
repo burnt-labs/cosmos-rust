@@ -20,13 +20,13 @@ use walkdir::WalkDir;
 static QUIET: AtomicBool = AtomicBool::new(false);
 
 /// The Cosmos SDK commit or tag to be cloned and used to build the proto files
-const COSMOS_SDK_REV: &str = "v0.47.10";
+const COSMOS_SDK_REV: &str = "v0.46.15";
 
 /// The Cosmos ibc-go commit or tag to be cloned and used to build the proto files
 const IBC_REV: &str = "v3.0.0";
 
 /// The wasmd commit or tag to be cloned and used to build the proto files
-const WASMD_REV: &str = "v0.45.0";
+const WASMD_REV: &str = "v0.29.2";
 
 /// The xion commit or tag to be cloned and used to build the proto files
 const XION_REV: &str = "054ee5024b4c0d6a0e5ade651128417ac76e0d92";
@@ -458,6 +458,11 @@ fn copy_and_patch(src: impl AsRef<Path>, dest: impl AsRef<Path>) -> io::Result<(
         // Use `tendermint_proto` as source of `google.protobuf` types
         // TODO(tarcieri): figure out what's wrong with our `buf` config and do it there
         ("::prost_types::", "::tendermint_proto::google::protobuf::"),
+        // add the feature flag to the serde definitions
+        ("impl serde::Serialize for", "#[cfg(feature = \"serde\")]\n\
+          impl serde::Serialize for"),
+        ("impl<'de> serde::Deserialize<'de> for", "#[cfg(feature = \"serde\")]\n\
+          impl<'de> serde::Deserialize<'de> for")
     ];
 
     // Skip proto files belonging to `EXCLUDED_PROTO_PACKAGES`
@@ -505,14 +510,20 @@ fn apply_patches(proto_dir: &Path) {
     }
 
     for (pattern, replacement) in [
-        ("stake_authorization::Validators::AllowList", "stake_authorization::Policy::AllowList"),
-        ("stake_authorization::Validators::DenyList", "stake_authorization::Policy::DenyList"),
+        (
+            "stake_authorization::Validators::AllowList",
+            "stake_authorization::Policy::AllowList",
+        ),
+        (
+            "stake_authorization::Validators::DenyList",
+            "stake_authorization::Policy::DenyList",
+        ),
     ] {
         patch_file(
             &proto_dir.join("cosmos-sdk/cosmos.staking.v1beta1.serde.rs"),
             &Regex::new(pattern).unwrap(),
             replacement,
         )
-            .expect("error patching cosmos.staking.v1beta1.serde.rs");
+        .expect("error patching cosmos.staking.v1beta1.serde.rs");
     }
 }
