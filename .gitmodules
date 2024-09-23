@@ -13,3 +13,6 @@
 [submodule "tokenfactory"]
 	path = tokenfactory
 	url = https://github.com/strangelove-ventures/tokenfactory.git
+[submodule "abstract-account"]
+	path = abstract-account
+	url = https://github.com/burnt-labs/abstract-account.git
