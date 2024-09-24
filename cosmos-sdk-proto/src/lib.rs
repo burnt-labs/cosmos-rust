@@ -344,6 +344,12 @@ pub mod ics23 {
     include!("prost/ibc-go/ics23.rs");
 }
 
+pub mod abstract_account {
+    pub mod v1 {
+        include!("prost/abstract-account/abstractaccount.v1.rs");
+    }
+}
+
 #[cfg(feature = "xion")]
 pub mod xion {
     /// Messages and services handling Xion.
