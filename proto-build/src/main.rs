@@ -29,7 +29,7 @@ const IBC_REV: &str = "v3.0.0";
 const WASMD_REV: &str = "v0.29.2";
 
 /// The xion commit or tag to be cloned and used to build the proto files
-const XION_REV: &str = "054ee5024b4c0d6a0e5ade651128417ac76e0d92";
+const XION_REV: &str = "main";
 
 /// the tokenfactory commit or tag to be cloned and used to build the proto files
 const TOKENFACTORY_REV: &str = "v0.50.3-wasmvm2";
