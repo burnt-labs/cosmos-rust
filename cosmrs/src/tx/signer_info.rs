@@ -67,7 +67,7 @@ impl TryFrom<proto::cosmos::tx::v1beta1::SignerInfo> for SignerInfo {
 impl From<SignerInfo> for proto::cosmos::tx::v1beta1::SignerInfo {
     fn from(signer_info: SignerInfo) -> proto::cosmos::tx::v1beta1::SignerInfo {
         proto::cosmos::tx::v1beta1::SignerInfo {
-            public_key: signer_info.public_key.map(cargo Into::into),
+            public_key: signer_info.public_key.map(Into::into),
             mode_info: Some(signer_info.mode_info.into()),
             sequence: signer_info.sequence,
         }
