@@ -10,13 +10,16 @@
 )]
 #![forbid(unsafe_code)]
 #![warn(trivial_casts, trivial_numeric_casts, unused_import_braces)]
+#![cfg_attr(not(feature = "std"), no_std)]
+
+extern crate alloc;
 
 pub mod traits;
 mod type_names;
 
 pub use prost;
-pub use prost_types::{Any, Timestamp};
 pub use tendermint_proto as tendermint;
+pub use tendermint_proto::google::protobuf::{Any, Timestamp};
 
 /// The version (commit hash) of the Cosmos SDK used when generating this library.
 pub const COSMOS_SDK_VERSION: &str = include_str!("prost/cosmos-sdk/COSMOS_SDK_COMMIT");
@@ -340,3 +343,25 @@ pub mod ibc {
 pub mod ics23 {
     include!("prost/ibc-go/ics23.rs");
 }
+
+#[cfg(feature = "xion")]
+pub mod xion {
+    /// Messages and services handling Xion.
+    pub mod v1 {
+        include!("prost/xion/xion.v1.rs");
+        pub mod jwk {
+            include!("prost/xion/xion.jwk.v1.rs");
+        }
+    }
+}
+
+#[cfg(feature = "tokenfactory")]
+pub mod osmosis {
+    pub mod tokenfactory {
+        /// Messages and services handling Tokenfactory.
+        pub mod v1beta1 {
+            include!("prost/tokenfactory/osmosis.tokenfactory.v1beta1.rs");
+        }
+    }
+}
+
