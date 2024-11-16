@@ -1,6 +1,6 @@
 [package]
 name = "cosmos-sdk-proto"
-version = "0.22.0-pre"
+version = "0.24.0-pre"
 authors = [
     "Justin Kilpatrick <justin@althea.net>",
     "Greg Szabo <greg@informal.systems>",
@@ -16,18 +16,23 @@ edition = "2021"
 rust-version = "1.72"
 
 [dependencies]
-prost = "0.12.3"
-prost-types = "0.12"
-tendermint-proto = "0.37"
+prost = { version = "0.13", default-features = false }
+tendermint-proto = "0.39.1"
 
 # Optional dependencies
-tonic = { version = "0.11", optional = true, default-features = false, features = ["codegen", "prost"] }
+tonic = { version = "0.12", optional = true, default-features = false, features = ["codegen", "prost"] }
+serde = { version = "1.0.203", optional = true, default-features = false, features = ["alloc"] }
+pbjson = { package = "informalsystems-pbjson", optional = true, version = "0.7" }
 
 [features]
 default = ["grpc-transport"]
-grpc = ["tonic"]
+std = ["prost/std", "tendermint-proto/std"]
+grpc = ["std", "tonic"]
 grpc-transport = ["grpc", "tonic/transport"]
 cosmwasm = []
+serde = ["dep:serde", "tendermint-proto/std", "pbjson"]
+xion = []
+tokenfactory = []
 
 [package.metadata.docs.rs]
 all-features = true

@@ -28,6 +28,15 @@ const IBC_REV: &str = "v3.0.0";
 /// The wasmd commit or tag to be cloned and used to build the proto files
 const WASMD_REV: &str = "v0.29.2";
 
+/// The xion commit or tag to be cloned and used to build the proto files
+const XION_REV: &str = "main";
+
+/// the tokenfactory commit or tag to be cloned and used to build the proto files
+const TOKENFACTORY_REV: &str = "v0.50.3-wasmvm2";
+
+/// the abstractaccount commit or tag to be cloned and used to build the proto files
+const ABSTRACT_ACCOUNT_REV: &str = "2c933a7b2a8dacc0ae5bf4344159a7d4ab080135";
+
 // All paths must end with a / and either be absolute or include a ./ to reference the current
 // working directory.
 
@@ -39,6 +48,12 @@ const COSMOS_SDK_DIR: &str = "../cosmos-sdk-go";
 const IBC_DIR: &str = "../ibc-go";
 /// Directory where the submodule is located
 const WASMD_DIR: &str = "../wasmd";
+/// Directory where the xion output is located
+const XION_DIR: &str = "../xion";
+/// Directory where the tokenfactory output is located
+const TOKENFACTORY_DIR: &str = "../tokenfactory";
+/// Directory where the abstract-account output is located
+const ABSTRACT_ACCOUNT_DIR: &str = "../abstract-account";
 /// A temporary directory for proto building
 const TMP_BUILD_DIR: &str = "/tmp/tmp-protobuf/";
 
@@ -76,22 +91,37 @@ fn main() {
     let temp_sdk_dir = tmp_build_dir.join("cosmos-sdk");
     let temp_ibc_dir = tmp_build_dir.join("ibc-go");
     let temp_wasmd_dir = tmp_build_dir.join("wasmd");
+    let temp_xion_dir = tmp_build_dir.join("xion");
+    let temp_tf_dir = tmp_build_dir.join("tokenfactory");
+    let temp_aa_dir = tmp_build_dir.join("abstract-account");
 
     fs::create_dir_all(&temp_sdk_dir).unwrap();
     fs::create_dir_all(&temp_ibc_dir).unwrap();
     fs::create_dir_all(&temp_wasmd_dir).unwrap();
+    fs::create_dir_all(&temp_xion_dir).unwrap();
+    fs::create_dir_all(&temp_tf_dir).unwrap();
+    fs::create_dir_all(&temp_aa_dir).unwrap();
 
     update_submodules();
     output_sdk_version(&temp_sdk_dir);
     output_ibc_version(&temp_ibc_dir);
     output_wasmd_version(&temp_wasmd_dir);
+    output_xion_version(&temp_xion_dir);
+    output_tf_version(&temp_tf_dir);
+    output_aa_version(&temp_aa_dir);
     compile_sdk_protos_and_services(&temp_sdk_dir);
     compile_ibc_protos_and_services(&temp_ibc_dir);
     compile_wasmd_proto_and_services(&temp_wasmd_dir);
+    compile_xion_proto_and_services(&temp_xion_dir);
+    compile_tokenfactory_proto_and_services(&temp_tf_dir);
+    compile_abstract_account_proto_and_services(&temp_aa_dir);
 
     copy_generated_files(&temp_sdk_dir, &proto_dir.join("cosmos-sdk"));
     copy_generated_files(&temp_ibc_dir, &proto_dir.join("ibc-go"));
     copy_generated_files(&temp_wasmd_dir, &proto_dir.join("wasmd"));
+    copy_generated_files(&temp_xion_dir, &proto_dir.join("xion"));
+    copy_generated_files(&temp_tf_dir, &proto_dir.join("tokenfactory"));
+    copy_generated_files(&temp_aa_dir, &proto_dir.join("abstract-account"));
 
     apply_patches(&proto_dir);
 
@@ -199,6 +229,21 @@ fn update_submodules() {
     run_git(["submodule", "update", "--init"]);
     run_git(["-C", WASMD_DIR, "fetch"]);
     run_git(["-C", WASMD_DIR, "reset", "--hard", WASMD_REV]);
+
+    info!("Updating xion submodule...");
+    run_git(["submodule", "update", "--init"]);
+    run_git(["-C", XION_DIR, "fetch"]);
+    run_git(["-C", XION_DIR, "reset", "--hard", XION_REV]);
+
+    info!("Updating tokenfactory submodule...");
+    run_git(["submodule", "update", "--init"]);
+    run_git(["-C", TOKENFACTORY_DIR, "fetch"]);
+    run_git(["-C", TOKENFACTORY_DIR, "reset", "--hard", TOKENFACTORY_REV]);
+
+    info!("Updating abstract-account submodule...");
+    run_git(["submodule", "update", "--init"]);
+    run_git(["-C", ABSTRACT_ACCOUNT_DIR, "fetch"]);
+    run_git(["-C", ABSTRACT_ACCOUNT_DIR, "reset", "--hard", ABSTRACT_ACCOUNT_REV]);
 }
 
 fn output_sdk_version(out_dir: &Path) {
@@ -214,6 +259,21 @@ fn output_ibc_version(out_dir: &Path) {
 fn output_wasmd_version(out_dir: &Path) {
     let path = out_dir.join("WASMD_COMMIT");
     fs::write(path, WASMD_REV).unwrap();
+}
+
+fn output_xion_version(out_dir: &Path) {
+    let path = out_dir.join("XION_COMMIT");
+    fs::write(path, XION_REV).unwrap();
+}
+
+fn output_tf_version(out_dir: &Path) {
+    let path = out_dir.join("TOKENFACTORY_COMMIT");
+    fs::write(path, TOKENFACTORY_REV).unwrap();
+}
+
+fn output_aa_version(out_dir: &Path) {
+    let path = out_dir.join("ABSTRACT_ACCOUNT_COMMIT");
+    fs::write(path, ABSTRACT_ACCOUNT_REV).unwrap();
 }
 
 fn compile_sdk_protos_and_services(out_dir: &Path) {
@@ -241,6 +301,61 @@ fn compile_wasmd_proto_and_services(out_dir: &Path) {
     // Compile all proto client for GRPC services
     info!("Compiling wasmd proto clients for GRPC services!");
     run_buf("buf.wasmd.gen.yaml", proto_path, out_dir);
+    info!("=> Done!");
+}
+
+fn compile_xion_proto_and_services(out_dir: &Path) {
+    let sdk_dir = Path::new(XION_DIR);
+    let proto_path = sdk_dir.join("proto");
+    let proto_paths = [
+        format!("{}/proto/xion", sdk_dir.display()),
+        format!("{}/proto/xion/mint", sdk_dir.display()),
+        format!("{}/proto/xion/globalfee", sdk_dir.display()),
+        format!("{}/proto/xion/jwk", sdk_dir.display()),
+
+    ];
+
+    // List available proto files
+    let mut protos: Vec<PathBuf> = vec![];
+    collect_protos(&proto_paths, &mut protos);
+
+    // Compile all proto client for GRPC services
+    info!("Compiling xion proto clients for GRPC services!");
+    run_buf("buf.sdk.gen.yaml", proto_path, out_dir);
+    info!("=> Done!");
+}
+
+fn compile_tokenfactory_proto_and_services(out_dir: &Path) {
+    let sdk_dir = Path::new(TOKENFACTORY_DIR);
+    let proto_path = sdk_dir.join("proto");
+    let proto_paths = [
+        format!("{}/proto/osmosis/tokenfactory", sdk_dir.display()),
+    ];
+
+    // List available proto files
+    let mut protos: Vec<PathBuf> = vec![];
+    collect_protos(&proto_paths, &mut protos);
+
+    // Compile all proto client for GRPC services
+    info!("Compiling tokenfactory proto clients for GRPC services!");
+    run_buf("buf.sdk.gen.yaml", proto_path, out_dir);
+    info!("=> Done!");
+}
+
+fn compile_abstract_account_proto_and_services(out_dir: &Path) {
+    let sdk_dir = Path::new(ABSTRACT_ACCOUNT_DIR);
+    let proto_path = sdk_dir.join("proto");
+    let proto_paths = [
+        format!("{}/proto/abstractaccount", sdk_dir.display()),
+    ];
+
+    // List available proto files
+    let mut protos: Vec<PathBuf> = vec![];
+    collect_protos(&proto_paths, &mut protos);
+
+    // Compile all proto client for GRPC services
+    info!("Compiling abstract account proto clients for GRPC services!");
+    run_buf("buf.sdk.gen.yaml", proto_path, out_dir);
     info!("=> Done!");
 }
 
@@ -354,6 +469,7 @@ fn copy_generated_files(from_dir: &Path, to_dir: &Path) {
 
 fn copy_and_patch(src: impl AsRef<Path>, dest: impl AsRef<Path>) -> io::Result<()> {
     /// Regex substitutions to apply to the prost-generated output
+    // TODO(tarcieri): use prost-build/tonic-build config for this instead
     const REPLACEMENTS: &[(&str, &str)] = &[
         // Use `tendermint-proto` proto definitions
         ("(super::)+tendermint", "tendermint_proto"),
@@ -375,6 +491,14 @@ fn copy_and_patch(src: impl AsRef<Path>, dest: impl AsRef<Path>) -> io::Result<(
             "/// Generated server implementations.\n\
              #[cfg(feature = \"grpc\")]",
         ),
+        // Use `tendermint_proto` as source of `google.protobuf` types
+        // TODO(tarcieri): figure out what's wrong with our `buf` config and do it there
+        ("::prost_types::", "::tendermint_proto::google::protobuf::"),
+        // add the feature flag to the serde definitions
+        ("impl serde::Serialize for", "#[cfg(feature = \"serde\")]\n\
+          impl serde::Serialize for"),
+        ("impl<'de> serde::Deserialize<'de> for", "#[cfg(feature = \"serde\")]\n\
+          impl<'de> serde::Deserialize<'de> for")
     ];
 
     // Skip proto files belonging to `EXCLUDED_PROTO_PACKAGES`
@@ -419,5 +543,23 @@ fn apply_patches(proto_dir: &Path) {
             replacement,
         )
         .expect("error patching cosmos.staking.v1beta1.rs");
+    }
+
+    for (pattern, replacement) in [
+        (
+            "stake_authorization::Validators::AllowList",
+            "stake_authorization::Policy::AllowList",
+        ),
+        (
+            "stake_authorization::Validators::DenyList",
+            "stake_authorization::Policy::DenyList",
+        ),
+    ] {
+        patch_file(
+            &proto_dir.join("cosmos-sdk/cosmos.staking.v1beta1.serde.rs"),
+            &Regex::new(pattern).unwrap(),
+            replacement,
+        )
+        .expect("error patching cosmos.staking.v1beta1.serde.rs");
     }
 }
