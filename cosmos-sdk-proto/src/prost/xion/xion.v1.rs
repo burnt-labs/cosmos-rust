@@ -19,7 +19,8 @@ pub struct ContractsAllowance {
     #[prost(string, repeated, tag = "2")]
     pub contract_addresses: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
-/// MultiAnyAllowance creates an allowance that pays if any of the internal allowances are met
+/// MultiAnyAllowance creates an allowance that pays if any of the internal
+/// allowances are met
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MultiAnyAllowance {
@@ -32,6 +33,8 @@ pub struct MultiAnyAllowance {
 pub struct GenesisState {
     #[prost(uint32, tag = "1")]
     pub platform_percentage: u32,
+    #[prost(message, repeated, tag = "2")]
+    pub platform_minimums: ::prost::alloc::vec::Vec<super::super::cosmos::base::v1beta1::Coin>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -68,6 +71,15 @@ pub struct QueryWebAuthNVerifyAuthenticateRequest {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryWebAuthNVerifyAuthenticateResponse {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryPlatformPercentageRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryPlatformPercentageResponse {
+    #[prost(uint64, tag = "1")]
+    pub platform_percentage: u64,
+}
 /// MsgSend represents a message to send coins from one account to another.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -110,6 +122,17 @@ pub struct MsgSetPlatformPercentage {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSetPlatformPercentageResponse {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSetPlatformMinimum {
+    #[prost(string, tag = "1")]
+    pub authority: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag = "3")]
+    pub minimums: ::prost::alloc::vec::Vec<super::super::cosmos::base::v1beta1::Coin>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSetPlatformMinimumResponse {}
 include!("xion.v1.serde.rs");
 include!("xion.v1.tonic.rs");
 // @@protoc_insertion_point(module)

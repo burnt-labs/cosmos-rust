@@ -129,6 +129,26 @@ pub mod query_client {
             ));
             self.inner.unary(req, path, codec).await
         }
+        pub async fn platform_percentage(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryPlatformPercentageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryPlatformPercentageResponse>,
+            tonic::Status,
+        > {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/xion.v1.Query/PlatformPercentage");
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("xion.v1.Query", "PlatformPercentage"));
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -151,6 +171,13 @@ pub mod query_server {
             request: tonic::Request<super::QueryWebAuthNVerifyAuthenticateRequest>,
         ) -> std::result::Result<
             tonic::Response<super::QueryWebAuthNVerifyAuthenticateResponse>,
+            tonic::Status,
+        >;
+        async fn platform_percentage(
+            &self,
+            request: tonic::Request<super::QueryPlatformPercentageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryPlatformPercentageResponse>,
             tonic::Status,
         >;
     }
@@ -300,6 +327,47 @@ pub mod query_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = WebAuthNVerifyAuthenticateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/xion.v1.Query/PlatformPercentage" => {
+                    #[allow(non_camel_case_types)]
+                    struct PlatformPercentageSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query>
+                        tonic::server::UnaryService<super::QueryPlatformPercentageRequest>
+                        for PlatformPercentageSvc<T>
+                    {
+                        type Response = super::QueryPlatformPercentageResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryPlatformPercentageRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).platform_percentage(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = PlatformPercentageSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -490,6 +558,24 @@ pub mod msg_client {
                 .insert(GrpcMethod::new("xion.v1.Msg", "SetPlatformPercentage"));
             self.inner.unary(req, path, codec).await
         }
+        pub async fn set_platform_minimum(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgSetPlatformMinimum>,
+        ) -> std::result::Result<tonic::Response<super::MsgSetPlatformMinimumResponse>, tonic::Status>
+        {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/xion.v1.Msg/SetPlatformMinimum");
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("xion.v1.Msg", "SetPlatformMinimum"));
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -515,6 +601,10 @@ pub mod msg_server {
             tonic::Response<super::MsgSetPlatformPercentageResponse>,
             tonic::Status,
         >;
+        async fn set_platform_minimum(
+            &self,
+            request: tonic::Request<super::MsgSetPlatformMinimum>,
+        ) -> std::result::Result<tonic::Response<super::MsgSetPlatformMinimumResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
@@ -694,6 +784,46 @@ pub mod msg_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = SetPlatformPercentageSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/xion.v1.Msg/SetPlatformMinimum" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetPlatformMinimumSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgSetPlatformMinimum>
+                        for SetPlatformMinimumSvc<T>
+                    {
+                        type Response = super::MsgSetPlatformMinimumResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgSetPlatformMinimum>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).set_platform_minimum(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SetPlatformMinimumSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

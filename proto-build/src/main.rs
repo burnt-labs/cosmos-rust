@@ -20,16 +20,16 @@ use walkdir::WalkDir;
 static QUIET: AtomicBool = AtomicBool::new(false);
 
 /// The Cosmos SDK commit or tag to be cloned and used to build the proto files
-const COSMOS_SDK_REV: &str = "v0.46.15";
+const COSMOS_SDK_REV: &str = "v0.50.10";
 
 /// The Cosmos ibc-go commit or tag to be cloned and used to build the proto files
 const IBC_REV: &str = "v3.0.0";
 
 /// The wasmd commit or tag to be cloned and used to build the proto files
-const WASMD_REV: &str = "v0.29.2";
+const WASMD_REV: &str = "v0.53.0";
 
 /// The xion commit or tag to be cloned and used to build the proto files
-const XION_REV: &str = "main";
+const XION_REV: &str = "14f75af8d9ce05eec57de0772ac815f6810ba9de";
 
 /// the tokenfactory commit or tag to be cloned and used to build the proto files
 const TOKENFACTORY_REV: &str = "v0.50.3-wasmvm2";
@@ -215,33 +215,29 @@ fn run_rustfmt(dir: &Path) {
 }
 
 fn update_submodules() {
-    info!("Updating cosmos/cosmos-sdk submodule...");
     run_git(["submodule", "update", "--init"]);
+
+    info!("Updating cosmos/cosmos-sdk submodule...");
     run_git(["-C", COSMOS_SDK_DIR, "fetch"]);
     run_git(["-C", COSMOS_SDK_DIR, "reset", "--hard", COSMOS_SDK_REV]);
 
     info!("Updating cosmos/ibc-go submodule...");
-    run_git(["submodule", "update", "--init"]);
     run_git(["-C", IBC_DIR, "fetch"]);
     run_git(["-C", IBC_DIR, "reset", "--hard", IBC_REV]);
 
     info!("Updating wasmd submodule...");
-    run_git(["submodule", "update", "--init"]);
     run_git(["-C", WASMD_DIR, "fetch"]);
     run_git(["-C", WASMD_DIR, "reset", "--hard", WASMD_REV]);
 
     info!("Updating xion submodule...");
-    run_git(["submodule", "update", "--init"]);
     run_git(["-C", XION_DIR, "fetch"]);
     run_git(["-C", XION_DIR, "reset", "--hard", XION_REV]);
 
     info!("Updating tokenfactory submodule...");
-    run_git(["submodule", "update", "--init"]);
     run_git(["-C", TOKENFACTORY_DIR, "fetch"]);
     run_git(["-C", TOKENFACTORY_DIR, "reset", "--hard", TOKENFACTORY_REV]);
 
     info!("Updating abstract-account submodule...");
-    run_git(["submodule", "update", "--init"]);
     run_git(["-C", ABSTRACT_ACCOUNT_DIR, "fetch"]);
     run_git(["-C", ABSTRACT_ACCOUNT_DIR, "reset", "--hard", ABSTRACT_ACCOUNT_REV]);
 }
@@ -312,6 +308,7 @@ fn compile_xion_proto_and_services(out_dir: &Path) {
         format!("{}/proto/xion/mint", sdk_dir.display()),
         format!("{}/proto/xion/globalfee", sdk_dir.display()),
         format!("{}/proto/xion/jwk", sdk_dir.display()),
+        format!("{}/proto/xion/dkim", sdk_dir.display()),
 
     ];
 

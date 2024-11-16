@@ -281,6 +281,12 @@ impl serde::Serialize for GenesisState {
         if self.tally_params.is_some() {
             len += 1;
         }
+        if self.params.is_some() {
+            len += 1;
+        }
+        if !self.constitution.is_empty() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.GenesisState", len)?;
         if self.starting_proposal_id != 0 {
             #[allow(clippy::needless_borrow)]
@@ -307,6 +313,12 @@ impl serde::Serialize for GenesisState {
         if let Some(v) = self.tally_params.as_ref() {
             struct_ser.serialize_field("tallyParams", v)?;
         }
+        if let Some(v) = self.params.as_ref() {
+            struct_ser.serialize_field("params", v)?;
+        }
+        if !self.constitution.is_empty() {
+            struct_ser.serialize_field("constitution", &self.constitution)?;
+        }
         struct_ser.end()
     }
 }
@@ -329,6 +341,8 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             "votingParams",
             "tally_params",
             "tallyParams",
+            "params",
+            "constitution",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -340,6 +354,8 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             DepositParams,
             VotingParams,
             TallyParams,
+            Params,
+            Constitution,
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
@@ -374,6 +390,8 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             "depositParams" | "deposit_params" => Ok(GeneratedField::DepositParams),
                             "votingParams" | "voting_params" => Ok(GeneratedField::VotingParams),
                             "tallyParams" | "tally_params" => Ok(GeneratedField::TallyParams),
+                            "params" => Ok(GeneratedField::Params),
+                            "constitution" => Ok(GeneratedField::Constitution),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -400,6 +418,8 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 let mut deposit_params__ = None;
                 let mut voting_params__ = None;
                 let mut tally_params__ = None;
+                let mut params__ = None;
+                let mut constitution__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::StartingProposalId => {
@@ -449,6 +469,18 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             }
                             tally_params__ = map_.next_value()?;
                         }
+                        GeneratedField::Params => {
+                            if params__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("params"));
+                            }
+                            params__ = map_.next_value()?;
+                        }
+                        GeneratedField::Constitution => {
+                            if constitution__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("constitution"));
+                            }
+                            constitution__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(GenesisState {
@@ -459,10 +491,288 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                     deposit_params: deposit_params__,
                     voting_params: voting_params__,
                     tally_params: tally_params__,
+                    params: params__,
+                    constitution: constitution__.unwrap_or_default(),
                 })
             }
         }
         deserializer.deserialize_struct("cosmos.gov.v1.GenesisState", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgCancelProposal {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.proposal_id != 0 {
+            len += 1;
+        }
+        if !self.proposer.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.MsgCancelProposal", len)?;
+        if self.proposal_id != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "proposalId",
+                ToString::to_string(&self.proposal_id).as_str(),
+            )?;
+        }
+        if !self.proposer.is_empty() {
+            struct_ser.serialize_field("proposer", &self.proposer)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgCancelProposal {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["proposal_id", "proposalId", "proposer"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            ProposalId,
+            Proposer,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "proposalId" | "proposal_id" => Ok(GeneratedField::ProposalId),
+                            "proposer" => Ok(GeneratedField::Proposer),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgCancelProposal;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.MsgCancelProposal")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgCancelProposal, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut proposal_id__ = None;
+                let mut proposer__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::ProposalId => {
+                            if proposal_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proposalId"));
+                            }
+                            proposal_id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Proposer => {
+                            if proposer__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proposer"));
+                            }
+                            proposer__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MsgCancelProposal {
+                    proposal_id: proposal_id__.unwrap_or_default(),
+                    proposer: proposer__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmos.gov.v1.MsgCancelProposal", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgCancelProposalResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.proposal_id != 0 {
+            len += 1;
+        }
+        if self.canceled_time.is_some() {
+            len += 1;
+        }
+        if self.canceled_height != 0 {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmos.gov.v1.MsgCancelProposalResponse", len)?;
+        if self.proposal_id != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "proposalId",
+                ToString::to_string(&self.proposal_id).as_str(),
+            )?;
+        }
+        if let Some(v) = self.canceled_time.as_ref() {
+            struct_ser.serialize_field("canceledTime", v)?;
+        }
+        if self.canceled_height != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "canceledHeight",
+                ToString::to_string(&self.canceled_height).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgCancelProposalResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "proposal_id",
+            "proposalId",
+            "canceled_time",
+            "canceledTime",
+            "canceled_height",
+            "canceledHeight",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            ProposalId,
+            CanceledTime,
+            CanceledHeight,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "proposalId" | "proposal_id" => Ok(GeneratedField::ProposalId),
+                            "canceledTime" | "canceled_time" => Ok(GeneratedField::CanceledTime),
+                            "canceledHeight" | "canceled_height" => {
+                                Ok(GeneratedField::CanceledHeight)
+                            }
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgCancelProposalResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.MsgCancelProposalResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<MsgCancelProposalResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut proposal_id__ = None;
+                let mut canceled_time__ = None;
+                let mut canceled_height__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::ProposalId => {
+                            if proposal_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proposalId"));
+                            }
+                            proposal_id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::CanceledTime => {
+                            if canceled_time__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("canceledTime"));
+                            }
+                            canceled_time__ = map_.next_value()?;
+                        }
+                        GeneratedField::CanceledHeight => {
+                            if canceled_height__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("canceledHeight"));
+                            }
+                            canceled_height__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MsgCancelProposalResponse {
+                    proposal_id: proposal_id__.unwrap_or_default(),
+                    canceled_time: canceled_time__,
+                    canceled_height: canceled_height__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.gov.v1.MsgCancelProposalResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
     }
 }
 #[cfg(feature = "serde")]
@@ -899,6 +1209,15 @@ impl serde::Serialize for MsgSubmitProposal {
         if !self.metadata.is_empty() {
             len += 1;
         }
+        if !self.title.is_empty() {
+            len += 1;
+        }
+        if !self.summary.is_empty() {
+            len += 1;
+        }
+        if self.expedited {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.MsgSubmitProposal", len)?;
         if !self.messages.is_empty() {
             struct_ser.serialize_field("messages", &self.messages)?;
@@ -911,6 +1230,15 @@ impl serde::Serialize for MsgSubmitProposal {
         }
         if !self.metadata.is_empty() {
             struct_ser.serialize_field("metadata", &self.metadata)?;
+        }
+        if !self.title.is_empty() {
+            struct_ser.serialize_field("title", &self.title)?;
+        }
+        if !self.summary.is_empty() {
+            struct_ser.serialize_field("summary", &self.summary)?;
+        }
+        if self.expedited {
+            struct_ser.serialize_field("expedited", &self.expedited)?;
         }
         struct_ser.end()
     }
@@ -928,6 +1256,9 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
             "initialDeposit",
             "proposer",
             "metadata",
+            "title",
+            "summary",
+            "expedited",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -936,6 +1267,9 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
             InitialDeposit,
             Proposer,
             Metadata,
+            Title,
+            Summary,
+            Expedited,
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
@@ -967,6 +1301,9 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
                             }
                             "proposer" => Ok(GeneratedField::Proposer),
                             "metadata" => Ok(GeneratedField::Metadata),
+                            "title" => Ok(GeneratedField::Title),
+                            "summary" => Ok(GeneratedField::Summary),
+                            "expedited" => Ok(GeneratedField::Expedited),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -990,6 +1327,9 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
                 let mut initial_deposit__ = None;
                 let mut proposer__ = None;
                 let mut metadata__ = None;
+                let mut title__ = None;
+                let mut summary__ = None;
+                let mut expedited__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Messages => {
@@ -1016,6 +1356,24 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
                             }
                             metadata__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::Title => {
+                            if title__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("title"));
+                            }
+                            title__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Summary => {
+                            if summary__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("summary"));
+                            }
+                            summary__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Expedited => {
+                            if expedited__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("expedited"));
+                            }
+                            expedited__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(MsgSubmitProposal {
@@ -1023,6 +1381,9 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
                     initial_deposit: initial_deposit__.unwrap_or_default(),
                     proposer: proposer__.unwrap_or_default(),
                     metadata: metadata__.unwrap_or_default(),
+                    title: title__.unwrap_or_default(),
+                    summary: summary__.unwrap_or_default(),
+                    expedited: expedited__.unwrap_or_default(),
                 })
             }
         }
@@ -1134,6 +1495,199 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposalResponse {
         }
         deserializer.deserialize_struct(
             "cosmos.gov.v1.MsgSubmitProposalResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgUpdateParams {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if self.params.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.MsgUpdateParams", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if let Some(v) = self.params.as_ref() {
+            struct_ser.serialize_field("params", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["authority", "params"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            Params,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "params" => Ok(GeneratedField::Params),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateParams;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.MsgUpdateParams")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgUpdateParams, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut params__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Params => {
+                            if params__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("params"));
+                            }
+                            params__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(MsgUpdateParams {
+                    authority: authority__.unwrap_or_default(),
+                    params: params__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmos.gov.v1.MsgUpdateParams", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgUpdateParamsResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser =
+            serializer.serialize_struct("cosmos.gov.v1.MsgUpdateParamsResponse", len)?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateParamsResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.MsgUpdateParamsResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<MsgUpdateParamsResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgUpdateParamsResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.gov.v1.MsgUpdateParamsResponse",
             FIELDS,
             GeneratedVisitor,
         )
@@ -1599,6 +2153,411 @@ impl<'de> serde::Deserialize<'de> for MsgVoteWeightedResponse {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for Params {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.min_deposit.is_empty() {
+            len += 1;
+        }
+        if self.max_deposit_period.is_some() {
+            len += 1;
+        }
+        if self.voting_period.is_some() {
+            len += 1;
+        }
+        if !self.quorum.is_empty() {
+            len += 1;
+        }
+        if !self.threshold.is_empty() {
+            len += 1;
+        }
+        if !self.veto_threshold.is_empty() {
+            len += 1;
+        }
+        if !self.min_initial_deposit_ratio.is_empty() {
+            len += 1;
+        }
+        if !self.proposal_cancel_ratio.is_empty() {
+            len += 1;
+        }
+        if !self.proposal_cancel_dest.is_empty() {
+            len += 1;
+        }
+        if self.expedited_voting_period.is_some() {
+            len += 1;
+        }
+        if !self.expedited_threshold.is_empty() {
+            len += 1;
+        }
+        if !self.expedited_min_deposit.is_empty() {
+            len += 1;
+        }
+        if self.burn_vote_quorum {
+            len += 1;
+        }
+        if self.burn_proposal_deposit_prevote {
+            len += 1;
+        }
+        if self.burn_vote_veto {
+            len += 1;
+        }
+        if !self.min_deposit_ratio.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.Params", len)?;
+        if !self.min_deposit.is_empty() {
+            struct_ser.serialize_field("minDeposit", &self.min_deposit)?;
+        }
+        if let Some(v) = self.max_deposit_period.as_ref() {
+            struct_ser.serialize_field("maxDepositPeriod", v)?;
+        }
+        if let Some(v) = self.voting_period.as_ref() {
+            struct_ser.serialize_field("votingPeriod", v)?;
+        }
+        if !self.quorum.is_empty() {
+            struct_ser.serialize_field("quorum", &self.quorum)?;
+        }
+        if !self.threshold.is_empty() {
+            struct_ser.serialize_field("threshold", &self.threshold)?;
+        }
+        if !self.veto_threshold.is_empty() {
+            struct_ser.serialize_field("vetoThreshold", &self.veto_threshold)?;
+        }
+        if !self.min_initial_deposit_ratio.is_empty() {
+            struct_ser
+                .serialize_field("minInitialDepositRatio", &self.min_initial_deposit_ratio)?;
+        }
+        if !self.proposal_cancel_ratio.is_empty() {
+            struct_ser.serialize_field("proposalCancelRatio", &self.proposal_cancel_ratio)?;
+        }
+        if !self.proposal_cancel_dest.is_empty() {
+            struct_ser.serialize_field("proposalCancelDest", &self.proposal_cancel_dest)?;
+        }
+        if let Some(v) = self.expedited_voting_period.as_ref() {
+            struct_ser.serialize_field("expeditedVotingPeriod", v)?;
+        }
+        if !self.expedited_threshold.is_empty() {
+            struct_ser.serialize_field("expeditedThreshold", &self.expedited_threshold)?;
+        }
+        if !self.expedited_min_deposit.is_empty() {
+            struct_ser.serialize_field("expeditedMinDeposit", &self.expedited_min_deposit)?;
+        }
+        if self.burn_vote_quorum {
+            struct_ser.serialize_field("burnVoteQuorum", &self.burn_vote_quorum)?;
+        }
+        if self.burn_proposal_deposit_prevote {
+            struct_ser.serialize_field(
+                "burnProposalDepositPrevote",
+                &self.burn_proposal_deposit_prevote,
+            )?;
+        }
+        if self.burn_vote_veto {
+            struct_ser.serialize_field("burnVoteVeto", &self.burn_vote_veto)?;
+        }
+        if !self.min_deposit_ratio.is_empty() {
+            struct_ser.serialize_field("minDepositRatio", &self.min_deposit_ratio)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for Params {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "min_deposit",
+            "minDeposit",
+            "max_deposit_period",
+            "maxDepositPeriod",
+            "voting_period",
+            "votingPeriod",
+            "quorum",
+            "threshold",
+            "veto_threshold",
+            "vetoThreshold",
+            "min_initial_deposit_ratio",
+            "minInitialDepositRatio",
+            "proposal_cancel_ratio",
+            "proposalCancelRatio",
+            "proposal_cancel_dest",
+            "proposalCancelDest",
+            "expedited_voting_period",
+            "expeditedVotingPeriod",
+            "expedited_threshold",
+            "expeditedThreshold",
+            "expedited_min_deposit",
+            "expeditedMinDeposit",
+            "burn_vote_quorum",
+            "burnVoteQuorum",
+            "burn_proposal_deposit_prevote",
+            "burnProposalDepositPrevote",
+            "burn_vote_veto",
+            "burnVoteVeto",
+            "min_deposit_ratio",
+            "minDepositRatio",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            MinDeposit,
+            MaxDepositPeriod,
+            VotingPeriod,
+            Quorum,
+            Threshold,
+            VetoThreshold,
+            MinInitialDepositRatio,
+            ProposalCancelRatio,
+            ProposalCancelDest,
+            ExpeditedVotingPeriod,
+            ExpeditedThreshold,
+            ExpeditedMinDeposit,
+            BurnVoteQuorum,
+            BurnProposalDepositPrevote,
+            BurnVoteVeto,
+            MinDepositRatio,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "minDeposit" | "min_deposit" => Ok(GeneratedField::MinDeposit),
+                            "maxDepositPeriod" | "max_deposit_period" => {
+                                Ok(GeneratedField::MaxDepositPeriod)
+                            }
+                            "votingPeriod" | "voting_period" => Ok(GeneratedField::VotingPeriod),
+                            "quorum" => Ok(GeneratedField::Quorum),
+                            "threshold" => Ok(GeneratedField::Threshold),
+                            "vetoThreshold" | "veto_threshold" => Ok(GeneratedField::VetoThreshold),
+                            "minInitialDepositRatio" | "min_initial_deposit_ratio" => {
+                                Ok(GeneratedField::MinInitialDepositRatio)
+                            }
+                            "proposalCancelRatio" | "proposal_cancel_ratio" => {
+                                Ok(GeneratedField::ProposalCancelRatio)
+                            }
+                            "proposalCancelDest" | "proposal_cancel_dest" => {
+                                Ok(GeneratedField::ProposalCancelDest)
+                            }
+                            "expeditedVotingPeriod" | "expedited_voting_period" => {
+                                Ok(GeneratedField::ExpeditedVotingPeriod)
+                            }
+                            "expeditedThreshold" | "expedited_threshold" => {
+                                Ok(GeneratedField::ExpeditedThreshold)
+                            }
+                            "expeditedMinDeposit" | "expedited_min_deposit" => {
+                                Ok(GeneratedField::ExpeditedMinDeposit)
+                            }
+                            "burnVoteQuorum" | "burn_vote_quorum" => {
+                                Ok(GeneratedField::BurnVoteQuorum)
+                            }
+                            "burnProposalDepositPrevote" | "burn_proposal_deposit_prevote" => {
+                                Ok(GeneratedField::BurnProposalDepositPrevote)
+                            }
+                            "burnVoteVeto" | "burn_vote_veto" => Ok(GeneratedField::BurnVoteVeto),
+                            "minDepositRatio" | "min_deposit_ratio" => {
+                                Ok(GeneratedField::MinDepositRatio)
+                            }
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = Params;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.Params")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Params, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut min_deposit__ = None;
+                let mut max_deposit_period__ = None;
+                let mut voting_period__ = None;
+                let mut quorum__ = None;
+                let mut threshold__ = None;
+                let mut veto_threshold__ = None;
+                let mut min_initial_deposit_ratio__ = None;
+                let mut proposal_cancel_ratio__ = None;
+                let mut proposal_cancel_dest__ = None;
+                let mut expedited_voting_period__ = None;
+                let mut expedited_threshold__ = None;
+                let mut expedited_min_deposit__ = None;
+                let mut burn_vote_quorum__ = None;
+                let mut burn_proposal_deposit_prevote__ = None;
+                let mut burn_vote_veto__ = None;
+                let mut min_deposit_ratio__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::MinDeposit => {
+                            if min_deposit__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("minDeposit"));
+                            }
+                            min_deposit__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::MaxDepositPeriod => {
+                            if max_deposit_period__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("maxDepositPeriod"));
+                            }
+                            max_deposit_period__ = map_.next_value()?;
+                        }
+                        GeneratedField::VotingPeriod => {
+                            if voting_period__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("votingPeriod"));
+                            }
+                            voting_period__ = map_.next_value()?;
+                        }
+                        GeneratedField::Quorum => {
+                            if quorum__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("quorum"));
+                            }
+                            quorum__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Threshold => {
+                            if threshold__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("threshold"));
+                            }
+                            threshold__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::VetoThreshold => {
+                            if veto_threshold__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vetoThreshold"));
+                            }
+                            veto_threshold__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::MinInitialDepositRatio => {
+                            if min_initial_deposit_ratio__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "minInitialDepositRatio",
+                                ));
+                            }
+                            min_initial_deposit_ratio__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ProposalCancelRatio => {
+                            if proposal_cancel_ratio__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "proposalCancelRatio",
+                                ));
+                            }
+                            proposal_cancel_ratio__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ProposalCancelDest => {
+                            if proposal_cancel_dest__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "proposalCancelDest",
+                                ));
+                            }
+                            proposal_cancel_dest__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ExpeditedVotingPeriod => {
+                            if expedited_voting_period__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "expeditedVotingPeriod",
+                                ));
+                            }
+                            expedited_voting_period__ = map_.next_value()?;
+                        }
+                        GeneratedField::ExpeditedThreshold => {
+                            if expedited_threshold__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "expeditedThreshold",
+                                ));
+                            }
+                            expedited_threshold__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ExpeditedMinDeposit => {
+                            if expedited_min_deposit__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "expeditedMinDeposit",
+                                ));
+                            }
+                            expedited_min_deposit__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::BurnVoteQuorum => {
+                            if burn_vote_quorum__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("burnVoteQuorum"));
+                            }
+                            burn_vote_quorum__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::BurnProposalDepositPrevote => {
+                            if burn_proposal_deposit_prevote__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "burnProposalDepositPrevote",
+                                ));
+                            }
+                            burn_proposal_deposit_prevote__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::BurnVoteVeto => {
+                            if burn_vote_veto__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("burnVoteVeto"));
+                            }
+                            burn_vote_veto__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::MinDepositRatio => {
+                            if min_deposit_ratio__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("minDepositRatio"));
+                            }
+                            min_deposit_ratio__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(Params {
+                    min_deposit: min_deposit__.unwrap_or_default(),
+                    max_deposit_period: max_deposit_period__,
+                    voting_period: voting_period__,
+                    quorum: quorum__.unwrap_or_default(),
+                    threshold: threshold__.unwrap_or_default(),
+                    veto_threshold: veto_threshold__.unwrap_or_default(),
+                    min_initial_deposit_ratio: min_initial_deposit_ratio__.unwrap_or_default(),
+                    proposal_cancel_ratio: proposal_cancel_ratio__.unwrap_or_default(),
+                    proposal_cancel_dest: proposal_cancel_dest__.unwrap_or_default(),
+                    expedited_voting_period: expedited_voting_period__,
+                    expedited_threshold: expedited_threshold__.unwrap_or_default(),
+                    expedited_min_deposit: expedited_min_deposit__.unwrap_or_default(),
+                    burn_vote_quorum: burn_vote_quorum__.unwrap_or_default(),
+                    burn_proposal_deposit_prevote: burn_proposal_deposit_prevote__
+                        .unwrap_or_default(),
+                    burn_vote_veto: burn_vote_veto__.unwrap_or_default(),
+                    min_deposit_ratio: min_deposit_ratio__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmos.gov.v1.Params", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for Proposal {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1637,6 +2596,21 @@ impl serde::Serialize for Proposal {
         if !self.metadata.is_empty() {
             len += 1;
         }
+        if !self.title.is_empty() {
+            len += 1;
+        }
+        if !self.summary.is_empty() {
+            len += 1;
+        }
+        if !self.proposer.is_empty() {
+            len += 1;
+        }
+        if self.expedited {
+            len += 1;
+        }
+        if !self.failed_reason.is_empty() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.Proposal", len)?;
         if self.id != 0 {
             #[allow(clippy::needless_borrow)]
@@ -1672,6 +2646,21 @@ impl serde::Serialize for Proposal {
         if !self.metadata.is_empty() {
             struct_ser.serialize_field("metadata", &self.metadata)?;
         }
+        if !self.title.is_empty() {
+            struct_ser.serialize_field("title", &self.title)?;
+        }
+        if !self.summary.is_empty() {
+            struct_ser.serialize_field("summary", &self.summary)?;
+        }
+        if !self.proposer.is_empty() {
+            struct_ser.serialize_field("proposer", &self.proposer)?;
+        }
+        if self.expedited {
+            struct_ser.serialize_field("expedited", &self.expedited)?;
+        }
+        if !self.failed_reason.is_empty() {
+            struct_ser.serialize_field("failedReason", &self.failed_reason)?;
+        }
         struct_ser.end()
     }
 }
@@ -1699,6 +2688,12 @@ impl<'de> serde::Deserialize<'de> for Proposal {
             "voting_end_time",
             "votingEndTime",
             "metadata",
+            "title",
+            "summary",
+            "proposer",
+            "expedited",
+            "failed_reason",
+            "failedReason",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -1713,6 +2708,11 @@ impl<'de> serde::Deserialize<'de> for Proposal {
             VotingStartTime,
             VotingEndTime,
             Metadata,
+            Title,
+            Summary,
+            Proposer,
+            Expedited,
+            FailedReason,
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
@@ -1756,6 +2756,11 @@ impl<'de> serde::Deserialize<'de> for Proposal {
                                 Ok(GeneratedField::VotingEndTime)
                             }
                             "metadata" => Ok(GeneratedField::Metadata),
+                            "title" => Ok(GeneratedField::Title),
+                            "summary" => Ok(GeneratedField::Summary),
+                            "proposer" => Ok(GeneratedField::Proposer),
+                            "expedited" => Ok(GeneratedField::Expedited),
+                            "failedReason" | "failed_reason" => Ok(GeneratedField::FailedReason),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1785,6 +2790,11 @@ impl<'de> serde::Deserialize<'de> for Proposal {
                 let mut voting_start_time__ = None;
                 let mut voting_end_time__ = None;
                 let mut metadata__ = None;
+                let mut title__ = None;
+                let mut summary__ = None;
+                let mut proposer__ = None;
+                let mut expedited__ = None;
+                let mut failed_reason__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Id => {
@@ -1850,6 +2860,36 @@ impl<'de> serde::Deserialize<'de> for Proposal {
                             }
                             metadata__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::Title => {
+                            if title__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("title"));
+                            }
+                            title__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Summary => {
+                            if summary__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("summary"));
+                            }
+                            summary__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Proposer => {
+                            if proposer__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proposer"));
+                            }
+                            proposer__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Expedited => {
+                            if expedited__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("expedited"));
+                            }
+                            expedited__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::FailedReason => {
+                            if failed_reason__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("failedReason"));
+                            }
+                            failed_reason__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(Proposal {
@@ -1863,6 +2903,11 @@ impl<'de> serde::Deserialize<'de> for Proposal {
                     voting_start_time: voting_start_time__,
                     voting_end_time: voting_end_time__,
                     metadata: metadata__.unwrap_or_default(),
+                    title: title__.unwrap_or_default(),
+                    summary: summary__.unwrap_or_default(),
+                    proposer: proposer__.unwrap_or_default(),
+                    expedited: expedited__.unwrap_or_default(),
+                    failed_reason: failed_reason__.unwrap_or_default(),
                 })
             }
         }
@@ -1952,6 +2997,191 @@ impl<'de> serde::Deserialize<'de> for ProposalStatus {
             }
         }
         deserializer.deserialize_any(GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for QueryConstitutionRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser =
+            serializer.serialize_struct("cosmos.gov.v1.QueryConstitutionRequest", len)?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for QueryConstitutionRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryConstitutionRequest;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.QueryConstitutionRequest")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<QueryConstitutionRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(QueryConstitutionRequest {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.gov.v1.QueryConstitutionRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for QueryConstitutionResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.constitution.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmos.gov.v1.QueryConstitutionResponse", len)?;
+        if !self.constitution.is_empty() {
+            struct_ser.serialize_field("constitution", &self.constitution)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for QueryConstitutionResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["constitution"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Constitution,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "constitution" => Ok(GeneratedField::Constitution),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryConstitutionResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.QueryConstitutionResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<QueryConstitutionResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut constitution__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Constitution => {
+                            if constitution__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("constitution"));
+                            }
+                            constitution__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(QueryConstitutionResponse {
+                    constitution: constitution__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.gov.v1.QueryConstitutionResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
     }
 }
 #[cfg(feature = "serde")]
@@ -2541,6 +3771,9 @@ impl serde::Serialize for QueryParamsResponse {
         if self.tally_params.is_some() {
             len += 1;
         }
+        if self.params.is_some() {
+            len += 1;
+        }
         let mut struct_ser =
             serializer.serialize_struct("cosmos.gov.v1.QueryParamsResponse", len)?;
         if let Some(v) = self.voting_params.as_ref() {
@@ -2551,6 +3784,9 @@ impl serde::Serialize for QueryParamsResponse {
         }
         if let Some(v) = self.tally_params.as_ref() {
             struct_ser.serialize_field("tallyParams", v)?;
+        }
+        if let Some(v) = self.params.as_ref() {
+            struct_ser.serialize_field("params", v)?;
         }
         struct_ser.end()
     }
@@ -2569,6 +3805,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
             "depositParams",
             "tally_params",
             "tallyParams",
+            "params",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -2576,6 +3813,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
             VotingParams,
             DepositParams,
             TallyParams,
+            Params,
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
@@ -2604,6 +3842,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
                             "votingParams" | "voting_params" => Ok(GeneratedField::VotingParams),
                             "depositParams" | "deposit_params" => Ok(GeneratedField::DepositParams),
                             "tallyParams" | "tally_params" => Ok(GeneratedField::TallyParams),
+                            "params" => Ok(GeneratedField::Params),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2626,6 +3865,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
                 let mut voting_params__ = None;
                 let mut deposit_params__ = None;
                 let mut tally_params__ = None;
+                let mut params__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::VotingParams => {
@@ -2646,12 +3886,19 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
                             }
                             tally_params__ = map_.next_value()?;
                         }
+                        GeneratedField::Params => {
+                            if params__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("params"));
+                            }
+                            params__ = map_.next_value()?;
+                        }
                     }
                 }
                 Ok(QueryParamsResponse {
                     voting_params: voting_params__,
                     deposit_params: deposit_params__,
                     tally_params: tally_params__,
+                    params: params__,
                 })
             }
         }
