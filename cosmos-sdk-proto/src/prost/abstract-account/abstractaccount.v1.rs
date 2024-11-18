@@ -13,6 +13,13 @@ pub struct AbstractAccount {
     #[prost(uint64, tag = "3")]
     pub sequence: u64,
 }
+impl ::prost::Name for AbstractAccount {
+    const NAME: &'static str = "AbstractAccount";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
+}
 /// NilPubKey is the pubkey type of the AbstractAccount. Basically, it represents
 /// a pubkey that doesn't exist.
 ///
@@ -25,6 +32,13 @@ pub struct NilPubKey {
     #[prost(bytes = "vec", tag = "1")]
     pub address_bytes: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for NilPubKey {
+    const NAME: &'static str = "NilPubKey";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EventAccountRegistered {
@@ -34,6 +48,13 @@ pub struct EventAccountRegistered {
     pub code_id: u64,
     #[prost(string, tag = "3")]
     pub contract_addr: ::prost::alloc::string::String,
+}
+impl ::prost::Name for EventAccountRegistered {
+    const NAME: &'static str = "EventAccountRegistered";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -62,6 +83,13 @@ pub struct Params {
     #[prost(uint64, tag = "4")]
     pub max_gas_after: u64,
 }
+impl ::prost::Name for Params {
+    const NAME: &'static str = "Params";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
@@ -70,16 +98,37 @@ pub struct GenesisState {
     #[prost(uint64, tag = "2")]
     pub next_account_id: u64,
 }
+impl ::prost::Name for GenesisState {
+    const NAME: &'static str = "GenesisState";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
+}
 // ---------------------------------- Params -----------------------------------
 
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
+impl ::prost::Name for QueryParamsRequest {
+    const NAME: &'static str = "QueryParamsRequest";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
     #[prost(message, optional, tag = "1")]
     pub params: ::core::option::Option<Params>,
+}
+impl ::prost::Name for QueryParamsResponse {
+    const NAME: &'static str = "QueryParamsResponse";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
 }
 // ------------------------------- UpdateParams --------------------------------
 
@@ -91,9 +140,23 @@ pub struct MsgUpdateParams {
     #[prost(message, optional, tag = "2")]
     pub params: ::core::option::Option<Params>,
 }
+impl ::prost::Name for MsgUpdateParams {
+    const NAME: &'static str = "MsgUpdateParams";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
+impl ::prost::Name for MsgUpdateParamsResponse {
+    const NAME: &'static str = "MsgUpdateParamsResponse";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
+}
 // ------------------------------ RegisterAccount ------------------------------
 
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -116,6 +179,13 @@ pub struct MsgRegisterAccount {
     #[prost(bytes = "vec", tag = "5")]
     pub salt: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for MsgRegisterAccount {
+    const NAME: &'static str = "MsgRegisterAccount";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRegisterAccountResponse {
@@ -123,6 +193,13 @@ pub struct MsgRegisterAccountResponse {
     pub address: ::prost::alloc::string::String,
     #[prost(bytes = "vec", tag = "2")]
     pub data: ::prost::alloc::vec::Vec<u8>,
+}
+impl ::prost::Name for MsgRegisterAccountResponse {
+    const NAME: &'static str = "MsgRegisterAccountResponse";
+    const PACKAGE: &'static str = "abstractaccount.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("abstractaccount.v1.{}", Self::NAME)
+    }
 }
 include!("abstractaccount.v1.serde.rs");
 include!("abstractaccount.v1.tonic.rs");

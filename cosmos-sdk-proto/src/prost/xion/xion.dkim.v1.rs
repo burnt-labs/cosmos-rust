@@ -20,6 +20,13 @@ pub struct DkimPubKey {
     #[prost(enumeration = "KeyType", tag = "6")]
     pub key_type: i32,
 }
+impl ::prost::Name for DkimPubKey {
+    const NAME: &'static str = "DkimPubKey";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum Version {
@@ -76,14 +83,35 @@ pub struct GenesisState {
     #[prost(message, repeated, tag = "2")]
     pub dkim_pubkeys: ::prost::alloc::vec::Vec<DkimPubKey>,
 }
+impl ::prost::Name for GenesisState {
+    const NAME: &'static str = "GenesisState";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 /// Params defines the set of module parameters.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {}
+impl ::prost::Name for Params {
+    const NAME: &'static str = "Params";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 /// QueryParamsRequest is the request type for the Query/Params RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
+impl ::prost::Name for QueryParamsRequest {
+    const NAME: &'static str = "QueryParamsRequest";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 /// QueryParamsResponse is the response type for the Query/Params RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -91,6 +119,13 @@ pub struct QueryParamsResponse {
     /// params defines the parameters of the module.
     #[prost(message, optional, tag = "1")]
     pub params: ::core::option::Option<Params>,
+}
+impl ::prost::Name for QueryParamsResponse {
+    const NAME: &'static str = "QueryParamsResponse";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
 }
 /// QueryDkimPubKeyRequest is the request type for the Query/DkimPubKey RPC
 /// method.
@@ -102,6 +137,13 @@ pub struct QueryDkimPubKeyRequest {
     #[prost(string, tag = "2")]
     pub domain: ::prost::alloc::string::String,
 }
+impl ::prost::Name for QueryDkimPubKeyRequest {
+    const NAME: &'static str = "QueryDkimPubKeyRequest";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 /// QueryDkimPubKeyResponse is the response type for the Query/DkimPubKey RPC
 /// method.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -112,6 +154,13 @@ pub struct QueryDkimPubKeyResponse {
     /// the poseidon hash of the public key that signed the email
     #[prost(bytes = "vec", tag = "2")]
     pub poseidon_hash: ::prost::alloc::vec::Vec<u8>,
+}
+impl ::prost::Name for QueryDkimPubKeyResponse {
+    const NAME: &'static str = "QueryDkimPubKeyResponse";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
 }
 /// QueryDkimPubKeysRequest is the request type for the Query/DkimPubKeys RPC
 /// method. All fields are optional, and will filter down results.
@@ -128,6 +177,13 @@ pub struct QueryDkimPubKeysRequest {
     pub pagination:
         ::core::option::Option<super::super::super::cosmos::base::query::v1beta1::PageRequest>,
 }
+impl ::prost::Name for QueryDkimPubKeysRequest {
+    const NAME: &'static str = "QueryDkimPubKeysRequest";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 /// QueryDkimPubKeysResponse is the response type for the Query/DkimPubKeys RPC
 /// method.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -138,6 +194,13 @@ pub struct QueryDkimPubKeysResponse {
     #[prost(message, optional, tag = "3")]
     pub pagination:
         ::core::option::Option<super::super::super::cosmos::base::query::v1beta1::PageResponse>,
+}
+impl ::prost::Name for QueryDkimPubKeysResponse {
+    const NAME: &'static str = "QueryDkimPubKeysResponse";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
 }
 /// MsgUpdateParams is the Msg/UpdateParams request type.
 ///
@@ -154,6 +217,13 @@ pub struct MsgUpdateParams {
     #[prost(message, optional, tag = "2")]
     pub params: ::core::option::Option<Params>,
 }
+impl ::prost::Name for MsgUpdateParams {
+    const NAME: &'static str = "MsgUpdateParams";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 /// MsgUpdateParamsResponse defines the response structure for executing a
 /// MsgUpdateParams message.
 ///
@@ -161,6 +231,13 @@ pub struct MsgUpdateParams {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
+impl ::prost::Name for MsgUpdateParamsResponse {
+    const NAME: &'static str = "MsgUpdateParamsResponse";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 /// MsgAddDkimPubKey is the Msg/AddDkimPubKey request type.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -171,11 +248,25 @@ pub struct MsgAddDkimPubKeys {
     #[prost(message, repeated, tag = "2")]
     pub dkim_pubkeys: ::prost::alloc::vec::Vec<DkimPubKey>,
 }
+impl ::prost::Name for MsgAddDkimPubKeys {
+    const NAME: &'static str = "MsgAddDkimPubKeys";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 /// MsgAddDkimPubKeyResponse defines the response structure for executing a
 /// MsgAddDkimPubKey message.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgAddDkimPubKeysResponse {}
+impl ::prost::Name for MsgAddDkimPubKeysResponse {
+    const NAME: &'static str = "MsgAddDkimPubKeysResponse";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 /// MsgRemoveDkimPubKey is the Msg/RemoveDkimPubKey request type.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -188,11 +279,25 @@ pub struct MsgRemoveDkimPubKey {
     #[prost(string, tag = "3")]
     pub domain: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgRemoveDkimPubKey {
+    const NAME: &'static str = "MsgRemoveDkimPubKey";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 /// MsgRemoveDkimPubKeyResponse defines the response structure for executing a
 /// MsgRemoveDkimPubKey message.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRemoveDkimPubKeyResponse {}
+impl ::prost::Name for MsgRemoveDkimPubKeyResponse {
+    const NAME: &'static str = "MsgRemoveDkimPubKeyResponse";
+    const PACKAGE: &'static str = "xion.dkim.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.dkim.v1.{}", Self::NAME)
+    }
+}
 include!("xion.dkim.v1.serde.rs");
 include!("xion.dkim.v1.tonic.rs");
 // @@protoc_insertion_point(module)

@@ -7,11 +7,18 @@ pub struct Block {
     #[prost(message, optional, tag = "1")]
     pub header: ::core::option::Option<Header>,
     #[prost(message, optional, tag = "2")]
-    pub data: ::core::option::Option<::tendermint_proto::v0_34::types::Data>,
+    pub data: ::core::option::Option<::tendermint_proto::types::Data>,
     #[prost(message, optional, tag = "3")]
-    pub evidence: ::core::option::Option<::tendermint_proto::v0_34::types::EvidenceList>,
+    pub evidence: ::core::option::Option<::tendermint_proto::types::EvidenceList>,
     #[prost(message, optional, tag = "4")]
-    pub last_commit: ::core::option::Option<::tendermint_proto::v0_34::types::Commit>,
+    pub last_commit: ::core::option::Option<::tendermint_proto::types::Commit>,
+}
+impl ::prost::Name for Block {
+    const NAME: &'static str = "Block";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
 }
 /// Header defines the structure of a Tendermint block header.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -19,7 +26,7 @@ pub struct Block {
 pub struct Header {
     /// basic block info
     #[prost(message, optional, tag = "1")]
-    pub version: ::core::option::Option<::tendermint_proto::v0_34::version::Consensus>,
+    pub version: ::core::option::Option<::tendermint_proto::version::Consensus>,
     #[prost(string, tag = "2")]
     pub chain_id: ::prost::alloc::string::String,
     #[prost(int64, tag = "3")]
@@ -28,7 +35,7 @@ pub struct Header {
     pub time: ::core::option::Option<::tendermint_proto::google::protobuf::Timestamp>,
     /// prev block info
     #[prost(message, optional, tag = "5")]
-    pub last_block_id: ::core::option::Option<::tendermint_proto::v0_34::types::BlockId>,
+    pub last_block_id: ::core::option::Option<::tendermint_proto::types::BlockId>,
     /// hashes of block data
     ///
     /// commit from validators from the last block
@@ -67,6 +74,13 @@ pub struct Header {
     #[prost(string, tag = "14")]
     pub proposer_address: ::prost::alloc::string::String,
 }
+impl ::prost::Name for Header {
+    const NAME: &'static str = "Header";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// GetValidatorSetByHeightRequest is the request type for the Query/GetValidatorSetByHeight RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -76,6 +90,13 @@ pub struct GetValidatorSetByHeightRequest {
     /// pagination defines an pagination for the request.
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<super::super::query::v1beta1::PageRequest>,
+}
+impl ::prost::Name for GetValidatorSetByHeightRequest {
+    const NAME: &'static str = "GetValidatorSetByHeightRequest";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
 }
 /// GetValidatorSetByHeightResponse is the response type for the Query/GetValidatorSetByHeight RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -89,6 +110,13 @@ pub struct GetValidatorSetByHeightResponse {
     #[prost(message, optional, tag = "3")]
     pub pagination: ::core::option::Option<super::super::query::v1beta1::PageResponse>,
 }
+impl ::prost::Name for GetValidatorSetByHeightResponse {
+    const NAME: &'static str = "GetValidatorSetByHeightResponse";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// GetLatestValidatorSetRequest is the request type for the Query/GetValidatorSetByHeight RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -96,6 +124,13 @@ pub struct GetLatestValidatorSetRequest {
     /// pagination defines an pagination for the request.
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<super::super::query::v1beta1::PageRequest>,
+}
+impl ::prost::Name for GetLatestValidatorSetRequest {
+    const NAME: &'static str = "GetLatestValidatorSetRequest";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
 }
 /// GetLatestValidatorSetResponse is the response type for the Query/GetValidatorSetByHeight RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -108,6 +143,13 @@ pub struct GetLatestValidatorSetResponse {
     /// pagination defines an pagination for the response.
     #[prost(message, optional, tag = "3")]
     pub pagination: ::core::option::Option<super::super::query::v1beta1::PageResponse>,
+}
+impl ::prost::Name for GetLatestValidatorSetResponse {
+    const NAME: &'static str = "GetLatestValidatorSetResponse";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
 }
 /// Validator is the type for the validator-set.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -122,6 +164,13 @@ pub struct Validator {
     #[prost(int64, tag = "4")]
     pub proposer_priority: i64,
 }
+impl ::prost::Name for Validator {
+    const NAME: &'static str = "Validator";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// GetBlockByHeightRequest is the request type for the Query/GetBlockByHeight RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -129,40 +178,75 @@ pub struct GetBlockByHeightRequest {
     #[prost(int64, tag = "1")]
     pub height: i64,
 }
+impl ::prost::Name for GetBlockByHeightRequest {
+    const NAME: &'static str = "GetBlockByHeightRequest";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// GetBlockByHeightResponse is the response type for the Query/GetBlockByHeight RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetBlockByHeightResponse {
     #[prost(message, optional, tag = "1")]
-    pub block_id: ::core::option::Option<::tendermint_proto::v0_34::types::BlockId>,
+    pub block_id: ::core::option::Option<::tendermint_proto::types::BlockId>,
     /// Deprecated: please use `sdk_block` instead
     #[prost(message, optional, tag = "2")]
-    pub block: ::core::option::Option<::tendermint_proto::v0_34::types::Block>,
+    pub block: ::core::option::Option<::tendermint_proto::types::Block>,
     /// Since: cosmos-sdk 0.47
     #[prost(message, optional, tag = "3")]
     pub sdk_block: ::core::option::Option<Block>,
+}
+impl ::prost::Name for GetBlockByHeightResponse {
+    const NAME: &'static str = "GetBlockByHeightResponse";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
 }
 /// GetLatestBlockRequest is the request type for the Query/GetLatestBlock RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetLatestBlockRequest {}
+impl ::prost::Name for GetLatestBlockRequest {
+    const NAME: &'static str = "GetLatestBlockRequest";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// GetLatestBlockResponse is the response type for the Query/GetLatestBlock RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetLatestBlockResponse {
     #[prost(message, optional, tag = "1")]
-    pub block_id: ::core::option::Option<::tendermint_proto::v0_34::types::BlockId>,
+    pub block_id: ::core::option::Option<::tendermint_proto::types::BlockId>,
     /// Deprecated: please use `sdk_block` instead
     #[prost(message, optional, tag = "2")]
-    pub block: ::core::option::Option<::tendermint_proto::v0_34::types::Block>,
+    pub block: ::core::option::Option<::tendermint_proto::types::Block>,
     /// Since: cosmos-sdk 0.47
     #[prost(message, optional, tag = "3")]
     pub sdk_block: ::core::option::Option<Block>,
+}
+impl ::prost::Name for GetLatestBlockResponse {
+    const NAME: &'static str = "GetLatestBlockResponse";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
 }
 /// GetSyncingRequest is the request type for the Query/GetSyncing RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetSyncingRequest {}
+impl ::prost::Name for GetSyncingRequest {
+    const NAME: &'static str = "GetSyncingRequest";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// GetSyncingResponse is the response type for the Query/GetSyncing RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -170,18 +254,39 @@ pub struct GetSyncingResponse {
     #[prost(bool, tag = "1")]
     pub syncing: bool,
 }
+impl ::prost::Name for GetSyncingResponse {
+    const NAME: &'static str = "GetSyncingResponse";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// GetNodeInfoRequest is the request type for the Query/GetNodeInfo RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetNodeInfoRequest {}
+impl ::prost::Name for GetNodeInfoRequest {
+    const NAME: &'static str = "GetNodeInfoRequest";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// GetNodeInfoResponse is the response type for the Query/GetNodeInfo RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetNodeInfoResponse {
     #[prost(message, optional, tag = "1")]
-    pub default_node_info: ::core::option::Option<::tendermint_proto::v0_34::p2p::DefaultNodeInfo>,
+    pub default_node_info: ::core::option::Option<::tendermint_proto::p2p::DefaultNodeInfo>,
     #[prost(message, optional, tag = "2")]
     pub application_version: ::core::option::Option<VersionInfo>,
+}
+impl ::prost::Name for GetNodeInfoResponse {
+    const NAME: &'static str = "GetNodeInfoResponse";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
 }
 /// VersionInfo is the type for the GetNodeInfoResponse message.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -205,6 +310,13 @@ pub struct VersionInfo {
     #[prost(string, tag = "8")]
     pub cosmos_sdk_version: ::prost::alloc::string::String,
 }
+impl ::prost::Name for VersionInfo {
+    const NAME: &'static str = "VersionInfo";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// Module is the type for VersionInfo
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -219,6 +331,13 @@ pub struct Module {
     #[prost(string, tag = "3")]
     pub sum: ::prost::alloc::string::String,
 }
+impl ::prost::Name for Module {
+    const NAME: &'static str = "Module";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// ABCIQueryRequest defines the request structure for the ABCIQuery gRPC query.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -231,6 +350,13 @@ pub struct AbciQueryRequest {
     pub height: i64,
     #[prost(bool, tag = "4")]
     pub prove: bool,
+}
+impl ::prost::Name for AbciQueryRequest {
+    const NAME: &'static str = "ABCIQueryRequest";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
 }
 /// ABCIQueryResponse defines the response structure for the ABCIQuery gRPC query.
 ///
@@ -260,6 +386,13 @@ pub struct AbciQueryResponse {
     #[prost(string, tag = "10")]
     pub codespace: ::prost::alloc::string::String,
 }
+impl ::prost::Name for AbciQueryResponse {
+    const NAME: &'static str = "ABCIQueryResponse";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// ProofOp defines an operation used for calculating Merkle root. The data could
 /// be arbitrary format, providing necessary data for example neighbouring node
 /// hash.
@@ -275,6 +408,13 @@ pub struct ProofOp {
     #[prost(bytes = "vec", tag = "3")]
     pub data: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for ProofOp {
+    const NAME: &'static str = "ProofOp";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
+}
 /// ProofOps is Merkle proof defined by the list of ProofOps.
 ///
 /// Note: This type is a duplicate of the ProofOps proto type defined in Tendermint.
@@ -283,6 +423,13 @@ pub struct ProofOp {
 pub struct ProofOps {
     #[prost(message, repeated, tag = "1")]
     pub ops: ::prost::alloc::vec::Vec<ProofOp>,
+}
+impl ::prost::Name for ProofOps {
+    const NAME: &'static str = "ProofOps";
+    const PACKAGE: &'static str = "cosmos.base.tendermint.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.tendermint.v1beta1.{}", Self::NAME)
+    }
 }
 include!("cosmos.base.tendermint.v1beta1.serde.rs");
 include!("cosmos.base.tendermint.v1beta1.tonic.rs");

@@ -14,6 +14,13 @@ pub struct BaseAccount {
     #[prost(uint64, tag = "4")]
     pub sequence: u64,
 }
+impl ::prost::Name for BaseAccount {
+    const NAME: &'static str = "BaseAccount";
+    const PACKAGE: &'static str = "cosmos.auth.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.auth.v1beta1.{}", Self::NAME)
+    }
+}
 /// ModuleAccount defines an account for modules that holds coins on a pool.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -24,6 +31,13 @@ pub struct ModuleAccount {
     pub name: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "3")]
     pub permissions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+impl ::prost::Name for ModuleAccount {
+    const NAME: &'static str = "ModuleAccount";
+    const PACKAGE: &'static str = "cosmos.auth.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.auth.v1beta1.{}", Self::NAME)
+    }
 }
 /// ModuleCredential represents a unclaimable pubkey for base accounts controlled by modules.
 ///
@@ -39,6 +53,13 @@ pub struct ModuleCredential {
     #[prost(bytes = "vec", repeated, tag = "2")]
     pub derivation_keys: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
+impl ::prost::Name for ModuleCredential {
+    const NAME: &'static str = "ModuleCredential";
+    const PACKAGE: &'static str = "cosmos.auth.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.auth.v1beta1.{}", Self::NAME)
+    }
+}
 /// Params defines the parameters for the auth module.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -53,6 +74,13 @@ pub struct Params {
     pub sig_verify_cost_ed25519: u64,
     #[prost(uint64, tag = "5")]
     pub sig_verify_cost_secp256k1: u64,
+}
+impl ::prost::Name for Params {
+    const NAME: &'static str = "Params";
+    const PACKAGE: &'static str = "cosmos.auth.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.auth.v1beta1.{}", Self::NAME)
+    }
 }
 include!("cosmos.auth.v1beta1.serde.rs");
 // @@protoc_insertion_point(module)

@@ -88,12 +88,12 @@ pub mod query_client {
         pub async fn params(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryParamsRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -106,12 +106,14 @@ pub mod query_client {
         pub async fn audience_claim(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGetAudienceClaimRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGetAudienceClaimResponse>, tonic::Status>
-        {
+        ) -> core::result::Result<
+            tonic::Response<super::QueryGetAudienceClaimResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -124,12 +126,12 @@ pub mod query_client {
         pub async fn audience(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGetAudienceRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGetAudienceResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryGetAudienceResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -142,12 +144,12 @@ pub mod query_client {
         pub async fn audience_all(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryAllAudienceRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryAllAudienceResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryAllAudienceResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -160,12 +162,12 @@ pub mod query_client {
         pub async fn validate_jwt(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryValidateJwtRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryValidateJwtResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryValidateJwtResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -188,23 +190,26 @@ pub mod query_server {
         async fn params(
             &self,
             request: tonic::Request<super::QueryParamsRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>;
         async fn audience_claim(
             &self,
             request: tonic::Request<super::QueryGetAudienceClaimRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGetAudienceClaimResponse>, tonic::Status>;
+        ) -> core::result::Result<
+            tonic::Response<super::QueryGetAudienceClaimResponse>,
+            tonic::Status,
+        >;
         async fn audience(
             &self,
             request: tonic::Request<super::QueryGetAudienceRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGetAudienceResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryGetAudienceResponse>, tonic::Status>;
         async fn audience_all(
             &self,
             request: tonic::Request<super::QueryAllAudienceRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryAllAudienceResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryAllAudienceResponse>, tonic::Status>;
         async fn validate_jwt(
             &self,
             request: tonic::Request<super::QueryValidateJwtRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryValidateJwtResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryValidateJwtResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct QueryServer<T: Query> {
@@ -276,7 +281,7 @@ pub mod query_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -502,8 +507,8 @@ pub mod query_server {
             Self(Arc::clone(&self.0))
         }
     }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    impl<T: core::fmt::Debug> core::fmt::Debug for _Inner<T> {
+        fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
             write!(f, "{:?}", self.0)
         }
     }
@@ -597,14 +602,14 @@ pub mod msg_client {
         pub async fn create_audience_claim(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgCreateAudienceClaim>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgCreateAudienceClaimResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -617,14 +622,14 @@ pub mod msg_client {
         pub async fn delete_audience_claim(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgDeleteAudienceClaim>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgDeleteAudienceClaimResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -637,12 +642,12 @@ pub mod msg_client {
         pub async fn create_audience(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgCreateAudience>,
-        ) -> std::result::Result<tonic::Response<super::MsgCreateAudienceResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgCreateAudienceResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -655,12 +660,12 @@ pub mod msg_client {
         pub async fn update_audience(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgUpdateAudience>,
-        ) -> std::result::Result<tonic::Response<super::MsgUpdateAudienceResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgUpdateAudienceResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -673,12 +678,12 @@ pub mod msg_client {
         pub async fn delete_audience(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgDeleteAudience>,
-        ) -> std::result::Result<tonic::Response<super::MsgDeleteAudienceResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgDeleteAudienceResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -701,29 +706,29 @@ pub mod msg_server {
         async fn create_audience_claim(
             &self,
             request: tonic::Request<super::MsgCreateAudienceClaim>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgCreateAudienceClaimResponse>,
             tonic::Status,
         >;
         async fn delete_audience_claim(
             &self,
             request: tonic::Request<super::MsgDeleteAudienceClaim>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgDeleteAudienceClaimResponse>,
             tonic::Status,
         >;
         async fn create_audience(
             &self,
             request: tonic::Request<super::MsgCreateAudience>,
-        ) -> std::result::Result<tonic::Response<super::MsgCreateAudienceResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgCreateAudienceResponse>, tonic::Status>;
         async fn update_audience(
             &self,
             request: tonic::Request<super::MsgUpdateAudience>,
-        ) -> std::result::Result<tonic::Response<super::MsgUpdateAudienceResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgUpdateAudienceResponse>, tonic::Status>;
         async fn delete_audience(
             &self,
             request: tonic::Request<super::MsgDeleteAudience>,
-        ) -> std::result::Result<tonic::Response<super::MsgDeleteAudienceResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgDeleteAudienceResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
@@ -795,7 +800,7 @@ pub mod msg_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -1023,8 +1028,8 @@ pub mod msg_server {
             Self(Arc::clone(&self.0))
         }
     }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    impl<T: core::fmt::Debug> core::fmt::Debug for _Inner<T> {
+        fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
             write!(f, "{:?}", self.0)
         }
     }

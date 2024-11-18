@@ -88,12 +88,12 @@ pub mod query_client {
         pub async fn params(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryParamsRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -106,12 +106,12 @@ pub mod query_client {
         pub async fn dkim_pub_key(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDkimPubKeyRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeyResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryDkimPubKeyResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -124,12 +124,12 @@ pub mod query_client {
         pub async fn dkim_pub_keys(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDkimPubKeysRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeysResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryDkimPubKeysResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -152,15 +152,15 @@ pub mod query_server {
         async fn params(
             &self,
             request: tonic::Request<super::QueryParamsRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>;
         async fn dkim_pub_key(
             &self,
             request: tonic::Request<super::QueryDkimPubKeyRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeyResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryDkimPubKeyResponse>, tonic::Status>;
         async fn dkim_pub_keys(
             &self,
             request: tonic::Request<super::QueryDkimPubKeysRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeysResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryDkimPubKeysResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct QueryServer<T: Query> {
@@ -232,7 +232,7 @@ pub mod query_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -380,8 +380,8 @@ pub mod query_server {
             Self(Arc::clone(&self.0))
         }
     }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    impl<T: core::fmt::Debug> core::fmt::Debug for _Inner<T> {
+        fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
             write!(f, "{:?}", self.0)
         }
     }
@@ -475,12 +475,12 @@ pub mod msg_client {
         pub async fn update_params(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgUpdateParams>,
-        ) -> std::result::Result<tonic::Response<super::MsgUpdateParamsResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgUpdateParamsResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -493,12 +493,12 @@ pub mod msg_client {
         pub async fn add_dkim_pub_keys(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgAddDkimPubKeys>,
-        ) -> std::result::Result<tonic::Response<super::MsgAddDkimPubKeysResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgAddDkimPubKeysResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -511,12 +511,12 @@ pub mod msg_client {
         pub async fn remove_dkim_pub_key(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgRemoveDkimPubKey>,
-        ) -> std::result::Result<tonic::Response<super::MsgRemoveDkimPubKeyResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgRemoveDkimPubKeyResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -539,15 +539,15 @@ pub mod msg_server {
         async fn update_params(
             &self,
             request: tonic::Request<super::MsgUpdateParams>,
-        ) -> std::result::Result<tonic::Response<super::MsgUpdateParamsResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgUpdateParamsResponse>, tonic::Status>;
         async fn add_dkim_pub_keys(
             &self,
             request: tonic::Request<super::MsgAddDkimPubKeys>,
-        ) -> std::result::Result<tonic::Response<super::MsgAddDkimPubKeysResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgAddDkimPubKeysResponse>, tonic::Status>;
         async fn remove_dkim_pub_key(
             &self,
             request: tonic::Request<super::MsgRemoveDkimPubKey>,
-        ) -> std::result::Result<tonic::Response<super::MsgRemoveDkimPubKeyResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgRemoveDkimPubKeyResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
@@ -619,7 +619,7 @@ pub mod msg_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -767,8 +767,8 @@ pub mod msg_server {
             Self(Arc::clone(&self.0))
         }
     }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    impl<T: core::fmt::Debug> core::fmt::Debug for _Inner<T> {
+        fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
             write!(f, "{:?}", self.0)
         }
     }

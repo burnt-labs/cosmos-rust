@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.21.0 (2024-10-24)
+### Changed
+- Bump tendermint-rs to v0.40 ([#506])
+- Bump `cosmos-sdk-proto` to v0.26 ([#508])
+
+[#506]: https://github.com/cosmos/cosmos-rust/pull/506
+[#508]: https://github.com/cosmos/cosmos-rust/pull/508
+
+## 0.20.0 (2024-09-09)
+### Changed
+- Bump `cosmos-sdk-proto` to v0.25 ([#503])
+
+[#503]: https://github.com/cosmos/cosmos-rust/pull/503
+
+## 0.19.0 (2024-08-14)
+### Changed
+- Bump tendermint-rs dependencies to v0.39 ([#482], [#483])
+- Bump `cosmos-sdk-proto` to v0.24 ([#493])
+
+[#482]: https://github.com/cosmos/cosmos-rust/pull/482
+[#483]: https://github.com/cosmos/cosmos-rust/pull/483
+[#493]: https://github.com/cosmos/cosmos-rust/pull/493
+
 ## 0.18.0 (2024-08-02)
 ### Added
 - Support `Coin` with amount `0` and empty denom ([#479])

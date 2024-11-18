@@ -88,14 +88,14 @@ pub mod query_client {
         pub async fn web_auth_n_verify_register(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryWebAuthNVerifyRegisterRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryWebAuthNVerifyRegisterResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -109,14 +109,14 @@ pub mod query_client {
         pub async fn web_auth_n_verify_authenticate(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryWebAuthNVerifyAuthenticateRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryWebAuthNVerifyAuthenticateResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -132,14 +132,14 @@ pub mod query_client {
         pub async fn platform_percentage(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryPlatformPercentageRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryPlatformPercentageResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -152,12 +152,12 @@ pub mod query_client {
         pub async fn platform_minimum(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryPlatformMinimumRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryPlatformMinimumResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryPlatformMinimumResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -180,28 +180,28 @@ pub mod query_server {
         async fn web_auth_n_verify_register(
             &self,
             request: tonic::Request<super::QueryWebAuthNVerifyRegisterRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryWebAuthNVerifyRegisterResponse>,
             tonic::Status,
         >;
         async fn web_auth_n_verify_authenticate(
             &self,
             request: tonic::Request<super::QueryWebAuthNVerifyAuthenticateRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryWebAuthNVerifyAuthenticateResponse>,
             tonic::Status,
         >;
         async fn platform_percentage(
             &self,
             request: tonic::Request<super::QueryPlatformPercentageRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryPlatformPercentageResponse>,
             tonic::Status,
         >;
         async fn platform_minimum(
             &self,
             request: tonic::Request<super::QueryPlatformMinimumRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryPlatformMinimumResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryPlatformMinimumResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct QueryServer<T: Query> {
@@ -273,7 +273,7 @@ pub mod query_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -473,8 +473,8 @@ pub mod query_server {
             Self(Arc::clone(&self.0))
         }
     }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    impl<T: core::fmt::Debug> core::fmt::Debug for _Inner<T> {
+        fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
             write!(f, "{:?}", self.0)
         }
     }
@@ -568,11 +568,11 @@ pub mod msg_client {
         pub async fn send(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgSend>,
-        ) -> std::result::Result<tonic::Response<super::MsgSendResponse>, tonic::Status> {
+        ) -> core::result::Result<tonic::Response<super::MsgSendResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -585,12 +585,12 @@ pub mod msg_client {
         pub async fn multi_send(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgMultiSend>,
-        ) -> std::result::Result<tonic::Response<super::MsgMultiSendResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgMultiSendResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -603,14 +603,14 @@ pub mod msg_client {
         pub async fn set_platform_percentage(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgSetPlatformPercentage>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgSetPlatformPercentageResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -623,12 +623,14 @@ pub mod msg_client {
         pub async fn set_platform_minimum(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgSetPlatformMinimum>,
-        ) -> std::result::Result<tonic::Response<super::MsgSetPlatformMinimumResponse>, tonic::Status>
-        {
+        ) -> core::result::Result<
+            tonic::Response<super::MsgSetPlatformMinimumResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
+                    alloc::format!("Service was not ready: {}", e.into()),
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
@@ -651,22 +653,25 @@ pub mod msg_server {
         async fn send(
             &self,
             request: tonic::Request<super::MsgSend>,
-        ) -> std::result::Result<tonic::Response<super::MsgSendResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgSendResponse>, tonic::Status>;
         async fn multi_send(
             &self,
             request: tonic::Request<super::MsgMultiSend>,
-        ) -> std::result::Result<tonic::Response<super::MsgMultiSendResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgMultiSendResponse>, tonic::Status>;
         async fn set_platform_percentage(
             &self,
             request: tonic::Request<super::MsgSetPlatformPercentage>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgSetPlatformPercentageResponse>,
             tonic::Status,
         >;
         async fn set_platform_minimum(
             &self,
             request: tonic::Request<super::MsgSetPlatformMinimum>,
-        ) -> std::result::Result<tonic::Response<super::MsgSetPlatformMinimumResponse>, tonic::Status>;
+        ) -> core::result::Result<
+            tonic::Response<super::MsgSetPlatformMinimumResponse>,
+            tonic::Status,
+        >;
     }
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
@@ -738,7 +743,7 @@ pub mod msg_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -929,8 +934,8 @@ pub mod msg_server {
             Self(Arc::clone(&self.0))
         }
     }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    impl<T: core::fmt::Debug> core::fmt::Debug for _Inner<T> {
+        fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
             write!(f, "{:?}", self.0)
         }
     }

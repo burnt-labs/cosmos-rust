@@ -15,7 +15,6 @@
 extern crate alloc;
 
 pub mod traits;
-mod type_names;
 
 pub use prost;
 pub use tendermint_proto as tendermint;
@@ -59,10 +58,10 @@ pub mod cosmos {
             }
         }
 
-        /// Key-value pairs.
-        pub mod kv {
+        /// Node requests.
+        pub mod node {
             pub mod v1beta1 {
-                include!("prost/cosmos-sdk/cosmos.base.kv.v1beta1.rs");
+                include!("prost/cosmos-sdk/cosmos.base.node.v1beta1.rs");
             }
         }
 
@@ -84,28 +83,15 @@ pub mod cosmos {
             }
         }
 
-        /// Snapshots containing Tendermint state sync info.
-        pub mod snapshots {
+        /// Tendermint support.
+        pub mod tendermint {
             pub mod v1beta1 {
-                include!("prost/cosmos-sdk/cosmos.base.snapshots.v1beta1.rs");
-            }
-        }
-
-        /// Data structure that holds the state of the application.
-        pub mod store {
-            pub mod v1beta1 {
-                include!("prost/cosmos-sdk/cosmos.base.store.v1beta1.rs");
+                include!("prost/cosmos-sdk/cosmos.base.tendermint.v1beta1.rs");
             }
         }
 
         pub mod v1beta1 {
             include!("prost/cosmos-sdk/cosmos.base.v1beta1.rs");
-        }
-
-        pub mod tendermint {
-            pub mod v1beta1 {
-                include!("prost/cosmos-sdk/cosmos.base.tendermint.v1beta1.rs");
-            }
         }
     }
 
@@ -241,136 +227,3 @@ pub mod cosmwasm {
         }
     }
 }
-
-/// IBC protobuf definitions.
-pub mod ibc {
-    /// IBC applications.
-    pub mod applications {
-        /// Interchain accounts support.
-        pub mod interchain_accounts {
-            pub mod controller {
-                pub mod v1 {
-                    include!("prost/ibc-go/ibc.applications.interchain_accounts.controller.v1.rs");
-                }
-            }
-
-            pub mod host {
-                pub mod v1 {
-                    include!("prost/ibc-go/ibc.applications.interchain_accounts.host.v1.rs");
-                }
-            }
-
-            pub mod v1 {
-                include!("prost/ibc-go/ibc.applications.interchain_accounts.v1.rs");
-            }
-        }
-
-        /// Transfer support.
-        pub mod transfer {
-            pub mod v1 {
-                include!("prost/ibc-go/ibc.applications.transfer.v1.rs");
-            }
-
-            pub mod v2 {
-                include!("prost/ibc-go/ibc.applications.transfer.v2.rs");
-            }
-        }
-    }
-
-    /// IBC core.
-    pub mod core {
-        /// IBC channels.
-        pub mod channel {
-            pub mod v1 {
-                include!("prost/ibc-go/ibc.core.channel.v1.rs");
-            }
-        }
-
-        /// IBC client.
-        pub mod client {
-            pub mod v1 {
-                include!("prost/ibc-go/ibc.core.client.v1.rs");
-            }
-        }
-
-        /// IBC commitments.
-        pub mod commitment {
-            pub mod v1 {
-                include!("prost/ibc-go/ibc.core.commitment.v1.rs");
-            }
-        }
-
-        /// IBC connections.
-        pub mod connection {
-            pub mod v1 {
-                include!("prost/ibc-go/ibc.core.connection.v1.rs");
-            }
-        }
-
-        /// IBC types.
-        pub mod types {
-            pub mod v1 {
-                include!("prost/ibc-go/ibc.core.types.v1.rs");
-            }
-        }
-    }
-
-    /// IBC light clients.
-    pub mod lightclients {
-        pub mod localhost {
-            pub mod v1 {
-                include!("prost/ibc-go/ibc.lightclients.localhost.v1.rs");
-            }
-        }
-        pub mod solomachine {
-            pub mod v1 {
-                include!("prost/ibc-go/ibc.lightclients.solomachine.v1.rs");
-            }
-
-            pub mod v2 {
-                include!("prost/ibc-go/ibc.lightclients.solomachine.v2.rs");
-            }
-        }
-        pub mod tendermint {
-            pub mod v1 {
-                include!("prost/ibc-go/ibc.lightclients.tendermint.v1.rs");
-            }
-        }
-    }
-}
-
-/// ICS23 protobuf definitions.
-pub mod ics23 {
-    include!("prost/ibc-go/ics23.rs");
-}
-
-pub mod abstract_account {
-    pub mod v1 {
-        include!("prost/abstract-account/abstractaccount.v1.rs");
-    }
-}
-
-#[cfg(feature = "xion")]
-pub mod xion {
-    /// Messages and services handling Xion.
-    pub mod v1 {
-        include!("prost/xion/xion.v1.rs");
-        pub mod jwk {
-            include!("prost/xion/xion.jwk.v1.rs");
-        }
-        pub mod dkim {
-            include!("prost/xion/xion.dkim.v1.rs");
-        }
-    }
-}
-
-#[cfg(feature = "tokenfactory")]
-pub mod osmosis {
-    pub mod tokenfactory {
-        /// Messages and services handling Tokenfactory.
-        pub mod v1beta1 {
-            include!("prost/tokenfactory/osmosis.tokenfactory.v1beta1.rs");
-        }
-    }
-}
-

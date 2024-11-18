@@ -14,6 +14,13 @@ pub struct Params {
     #[prost(bool, tag = "2")]
     pub default_send_enabled: bool,
 }
+impl ::prost::Name for Params {
+    const NAME: &'static str = "Params";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
 /// SendEnabled maps coin denom to a send_enabled status (whether a denom is
 /// sendable).
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -24,6 +31,13 @@ pub struct SendEnabled {
     #[prost(bool, tag = "2")]
     pub enabled: bool,
 }
+impl ::prost::Name for SendEnabled {
+    const NAME: &'static str = "SendEnabled";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
 /// Input models transaction input.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -32,6 +46,13 @@ pub struct Input {
     pub address: ::prost::alloc::string::String,
     #[prost(message, repeated, tag = "2")]
     pub coins: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+}
+impl ::prost::Name for Input {
+    const NAME: &'static str = "Input";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
 }
 /// Output models transaction outputs.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -42,6 +63,13 @@ pub struct Output {
     #[prost(message, repeated, tag = "2")]
     pub coins: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
 }
+impl ::prost::Name for Output {
+    const NAME: &'static str = "Output";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
 /// Supply represents a struct that passively keeps track of the total supply
 /// amounts in the network.
 /// This message is deprecated now that supply is indexed by denom.
@@ -50,6 +78,13 @@ pub struct Output {
 pub struct Supply {
     #[prost(message, repeated, tag = "1")]
     pub total: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+}
+impl ::prost::Name for Supply {
+    const NAME: &'static str = "Supply";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
 }
 /// DenomUnit represents a struct that describes a given
 /// denomination unit of the basic token.
@@ -69,6 +104,13 @@ pub struct DenomUnit {
     /// aliases is a list of string aliases for the given denom
     #[prost(string, repeated, tag = "3")]
     pub aliases: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+impl ::prost::Name for DenomUnit {
+    const NAME: &'static str = "DenomUnit";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
 }
 /// Metadata represents a struct that describes
 /// a basic token.
@@ -109,6 +151,13 @@ pub struct Metadata {
     /// Since: cosmos-sdk 0.46
     #[prost(string, tag = "8")]
     pub uri_hash: ::prost::alloc::string::String,
+}
+impl ::prost::Name for Metadata {
+    const NAME: &'static str = "Metadata";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
 }
 include!("cosmos.bank.v1beta1.serde.rs");
 // @@protoc_insertion_point(module)

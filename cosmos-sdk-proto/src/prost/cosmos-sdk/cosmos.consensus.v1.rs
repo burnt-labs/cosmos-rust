@@ -3,6 +3,13 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
+impl ::prost::Name for QueryParamsRequest {
+    const NAME: &'static str = "QueryParamsRequest";
+    const PACKAGE: &'static str = "cosmos.consensus.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.consensus.v1.{}", Self::NAME)
+    }
+}
 /// QueryParamsResponse defines the response type for querying x/consensus parameters.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -11,7 +18,14 @@ pub struct QueryParamsResponse {
     /// Please note that `params.version` is not populated in this response, it is
     /// tracked separately in the x/upgrade module.
     #[prost(message, optional, tag = "1")]
-    pub params: ::core::option::Option<::tendermint_proto::v0_34::types::ConsensusParams>,
+    pub params: ::core::option::Option<::tendermint_proto::types::ConsensusParams>,
+}
+impl ::prost::Name for QueryParamsResponse {
+    const NAME: &'static str = "QueryParamsResponse";
+    const PACKAGE: &'static str = "cosmos.consensus.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.consensus.v1.{}", Self::NAME)
+    }
 }
 /// MsgUpdateParams is the Msg/UpdateParams request type.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -26,20 +40,34 @@ pub struct MsgUpdateParams {
     ///
     /// NOTE: All parameters must be supplied.
     #[prost(message, optional, tag = "2")]
-    pub block: ::core::option::Option<::tendermint_proto::v0_34::types::BlockParams>,
+    pub block: ::core::option::Option<::tendermint_proto::types::BlockParams>,
     #[prost(message, optional, tag = "3")]
-    pub evidence: ::core::option::Option<::tendermint_proto::v0_34::types::EvidenceParams>,
+    pub evidence: ::core::option::Option<::tendermint_proto::types::EvidenceParams>,
     #[prost(message, optional, tag = "4")]
-    pub validator: ::core::option::Option<::tendermint_proto::v0_34::types::ValidatorParams>,
+    pub validator: ::core::option::Option<::tendermint_proto::types::ValidatorParams>,
     /// Since: cosmos-sdk 0.50
     #[prost(message, optional, tag = "5")]
-    pub abci: ::core::option::Option<::tendermint_proto::v0_34::types::AbciParams>,
+    pub abci: ::core::option::Option<::tendermint_proto::types::AbciParams>,
+}
+impl ::prost::Name for MsgUpdateParams {
+    const NAME: &'static str = "MsgUpdateParams";
+    const PACKAGE: &'static str = "cosmos.consensus.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.consensus.v1.{}", Self::NAME)
+    }
 }
 /// MsgUpdateParamsResponse defines the response structure for executing a
 /// MsgUpdateParams message.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
+impl ::prost::Name for MsgUpdateParamsResponse {
+    const NAME: &'static str = "MsgUpdateParamsResponse";
+    const PACKAGE: &'static str = "cosmos.consensus.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.consensus.v1.{}", Self::NAME)
+    }
+}
 include!("cosmos.consensus.v1.serde.rs");
 include!("cosmos.consensus.v1.tonic.rs");
 // @@protoc_insertion_point(module)

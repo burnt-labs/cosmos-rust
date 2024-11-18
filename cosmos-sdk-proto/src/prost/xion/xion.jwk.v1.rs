@@ -9,11 +9,25 @@ pub struct Audience {
     #[prost(string, tag = "3")]
     pub admin: ::prost::alloc::string::String,
 }
+impl ::prost::Name for Audience {
+    const NAME: &'static str = "Audience";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AudienceClaim {
     #[prost(string, tag = "1")]
     pub signer: ::prost::alloc::string::String,
+}
+impl ::prost::Name for AudienceClaim {
+    const NAME: &'static str = "AudienceClaim";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
 }
 /// Params defines the parameters for the module.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -26,6 +40,13 @@ pub struct Params {
     #[prost(uint64, tag = "2")]
     pub deployment_gas: u64,
 }
+impl ::prost::Name for Params {
+    const NAME: &'static str = "Params";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 /// GenesisState defines the jwk module's genesis state.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -35,10 +56,24 @@ pub struct GenesisState {
     #[prost(message, repeated, tag = "2")]
     pub audience_list: ::prost::alloc::vec::Vec<Audience>,
 }
+impl ::prost::Name for GenesisState {
+    const NAME: &'static str = "GenesisState";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 /// QueryParamsRequest is request type for the Query/Params RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
+impl ::prost::Name for QueryParamsRequest {
+    const NAME: &'static str = "QueryParamsRequest";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 /// QueryParamsResponse is response type for the Query/Params RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -47,11 +82,25 @@ pub struct QueryParamsResponse {
     #[prost(message, optional, tag = "1")]
     pub params: ::core::option::Option<Params>,
 }
+impl ::prost::Name for QueryParamsResponse {
+    const NAME: &'static str = "QueryParamsResponse";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryGetAudienceClaimRequest {
     #[prost(bytes = "vec", tag = "1")]
     pub hash: ::prost::alloc::vec::Vec<u8>,
+}
+impl ::prost::Name for QueryGetAudienceClaimRequest {
+    const NAME: &'static str = "QueryGetAudienceClaimRequest";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -59,11 +108,25 @@ pub struct QueryGetAudienceClaimResponse {
     #[prost(message, optional, tag = "1")]
     pub claim: ::core::option::Option<AudienceClaim>,
 }
+impl ::prost::Name for QueryGetAudienceClaimResponse {
+    const NAME: &'static str = "QueryGetAudienceClaimResponse";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryGetAudienceRequest {
     #[prost(string, tag = "1")]
     pub aud: ::prost::alloc::string::String,
+}
+impl ::prost::Name for QueryGetAudienceRequest {
+    const NAME: &'static str = "QueryGetAudienceRequest";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -71,12 +134,26 @@ pub struct QueryGetAudienceResponse {
     #[prost(message, optional, tag = "1")]
     pub audience: ::core::option::Option<Audience>,
 }
+impl ::prost::Name for QueryGetAudienceResponse {
+    const NAME: &'static str = "QueryGetAudienceResponse";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAllAudienceRequest {
     #[prost(message, optional, tag = "1")]
     pub pagination:
         ::core::option::Option<super::super::super::cosmos::base::query::v1beta1::PageRequest>,
+}
+impl ::prost::Name for QueryAllAudienceRequest {
+    const NAME: &'static str = "QueryAllAudienceRequest";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -86,6 +163,13 @@ pub struct QueryAllAudienceResponse {
     #[prost(message, optional, tag = "2")]
     pub pagination:
         ::core::option::Option<super::super::super::cosmos::base::query::v1beta1::PageResponse>,
+}
+impl ::prost::Name for QueryAllAudienceResponse {
+    const NAME: &'static str = "QueryAllAudienceResponse";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -97,6 +181,13 @@ pub struct QueryValidateJwtRequest {
     #[prost(string, tag = "3")]
     pub sig_bytes: ::prost::alloc::string::String,
 }
+impl ::prost::Name for QueryValidateJwtRequest {
+    const NAME: &'static str = "QueryValidateJWTRequest";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PrivateClaim {
@@ -105,11 +196,25 @@ pub struct PrivateClaim {
     #[prost(string, tag = "2")]
     pub value: ::prost::alloc::string::String,
 }
+impl ::prost::Name for PrivateClaim {
+    const NAME: &'static str = "PrivateClaim";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryValidateJwtResponse {
     #[prost(message, repeated, tag = "1")]
     pub private_claims: ::prost::alloc::vec::Vec<PrivateClaim>,
+}
+impl ::prost::Name for QueryValidateJwtResponse {
+    const NAME: &'static str = "QueryValidateJWTResponse";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -119,9 +224,23 @@ pub struct MsgCreateAudienceClaim {
     #[prost(bytes = "vec", tag = "2")]
     pub aud_hash: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for MsgCreateAudienceClaim {
+    const NAME: &'static str = "MsgCreateAudienceClaim";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgCreateAudienceClaimResponse {}
+impl ::prost::Name for MsgCreateAudienceClaimResponse {
+    const NAME: &'static str = "MsgCreateAudienceClaimResponse";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgDeleteAudienceClaim {
@@ -130,9 +249,23 @@ pub struct MsgDeleteAudienceClaim {
     #[prost(bytes = "vec", tag = "2")]
     pub aud_hash: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for MsgDeleteAudienceClaim {
+    const NAME: &'static str = "MsgDeleteAudienceClaim";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgDeleteAudienceClaimResponse {}
+impl ::prost::Name for MsgDeleteAudienceClaimResponse {
+    const NAME: &'static str = "MsgDeleteAudienceClaimResponse";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgCreateAudience {
@@ -143,11 +276,25 @@ pub struct MsgCreateAudience {
     #[prost(string, tag = "3")]
     pub key: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgCreateAudience {
+    const NAME: &'static str = "MsgCreateAudience";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgCreateAudienceResponse {
     #[prost(message, optional, tag = "1")]
     pub audience: ::core::option::Option<Audience>,
+}
+impl ::prost::Name for MsgCreateAudienceResponse {
+    const NAME: &'static str = "MsgCreateAudienceResponse";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -161,11 +308,25 @@ pub struct MsgUpdateAudience {
     #[prost(string, tag = "4")]
     pub key: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgUpdateAudience {
+    const NAME: &'static str = "MsgUpdateAudience";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateAudienceResponse {
     #[prost(message, optional, tag = "1")]
     pub audience: ::core::option::Option<Audience>,
+}
+impl ::prost::Name for MsgUpdateAudienceResponse {
+    const NAME: &'static str = "MsgUpdateAudienceResponse";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -175,9 +336,23 @@ pub struct MsgDeleteAudience {
     #[prost(string, tag = "2")]
     pub aud: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgDeleteAudience {
+    const NAME: &'static str = "MsgDeleteAudience";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgDeleteAudienceResponse {}
+impl ::prost::Name for MsgDeleteAudienceResponse {
+    const NAME: &'static str = "MsgDeleteAudienceResponse";
+    const PACKAGE: &'static str = "xion.jwk.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("xion.jwk.v1.{}", Self::NAME)
+    }
+}
 include!("xion.jwk.v1.serde.rs");
 include!("xion.jwk.v1.tonic.rs");
 // @@protoc_insertion_point(module)

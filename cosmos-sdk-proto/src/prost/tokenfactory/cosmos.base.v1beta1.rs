@@ -11,6 +11,13 @@ pub struct Coin {
     #[prost(string, tag = "2")]
     pub amount: ::prost::alloc::string::String,
 }
+impl ::prost::Name for Coin {
+    const NAME: &'static str = "Coin";
+    const PACKAGE: &'static str = "cosmos.base.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.v1beta1.{}", Self::NAME)
+    }
+}
 /// DecCoin defines a token with a denomination and a decimal amount.
 ///
 /// NOTE: The amount field is an Dec which implements the custom method
@@ -22,6 +29,13 @@ pub struct DecCoin {
     pub denom: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub amount: ::prost::alloc::string::String,
+}
+impl ::prost::Name for DecCoin {
+    const NAME: &'static str = "DecCoin";
+    const PACKAGE: &'static str = "cosmos.base.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.v1beta1.{}", Self::NAME)
+    }
 }
 include!("cosmos.base.v1beta1.serde.rs");
 // @@protoc_insertion_point(module)
