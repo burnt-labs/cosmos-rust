@@ -92,7 +92,7 @@ pub struct QueryParamsResponse {
     #[prost(message, optional, tag = "1")]
     pub params: ::core::option::Option<Params>,
 }
-/// QueryDkimPubKeysRequest is the request type for the Query/DkimPubKeys RPC
+/// QueryDkimPubKeyRequest is the request type for the Query/DkimPubKey RPC
 /// method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -102,16 +102,42 @@ pub struct QueryDkimPubKeyRequest {
     #[prost(string, tag = "2")]
     pub domain: ::prost::alloc::string::String,
 }
-/// QueryDkimPubKeysResponse is the response type for the Query/DkimPubKeys RPC
+/// QueryDkimPubKeyResponse is the response type for the Query/DkimPubKey RPC
 /// method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDkimPubKeyResponse {
     #[prost(message, optional, tag = "1")]
-    pub dkim_pubkey: ::core::option::Option<DkimPubKey>,
+    pub dkim_pub_key: ::core::option::Option<DkimPubKey>,
     /// the poseidon hash of the public key that signed the email
     #[prost(bytes = "vec", tag = "2")]
     pub poseidon_hash: ::prost::alloc::vec::Vec<u8>,
+}
+/// QueryDkimPubKeysRequest is the request type for the Query/DkimPubKeys RPC
+/// method. All fields are optional, and will filter down results.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDkimPubKeysRequest {
+    #[prost(string, tag = "1")]
+    pub selector: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub domain: ::prost::alloc::string::String,
+    #[prost(bytes = "vec", tag = "3")]
+    pub poseidon_hash: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "4")]
+    pub pagination:
+        ::core::option::Option<super::super::super::cosmos::base::query::v1beta1::PageRequest>,
+}
+/// QueryDkimPubKeysResponse is the response type for the Query/DkimPubKeys RPC
+/// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDkimPubKeysResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub dkim_pub_keys: ::prost::alloc::vec::Vec<DkimPubKey>,
+    #[prost(message, optional, tag = "3")]
+    pub pagination:
+        ::core::option::Option<super::super::super::cosmos::base::query::v1beta1::PageResponse>,
 }
 /// MsgUpdateParams is the Msg/UpdateParams request type.
 ///

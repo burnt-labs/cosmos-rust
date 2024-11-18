@@ -1178,7 +1178,7 @@ impl serde::Serialize for QueryDkimPubKeyResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.dkim_pubkey.is_some() {
+        if self.dkim_pub_key.is_some() {
             len += 1;
         }
         if !self.poseidon_hash.is_empty() {
@@ -1186,8 +1186,8 @@ impl serde::Serialize for QueryDkimPubKeyResponse {
         }
         let mut struct_ser =
             serializer.serialize_struct("xion.dkim.v1.QueryDkimPubKeyResponse", len)?;
-        if let Some(v) = self.dkim_pubkey.as_ref() {
-            struct_ser.serialize_field("dkimPubkey", v)?;
+        if let Some(v) = self.dkim_pub_key.as_ref() {
+            struct_ser.serialize_field("dkimPubKey", v)?;
         }
         if !self.poseidon_hash.is_empty() {
             #[allow(clippy::needless_borrow)]
@@ -1206,11 +1206,16 @@ impl<'de> serde::Deserialize<'de> for QueryDkimPubKeyResponse {
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["dkim_pubkey", "dkimPubkey", "poseidon_hash", "poseidonHash"];
+        const FIELDS: &[&str] = &[
+            "dkim_pub_key",
+            "dkimPubKey",
+            "poseidon_hash",
+            "poseidonHash",
+        ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            DkimPubkey,
+            DkimPubKey,
             PoseidonHash,
         }
         #[cfg(feature = "serde")]
@@ -1237,7 +1242,7 @@ impl<'de> serde::Deserialize<'de> for QueryDkimPubKeyResponse {
                         E: serde::de::Error,
                     {
                         match value {
-                            "dkimPubkey" | "dkim_pubkey" => Ok(GeneratedField::DkimPubkey),
+                            "dkimPubKey" | "dkim_pub_key" => Ok(GeneratedField::DkimPubKey),
                             "poseidonHash" | "poseidon_hash" => Ok(GeneratedField::PoseidonHash),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
@@ -1261,15 +1266,15 @@ impl<'de> serde::Deserialize<'de> for QueryDkimPubKeyResponse {
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut dkim_pubkey__ = None;
+                let mut dkim_pub_key__ = None;
                 let mut poseidon_hash__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::DkimPubkey => {
-                            if dkim_pubkey__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("dkimPubkey"));
+                        GeneratedField::DkimPubKey => {
+                            if dkim_pub_key__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("dkimPubKey"));
                             }
-                            dkim_pubkey__ = map_.next_value()?;
+                            dkim_pub_key__ = map_.next_value()?;
                         }
                         GeneratedField::PoseidonHash => {
                             if poseidon_hash__.is_some() {
@@ -1283,13 +1288,296 @@ impl<'de> serde::Deserialize<'de> for QueryDkimPubKeyResponse {
                     }
                 }
                 Ok(QueryDkimPubKeyResponse {
-                    dkim_pubkey: dkim_pubkey__,
+                    dkim_pub_key: dkim_pub_key__,
                     poseidon_hash: poseidon_hash__.unwrap_or_default(),
                 })
             }
         }
         deserializer.deserialize_struct(
             "xion.dkim.v1.QueryDkimPubKeyResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for QueryDkimPubKeysRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.selector.is_empty() {
+            len += 1;
+        }
+        if !self.domain.is_empty() {
+            len += 1;
+        }
+        if !self.poseidon_hash.is_empty() {
+            len += 1;
+        }
+        if self.pagination.is_some() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("xion.dkim.v1.QueryDkimPubKeysRequest", len)?;
+        if !self.selector.is_empty() {
+            struct_ser.serialize_field("selector", &self.selector)?;
+        }
+        if !self.domain.is_empty() {
+            struct_ser.serialize_field("domain", &self.domain)?;
+        }
+        if !self.poseidon_hash.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "poseidonHash",
+                pbjson::private::base64::encode(&self.poseidon_hash).as_str(),
+            )?;
+        }
+        if let Some(v) = self.pagination.as_ref() {
+            struct_ser.serialize_field("pagination", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for QueryDkimPubKeysRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "selector",
+            "domain",
+            "poseidon_hash",
+            "poseidonHash",
+            "pagination",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Selector,
+            Domain,
+            PoseidonHash,
+            Pagination,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "selector" => Ok(GeneratedField::Selector),
+                            "domain" => Ok(GeneratedField::Domain),
+                            "poseidonHash" | "poseidon_hash" => Ok(GeneratedField::PoseidonHash),
+                            "pagination" => Ok(GeneratedField::Pagination),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryDkimPubKeysRequest;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.dkim.v1.QueryDkimPubKeysRequest")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<QueryDkimPubKeysRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut selector__ = None;
+                let mut domain__ = None;
+                let mut poseidon_hash__ = None;
+                let mut pagination__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Selector => {
+                            if selector__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("selector"));
+                            }
+                            selector__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Domain => {
+                            if domain__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("domain"));
+                            }
+                            domain__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::PoseidonHash => {
+                            if poseidon_hash__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("poseidonHash"));
+                            }
+                            poseidon_hash__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Pagination => {
+                            if pagination__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("pagination"));
+                            }
+                            pagination__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(QueryDkimPubKeysRequest {
+                    selector: selector__.unwrap_or_default(),
+                    domain: domain__.unwrap_or_default(),
+                    poseidon_hash: poseidon_hash__.unwrap_or_default(),
+                    pagination: pagination__,
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.dkim.v1.QueryDkimPubKeysRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for QueryDkimPubKeysResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.dkim_pub_keys.is_empty() {
+            len += 1;
+        }
+        if self.pagination.is_some() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("xion.dkim.v1.QueryDkimPubKeysResponse", len)?;
+        if !self.dkim_pub_keys.is_empty() {
+            struct_ser.serialize_field("dkimPubKeys", &self.dkim_pub_keys)?;
+        }
+        if let Some(v) = self.pagination.as_ref() {
+            struct_ser.serialize_field("pagination", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for QueryDkimPubKeysResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["dkim_pub_keys", "dkimPubKeys", "pagination"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            DkimPubKeys,
+            Pagination,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "dkimPubKeys" | "dkim_pub_keys" => Ok(GeneratedField::DkimPubKeys),
+                            "pagination" => Ok(GeneratedField::Pagination),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryDkimPubKeysResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.dkim.v1.QueryDkimPubKeysResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<QueryDkimPubKeysResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut dkim_pub_keys__ = None;
+                let mut pagination__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::DkimPubKeys => {
+                            if dkim_pub_keys__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("dkimPubKeys"));
+                            }
+                            dkim_pub_keys__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Pagination => {
+                            if pagination__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("pagination"));
+                            }
+                            pagination__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(QueryDkimPubKeysResponse {
+                    dkim_pub_keys: dkim_pub_keys__.unwrap_or_default(),
+                    pagination: pagination__,
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.dkim.v1.QueryDkimPubKeysResponse",
             FIELDS,
             GeneratedVisitor,
         )

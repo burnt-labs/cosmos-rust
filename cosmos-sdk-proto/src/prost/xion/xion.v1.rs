@@ -80,6 +80,15 @@ pub struct QueryPlatformPercentageResponse {
     #[prost(uint64, tag = "1")]
     pub platform_percentage: u64,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryPlatformMinimumRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryPlatformMinimumResponse {
+    #[prost(message, repeated, tag = "3")]
+    pub minimums: ::prost::alloc::vec::Vec<super::super::cosmos::base::v1beta1::Coin>,
+}
 /// MsgSend represents a message to send coins from one account to another.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
