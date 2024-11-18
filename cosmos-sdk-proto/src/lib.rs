@@ -227,3 +227,30 @@ pub mod cosmwasm {
         }
     }
 }
+
+pub mod abstract_account {
+    pub mod v1 {
+        include!("prost/abstract-account/abstractaccount.v1.rs");
+    }
+}
+
+#[cfg(feature = "xion")]
+pub mod xion {
+    /// Messages and services handling Xion.
+    pub mod v1 {
+        include!("prost/xion/xion.v1.rs");
+        pub mod jwk {
+            include!("prost/xion/xion.jwk.v1.rs");
+        }
+    }
+}
+
+#[cfg(feature = "tokenfactory")]
+pub mod osmosis {
+    pub mod tokenfactory {
+        /// Messages and services handling Tokenfactory.
+        pub mod v1beta1 {
+            include!("prost/tokenfactory/osmosis.tokenfactory.v1beta1.rs");
+        }
+    }
+}
