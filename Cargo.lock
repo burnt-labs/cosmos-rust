@@ -277,22 +277,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e496a50fda8aacccc86d7529e2c1e0892dbd0f898a6b5645b5561b89c3210efa"
 
 [[package]]
-name = "cosmos-sdk-proto"
-version = "0.26.1"
-dependencies = [
- "informalsystems-pbjson",
- "prost",
- "serde",
- "tendermint-proto",
- "tonic",
-]
-
-[[package]]
 name = "cosmrs"
 version = "0.21.0"
 dependencies = [
  "bip32",
- "cosmos-sdk-proto",
  "ecdsa",
  "eyre",
  "hex-literal",
@@ -306,6 +294,7 @@ dependencies = [
  "tendermint-rpc",
  "thiserror",
  "tokio",
+ "xion-cosmos-sdk-proto",
 ]
 
 [[package]]
@@ -2518,6 +2507,17 @@ checksum = "524e57b2c537c0f9b1e69f1965311ec12182b4122e45035b1508cd24d2adadb1"
 dependencies = [
  "cfg-if",
  "windows-sys 0.48.0",
+]
+
+[[package]]
+name = "xion-cosmos-sdk-proto"
+version = "0.26.1"
+dependencies = [
+ "informalsystems-pbjson",
+ "prost",
+ "serde",
+ "tendermint-proto",
+ "tonic",
 ]
 
 [[package]]

@@ -1,5 +1,5 @@
 [package]
-name = "cosmos-sdk-proto"
+name = "xion-cosmos-sdk-proto"
 version = "0.26.1"
 authors = [
     "Justin Kilpatrick <justin@althea.net>",
