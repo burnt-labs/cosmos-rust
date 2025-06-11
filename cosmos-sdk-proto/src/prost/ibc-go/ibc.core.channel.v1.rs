@@ -2,7 +2,6 @@
 /// Channel defines pipeline for exactly-once packet delivery between specific
 /// modules on separate blockchains, which has at least one end capable of
 /// sending packets and one end capable of receiving packets.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Channel {
     /// current state of the channel end
@@ -34,7 +33,6 @@ impl ::prost::Name for Channel {
 }
 /// IdentifiedChannel defines a channel with additional port and channel
 /// identifier fields.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct IdentifiedChannel {
     /// current state of the channel end
@@ -71,7 +69,6 @@ impl ::prost::Name for IdentifiedChannel {
     }
 }
 /// Counterparty defines a channel end counterparty
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Counterparty {
     /// port on the counterparty chain which owns the other end of the channel.
@@ -92,7 +89,6 @@ impl ::prost::Name for Counterparty {
     }
 }
 /// Packet defines a type that carries data across different chains through IBC
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Packet {
     /// number corresponds to the order of sends and receives, where a Packet
@@ -136,7 +132,6 @@ impl ::prost::Name for Packet {
 /// packet commitments, acknowledgements, and receipts.
 /// Caller is responsible for knowing the context necessary to interpret this
 /// state as a commitment, acknowledgement, or a receipt.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PacketState {
     /// channel port identifier.
@@ -169,7 +164,6 @@ impl ::prost::Name for PacketState {
 /// The first byte of any message with this format will be the non-ASCII values
 /// `0xaa` (result) or `0xb2` (error). Implemented as defined by ICS:
 /// <https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#acknowledgement-envelope>
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Acknowledgement {
     /// response contains either a result or an error and must be non-empty
@@ -179,7 +173,6 @@ pub struct Acknowledgement {
 /// Nested message and enum types in `Acknowledgement`.
 pub mod acknowledgement {
     /// response contains either a result or an error and must be non-empty
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Response {
         #[prost(bytes, tag = "21")]
@@ -223,11 +216,11 @@ impl State {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            State::UninitializedUnspecified => "STATE_UNINITIALIZED_UNSPECIFIED",
-            State::Init => "STATE_INIT",
-            State::Tryopen => "STATE_TRYOPEN",
-            State::Open => "STATE_OPEN",
-            State::Closed => "STATE_CLOSED",
+            Self::UninitializedUnspecified => "STATE_UNINITIALIZED_UNSPECIFIED",
+            Self::Init => "STATE_INIT",
+            Self::Tryopen => "STATE_TRYOPEN",
+            Self::Open => "STATE_OPEN",
+            Self::Closed => "STATE_CLOSED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -261,9 +254,9 @@ impl Order {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Order::NoneUnspecified => "ORDER_NONE_UNSPECIFIED",
-            Order::Unordered => "ORDER_UNORDERED",
-            Order::Ordered => "ORDER_ORDERED",
+            Self::NoneUnspecified => "ORDER_NONE_UNSPECIFIED",
+            Self::Unordered => "ORDER_UNORDERED",
+            Self::Ordered => "ORDER_ORDERED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -278,7 +271,6 @@ impl Order {
 }
 /// MsgChannelOpenInit defines an sdk.Msg to initialize a channel handshake. It
 /// is called by a relayer on Chain A.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenInit {
     #[prost(string, tag = "1")]
@@ -299,7 +291,6 @@ impl ::prost::Name for MsgChannelOpenInit {
     }
 }
 /// MsgChannelOpenInitResponse defines the Msg/ChannelOpenInit response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenInitResponse {
     #[prost(string, tag = "1")]
@@ -318,7 +309,6 @@ impl ::prost::Name for MsgChannelOpenInitResponse {
 /// MsgChannelOpenInit defines a msg sent by a Relayer to try to open a channel
 /// on Chain B. The version field within the Channel field has been deprecated. Its
 /// value will be ignored by core IBC.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenTry {
     #[prost(string, tag = "1")]
@@ -350,7 +340,6 @@ impl ::prost::Name for MsgChannelOpenTry {
     }
 }
 /// MsgChannelOpenTryResponse defines the Msg/ChannelOpenTry response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenTryResponse {}
 impl ::prost::Name for MsgChannelOpenTryResponse {
@@ -365,7 +354,6 @@ impl ::prost::Name for MsgChannelOpenTryResponse {
 }
 /// MsgChannelOpenAck defines a msg sent by a Relayer to Chain A to acknowledge
 /// the change of channel state to TRYOPEN on Chain B.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenAck {
     #[prost(string, tag = "1")]
@@ -394,7 +382,6 @@ impl ::prost::Name for MsgChannelOpenAck {
     }
 }
 /// MsgChannelOpenAckResponse defines the Msg/ChannelOpenAck response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenAckResponse {}
 impl ::prost::Name for MsgChannelOpenAckResponse {
@@ -409,7 +396,6 @@ impl ::prost::Name for MsgChannelOpenAckResponse {
 }
 /// MsgChannelOpenConfirm defines a msg sent by a Relayer to Chain B to
 /// acknowledge the change of channel state to OPEN on Chain A.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenConfirm {
     #[prost(string, tag = "1")]
@@ -435,7 +421,6 @@ impl ::prost::Name for MsgChannelOpenConfirm {
 }
 /// MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response
 /// type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenConfirmResponse {}
 impl ::prost::Name for MsgChannelOpenConfirmResponse {
@@ -450,7 +435,6 @@ impl ::prost::Name for MsgChannelOpenConfirmResponse {
 }
 /// MsgChannelCloseInit defines a msg sent by a Relayer to Chain A
 /// to close a channel with Chain B.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelCloseInit {
     #[prost(string, tag = "1")]
@@ -471,7 +455,6 @@ impl ::prost::Name for MsgChannelCloseInit {
     }
 }
 /// MsgChannelCloseInitResponse defines the Msg/ChannelCloseInit response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelCloseInitResponse {}
 impl ::prost::Name for MsgChannelCloseInitResponse {
@@ -486,7 +469,6 @@ impl ::prost::Name for MsgChannelCloseInitResponse {
 }
 /// MsgChannelCloseConfirm defines a msg sent by a Relayer to Chain B
 /// to acknowledge the change of channel state to CLOSED on Chain A.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelCloseConfirm {
     #[prost(string, tag = "1")]
@@ -512,7 +494,6 @@ impl ::prost::Name for MsgChannelCloseConfirm {
 }
 /// MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response
 /// type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelCloseConfirmResponse {}
 impl ::prost::Name for MsgChannelCloseConfirmResponse {
@@ -526,7 +507,6 @@ impl ::prost::Name for MsgChannelCloseConfirmResponse {
     }
 }
 /// MsgRecvPacket receives incoming IBC packet
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRecvPacket {
     #[prost(message, optional, tag = "1")]
@@ -549,7 +529,6 @@ impl ::prost::Name for MsgRecvPacket {
     }
 }
 /// MsgRecvPacketResponse defines the Msg/RecvPacket response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgRecvPacketResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
@@ -566,7 +545,6 @@ impl ::prost::Name for MsgRecvPacketResponse {
     }
 }
 /// MsgTimeout receives timed-out packet
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTimeout {
     #[prost(message, optional, tag = "1")]
@@ -591,7 +569,6 @@ impl ::prost::Name for MsgTimeout {
     }
 }
 /// MsgTimeoutResponse defines the Msg/Timeout response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgTimeoutResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
@@ -608,7 +585,6 @@ impl ::prost::Name for MsgTimeoutResponse {
     }
 }
 /// MsgTimeoutOnClose timed-out packet upon counterparty channel closure.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTimeoutOnClose {
     #[prost(message, optional, tag = "1")]
@@ -635,7 +611,6 @@ impl ::prost::Name for MsgTimeoutOnClose {
     }
 }
 /// MsgTimeoutOnCloseResponse defines the Msg/TimeoutOnClose response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgTimeoutOnCloseResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
@@ -652,7 +627,6 @@ impl ::prost::Name for MsgTimeoutOnCloseResponse {
     }
 }
 /// MsgAcknowledgement receives incoming IBC acknowledgement
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgAcknowledgement {
     #[prost(message, optional, tag = "1")]
@@ -677,7 +651,6 @@ impl ::prost::Name for MsgAcknowledgement {
     }
 }
 /// MsgAcknowledgementResponse defines the Msg/Acknowledgement response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgAcknowledgementResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
@@ -711,9 +684,9 @@ impl ResponseResultType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ResponseResultType::ResponseResultUnspecified => "RESPONSE_RESULT_UNSPECIFIED",
-            ResponseResultType::ResponseResultNoop => "RESPONSE_RESULT_NOOP",
-            ResponseResultType::ResponseResultSuccess => "RESPONSE_RESULT_SUCCESS",
+            Self::ResponseResultUnspecified => "RESPONSE_RESULT_UNSPECIFIED",
+            Self::ResponseResultNoop => "RESPONSE_RESULT_NOOP",
+            Self::ResponseResultSuccess => "RESPONSE_RESULT_SUCCESS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -729,7 +702,13 @@ impl ResponseResultType {
 /// Generated client implementations.
 #[cfg(feature = "grpc")]
 pub mod msg_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
     /// Msg defines the ibc/channel Msg service.
@@ -753,8 +732,8 @@ pub mod msg_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -775,7 +754,7 @@ pub mod msg_client {
                 >,
             >,
             <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+                Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             MsgClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -817,10 +796,7 @@ pub mod msg_client {
         ) -> std::result::Result<tonic::Response<super::MsgChannelOpenInitResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -839,10 +815,7 @@ pub mod msg_client {
         ) -> std::result::Result<tonic::Response<super::MsgChannelOpenTryResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -859,10 +832,7 @@ pub mod msg_client {
         ) -> std::result::Result<tonic::Response<super::MsgChannelOpenAckResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -879,10 +849,7 @@ pub mod msg_client {
         ) -> std::result::Result<tonic::Response<super::MsgChannelOpenConfirmResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -901,10 +868,7 @@ pub mod msg_client {
         ) -> std::result::Result<tonic::Response<super::MsgChannelCloseInitResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -926,10 +890,7 @@ pub mod msg_client {
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -949,10 +910,7 @@ pub mod msg_client {
         ) -> std::result::Result<tonic::Response<super::MsgRecvPacketResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/ibc.core.channel.v1.Msg/RecvPacket");
@@ -968,10 +926,7 @@ pub mod msg_client {
         ) -> std::result::Result<tonic::Response<super::MsgTimeoutResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/ibc.core.channel.v1.Msg/Timeout");
@@ -987,10 +942,7 @@ pub mod msg_client {
         ) -> std::result::Result<tonic::Response<super::MsgTimeoutOnCloseResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1007,10 +959,7 @@ pub mod msg_client {
         ) -> std::result::Result<tonic::Response<super::MsgAcknowledgementResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1025,7 +974,6 @@ pub mod msg_client {
     }
 }
 /// QueryChannelRequest is the request type for the Query/Channel RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelRequest {
     /// port unique identifier
@@ -1048,7 +996,6 @@ impl ::prost::Name for QueryChannelRequest {
 /// QueryChannelResponse is the response type for the Query/Channel RPC method.
 /// Besides the Channel end, it includes a proof and the height from which the
 /// proof was retrieved.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelResponse {
     /// channel associated with the request identifiers
@@ -1072,7 +1019,6 @@ impl ::prost::Name for QueryChannelResponse {
     }
 }
 /// QueryChannelsRequest is the request type for the Query/Channels RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelsRequest {
     /// pagination request
@@ -1092,7 +1038,6 @@ impl ::prost::Name for QueryChannelsRequest {
     }
 }
 /// QueryChannelsResponse is the response type for the Query/Channels RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelsResponse {
     /// list of stored channels of the chain.
@@ -1119,7 +1064,6 @@ impl ::prost::Name for QueryChannelsResponse {
 }
 /// QueryConnectionChannelsRequest is the request type for the
 /// Query/QueryConnectionChannels RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionChannelsRequest {
     /// connection unique identifier
@@ -1143,7 +1087,6 @@ impl ::prost::Name for QueryConnectionChannelsRequest {
 }
 /// QueryConnectionChannelsResponse is the Response type for the
 /// Query/QueryConnectionChannels RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionChannelsResponse {
     /// list of channels associated with a connection.
@@ -1170,7 +1113,6 @@ impl ::prost::Name for QueryConnectionChannelsResponse {
 }
 /// QueryChannelClientStateRequest is the request type for the Query/ClientState
 /// RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelClientStateRequest {
     /// port unique identifier
@@ -1192,7 +1134,6 @@ impl ::prost::Name for QueryChannelClientStateRequest {
 }
 /// QueryChannelClientStateResponse is the Response type for the
 /// Query/QueryChannelClientState RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelClientStateResponse {
     /// client state associated with the channel
@@ -1218,7 +1159,6 @@ impl ::prost::Name for QueryChannelClientStateResponse {
 }
 /// QueryChannelConsensusStateRequest is the request type for the
 /// Query/ConsensusState RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelConsensusStateRequest {
     /// port unique identifier
@@ -1246,7 +1186,6 @@ impl ::prost::Name for QueryChannelConsensusStateRequest {
 }
 /// QueryChannelClientStateResponse is the Response type for the
 /// Query/QueryChannelClientState RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelConsensusStateResponse {
     /// consensus state associated with the channel
@@ -1274,7 +1213,6 @@ impl ::prost::Name for QueryChannelConsensusStateResponse {
 }
 /// QueryPacketCommitmentRequest is the request type for the
 /// Query/PacketCommitment RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketCommitmentRequest {
     /// port unique identifier
@@ -1300,7 +1238,6 @@ impl ::prost::Name for QueryPacketCommitmentRequest {
 /// QueryPacketCommitmentResponse defines the client query response for a packet
 /// which also includes a proof and the height from which the proof was
 /// retrieved
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketCommitmentResponse {
     /// packet associated with the request fields
@@ -1325,7 +1262,6 @@ impl ::prost::Name for QueryPacketCommitmentResponse {
 }
 /// QueryPacketCommitmentsRequest is the request type for the
 /// Query/QueryPacketCommitments RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketCommitmentsRequest {
     /// port unique identifier
@@ -1352,7 +1288,6 @@ impl ::prost::Name for QueryPacketCommitmentsRequest {
 }
 /// QueryPacketCommitmentsResponse is the request type for the
 /// Query/QueryPacketCommitments RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketCommitmentsResponse {
     #[prost(message, repeated, tag = "1")]
@@ -1378,7 +1313,6 @@ impl ::prost::Name for QueryPacketCommitmentsResponse {
 }
 /// QueryPacketReceiptRequest is the request type for the
 /// Query/PacketReceipt RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketReceiptRequest {
     /// port unique identifier
@@ -1404,7 +1338,6 @@ impl ::prost::Name for QueryPacketReceiptRequest {
 /// QueryPacketReceiptResponse defines the client query response for a packet
 /// receipt which also includes a proof, and the height from which the proof was
 /// retrieved
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketReceiptResponse {
     /// success flag for if receipt exists
@@ -1429,7 +1362,6 @@ impl ::prost::Name for QueryPacketReceiptResponse {
 }
 /// QueryPacketAcknowledgementRequest is the request type for the
 /// Query/PacketAcknowledgement RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketAcknowledgementRequest {
     /// port unique identifier
@@ -1455,7 +1387,6 @@ impl ::prost::Name for QueryPacketAcknowledgementRequest {
 /// QueryPacketAcknowledgementResponse defines the client query response for a
 /// packet which also includes a proof and the height from which the
 /// proof was retrieved
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketAcknowledgementResponse {
     /// packet associated with the request fields
@@ -1480,7 +1411,6 @@ impl ::prost::Name for QueryPacketAcknowledgementResponse {
 }
 /// QueryPacketAcknowledgementsRequest is the request type for the
 /// Query/QueryPacketCommitments RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketAcknowledgementsRequest {
     /// port unique identifier
@@ -1510,7 +1440,6 @@ impl ::prost::Name for QueryPacketAcknowledgementsRequest {
 }
 /// QueryPacketAcknowledgemetsResponse is the request type for the
 /// Query/QueryPacketAcknowledgements RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketAcknowledgementsResponse {
     #[prost(message, repeated, tag = "1")]
@@ -1536,7 +1465,6 @@ impl ::prost::Name for QueryPacketAcknowledgementsResponse {
 }
 /// QueryUnreceivedPacketsRequest is the request type for the
 /// Query/UnreceivedPackets RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUnreceivedPacketsRequest {
     /// port unique identifier
@@ -1561,7 +1489,6 @@ impl ::prost::Name for QueryUnreceivedPacketsRequest {
 }
 /// QueryUnreceivedPacketsResponse is the response type for the
 /// Query/UnreceivedPacketCommitments RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUnreceivedPacketsResponse {
     /// list of unreceived packet sequences
@@ -1583,7 +1510,6 @@ impl ::prost::Name for QueryUnreceivedPacketsResponse {
 }
 /// QueryUnreceivedAcks is the request type for the
 /// Query/UnreceivedAcks RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUnreceivedAcksRequest {
     /// port unique identifier
@@ -1608,7 +1534,6 @@ impl ::prost::Name for QueryUnreceivedAcksRequest {
 }
 /// QueryUnreceivedAcksResponse is the response type for the
 /// Query/UnreceivedAcks RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUnreceivedAcksResponse {
     /// list of unreceived acknowledgement sequences
@@ -1630,7 +1555,6 @@ impl ::prost::Name for QueryUnreceivedAcksResponse {
 }
 /// QueryNextSequenceReceiveRequest is the request type for the
 /// Query/QueryNextSequenceReceiveRequest RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryNextSequenceReceiveRequest {
     /// port unique identifier
@@ -1652,7 +1576,6 @@ impl ::prost::Name for QueryNextSequenceReceiveRequest {
 }
 /// QuerySequenceResponse is the request type for the
 /// Query/QueryNextSequenceReceiveResponse RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryNextSequenceReceiveResponse {
     /// next sequence receive number
@@ -1678,7 +1601,13 @@ impl ::prost::Name for QueryNextSequenceReceiveResponse {
 /// Generated client implementations.
 #[cfg(feature = "grpc")]
 pub mod query_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
     /// Query provides defines the gRPC querier service
@@ -1702,8 +1631,8 @@ pub mod query_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -1727,7 +1656,7 @@ pub mod query_client {
                 >,
             >,
             <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+                Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             QueryClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -1769,10 +1698,7 @@ pub mod query_client {
         ) -> std::result::Result<tonic::Response<super::QueryChannelResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/ibc.core.channel.v1.Query/Channel");
@@ -1788,10 +1714,7 @@ pub mod query_client {
         ) -> std::result::Result<tonic::Response<super::QueryChannelsResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/ibc.core.channel.v1.Query/Channels");
@@ -1810,10 +1733,7 @@ pub mod query_client {
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -1836,10 +1756,7 @@ pub mod query_client {
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -1862,10 +1779,7 @@ pub mod query_client {
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -1885,10 +1799,7 @@ pub mod query_client {
         ) -> std::result::Result<tonic::Response<super::QueryPacketCommitmentResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1910,10 +1821,7 @@ pub mod query_client {
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -1934,10 +1842,7 @@ pub mod query_client {
         ) -> std::result::Result<tonic::Response<super::QueryPacketReceiptResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1958,10 +1863,7 @@ pub mod query_client {
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -1984,10 +1886,7 @@ pub mod query_client {
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -2010,10 +1909,7 @@ pub mod query_client {
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -2034,10 +1930,7 @@ pub mod query_client {
         ) -> std::result::Result<tonic::Response<super::QueryUnreceivedAcksResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -2058,10 +1951,7 @@ pub mod query_client {
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -2077,7 +1967,6 @@ pub mod query_client {
     }
 }
 /// GenesisState defines the ibc channel submodule's genesis state.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
     #[prost(message, repeated, tag = "1")]
@@ -2110,7 +1999,6 @@ impl ::prost::Name for GenesisState {
 }
 /// PacketSequence defines the genesis type necessary to retrieve and store
 /// next send and receive sequences.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PacketSequence {
     #[prost(string, tag = "1")]

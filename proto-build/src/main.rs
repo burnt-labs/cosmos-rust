@@ -29,7 +29,7 @@ const IBC_REV: &str = "v3.0.0";
 const WASMD_REV: &str = "v0.45.0";
 
 /// The xion commit or tag to be cloned and used to build the proto files
-const XION_REV: &str = "054ee5024b4c0d6a0e5ade651128417ac76e0d92";
+const XION_REV: &str = "94a7da1638b1f39fee7235a9a6dc928b51f68508";
 
 // All paths must end with a / and either be absolute or include a ./ to reference the current
 // working directory.
@@ -272,7 +272,7 @@ fn compile_xion_proto_and_services(out_dir: &Path) {
         format!("{}/proto/xion/mint", sdk_dir.display()),
         format!("{}/proto/xion/globalfee", sdk_dir.display()),
         format!("{}/proto/xion/jwk", sdk_dir.display()),
-
+        format!("{}/proto/xion/dkim", sdk_dir.display()),
     ];
 
     // List available proto files
@@ -284,7 +284,6 @@ fn compile_xion_proto_and_services(out_dir: &Path) {
     run_buf("buf.sdk.gen.yaml", proto_path, out_dir);
     info!("=> Done!");
 }
-
 
 fn compile_ibc_protos_and_services(out_dir: &Path) {
     info!(
@@ -464,14 +463,20 @@ fn apply_patches(proto_dir: &Path) {
     }
 
     for (pattern, replacement) in [
-        ("stake_authorization::Validators::AllowList", "stake_authorization::Policy::AllowList"),
-        ("stake_authorization::Validators::DenyList", "stake_authorization::Policy::DenyList"),
+        (
+            "stake_authorization::Validators::AllowList",
+            "stake_authorization::Policy::AllowList",
+        ),
+        (
+            "stake_authorization::Validators::DenyList",
+            "stake_authorization::Policy::DenyList",
+        ),
     ] {
         patch_file(
             &proto_dir.join("cosmos-sdk/cosmos.staking.v1beta1.serde.rs"),
             &Regex::new(pattern).unwrap(),
             replacement,
         )
-            .expect("error patching cosmos.staking.v1beta1.serde.rs");
+        .expect("error patching cosmos.staking.v1beta1.serde.rs");
     }
 }

@@ -2,7 +2,6 @@
 /// MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
 /// ICS20 enabled chains. See ICS Spec here:
 /// <https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures>
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransfer {
     /// the port on which the packet will be sent
@@ -40,7 +39,6 @@ impl ::prost::Name for MsgTransfer {
     }
 }
 /// MsgTransferResponse defines the Msg/Transfer response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgTransferResponse {}
 impl ::prost::Name for MsgTransferResponse {
@@ -56,7 +54,13 @@ impl ::prost::Name for MsgTransferResponse {
 /// Generated client implementations.
 #[cfg(feature = "grpc")]
 pub mod msg_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
     /// Msg defines the ibc/transfer Msg service.
@@ -80,8 +84,8 @@ pub mod msg_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -102,7 +106,7 @@ pub mod msg_client {
                 >,
             >,
             <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+                Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             MsgClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -144,10 +148,7 @@ pub mod msg_client {
         ) -> std::result::Result<tonic::Response<super::MsgTransferResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -163,7 +164,6 @@ pub mod msg_client {
 }
 /// DenomTrace contains the base denomination for ICS20 fungible tokens and the
 /// source tracing information path.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DenomTrace {
     /// path defines the chain of port/channel identifiers used for tracing the
@@ -188,7 +188,6 @@ impl ::prost::Name for DenomTrace {
 /// NOTE: To prevent a single token from being transferred, set the
 /// TransfersEnabled parameter to true and then set the bank module's SendEnabled
 /// parameter for the denomination to false.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Params {
     /// send_enabled enables or disables all cross-chain token transfers from this
@@ -212,7 +211,6 @@ impl ::prost::Name for Params {
 }
 /// QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
 /// method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTraceRequest {
     /// hash (in hex format) of the denomination trace information.
@@ -231,7 +229,6 @@ impl ::prost::Name for QueryDenomTraceRequest {
 }
 /// QueryDenomTraceResponse is the response type for the Query/DenomTrace RPC
 /// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTraceResponse {
     /// denom_trace returns the requested denomination trace information.
@@ -250,7 +247,6 @@ impl ::prost::Name for QueryDenomTraceResponse {
 }
 /// QueryConnectionsRequest is the request type for the Query/DenomTraces RPC
 /// method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTracesRequest {
     /// pagination defines an optional pagination for the request.
@@ -271,7 +267,6 @@ impl ::prost::Name for QueryDenomTracesRequest {
 }
 /// QueryConnectionsResponse is the response type for the Query/DenomTraces RPC
 /// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTracesResponse {
     /// denom_traces returns all denominations trace information.
@@ -294,7 +289,6 @@ impl ::prost::Name for QueryDenomTracesResponse {
     }
 }
 /// QueryParamsRequest is the request type for the Query/Params RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
 impl ::prost::Name for QueryParamsRequest {
@@ -308,7 +302,6 @@ impl ::prost::Name for QueryParamsRequest {
     }
 }
 /// QueryParamsResponse is the response type for the Query/Params RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
     /// params defines the parameters of the module.
@@ -327,7 +320,6 @@ impl ::prost::Name for QueryParamsResponse {
 }
 /// QueryDenomHashRequest is the request type for the Query/DenomHash RPC
 /// method
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashRequest {
     /// The denomination trace (\[port_id\]/[channel_id])+/\[denom\]
@@ -346,7 +338,6 @@ impl ::prost::Name for QueryDenomHashRequest {
 }
 /// QueryDenomHashResponse is the response type for the Query/DenomHash RPC
 /// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashResponse {
     /// hash (in hex format) of the denomination trace information.
@@ -366,7 +357,13 @@ impl ::prost::Name for QueryDenomHashResponse {
 /// Generated client implementations.
 #[cfg(feature = "grpc")]
 pub mod query_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
     /// Query provides defines the gRPC querier service.
@@ -390,8 +387,8 @@ pub mod query_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -415,7 +412,7 @@ pub mod query_client {
                 >,
             >,
             <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+                Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             QueryClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -457,10 +454,7 @@ pub mod query_client {
         ) -> std::result::Result<tonic::Response<super::QueryDenomTraceResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -480,10 +474,7 @@ pub mod query_client {
         ) -> std::result::Result<tonic::Response<super::QueryDenomTracesResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -503,10 +494,7 @@ pub mod query_client {
         ) -> std::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -525,10 +513,7 @@ pub mod query_client {
         ) -> std::result::Result<tonic::Response<super::QueryDenomHashResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -544,7 +529,6 @@ pub mod query_client {
     }
 }
 /// GenesisState defines the ibc-transfer genesis state
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
     #[prost(string, tag = "1")]

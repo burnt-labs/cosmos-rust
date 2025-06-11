@@ -228,9 +228,15 @@ impl serde::Serialize for GenesisState {
         if self.platform_percentage != 0 {
             len += 1;
         }
+        if !self.platform_minimums.is_empty() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("xion.v1.GenesisState", len)?;
         if self.platform_percentage != 0 {
             struct_ser.serialize_field("platformPercentage", &self.platform_percentage)?;
+        }
+        if !self.platform_minimums.is_empty() {
+            struct_ser.serialize_field("platformMinimums", &self.platform_minimums)?;
         }
         struct_ser.end()
     }
@@ -241,11 +247,17 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["platform_percentage", "platformPercentage"];
+        const FIELDS: &[&str] = &[
+            "platform_percentage",
+            "platformPercentage",
+            "platform_minimums",
+            "platformMinimums",
+        ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
             PlatformPercentage,
+            PlatformMinimums,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -273,6 +285,9 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             "platformPercentage" | "platform_percentage" => {
                                 Ok(GeneratedField::PlatformPercentage)
                             }
+                            "platformMinimums" | "platform_minimums" => {
+                                Ok(GeneratedField::PlatformMinimums)
+                            }
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -293,6 +308,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 V: serde::de::MapAccess<'de>,
             {
                 let mut platform_percentage__ = None;
+                let mut platform_minimums__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PlatformPercentage => {
@@ -306,10 +322,17 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                                     .0,
                             );
                         }
+                        GeneratedField::PlatformMinimums => {
+                            if platform_minimums__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("platformMinimums"));
+                            }
+                            platform_minimums__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(GenesisState {
                     platform_percentage: platform_percentage__.unwrap_or_default(),
+                    platform_minimums: platform_minimums__.unwrap_or_default(),
                 })
             }
         }
@@ -699,6 +722,196 @@ impl<'de> serde::Deserialize<'de> for MsgSendResponse {
         deserializer.deserialize_struct("xion.v1.MsgSendResponse", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for MsgSetPlatformMinimum {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if !self.minimums.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.v1.MsgSetPlatformMinimum", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if !self.minimums.is_empty() {
+            struct_ser.serialize_field("minimums", &self.minimums)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgSetPlatformMinimum {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["authority", "minimums"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            Minimums,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "minimums" => Ok(GeneratedField::Minimums),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgSetPlatformMinimum;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.v1.MsgSetPlatformMinimum")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<MsgSetPlatformMinimum, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut minimums__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Minimums => {
+                            if minimums__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("minimums"));
+                            }
+                            minimums__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MsgSetPlatformMinimum {
+                    authority: authority__.unwrap_or_default(),
+                    minimums: minimums__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.v1.MsgSetPlatformMinimum", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for MsgSetPlatformMinimumResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser =
+            serializer.serialize_struct("xion.v1.MsgSetPlatformMinimumResponse", len)?;
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgSetPlatformMinimumResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgSetPlatformMinimumResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.v1.MsgSetPlatformMinimumResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<MsgSetPlatformMinimumResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgSetPlatformMinimumResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.v1.MsgSetPlatformMinimumResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
 impl serde::Serialize for MsgSetPlatformPercentage {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -991,6 +1204,374 @@ impl<'de> serde::Deserialize<'de> for MultiAnyAllowance {
             }
         }
         deserializer.deserialize_struct("xion.v1.MultiAnyAllowance", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for QueryPlatformMinimumRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser = serializer.serialize_struct("xion.v1.QueryPlatformMinimumRequest", len)?;
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryPlatformMinimumRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryPlatformMinimumRequest;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.v1.QueryPlatformMinimumRequest")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<QueryPlatformMinimumRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(QueryPlatformMinimumRequest {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.v1.QueryPlatformMinimumRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+impl serde::Serialize for QueryPlatformMinimumResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.minimums.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("xion.v1.QueryPlatformMinimumResponse", len)?;
+        if !self.minimums.is_empty() {
+            struct_ser.serialize_field("minimums", &self.minimums)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryPlatformMinimumResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["minimums"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Minimums,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "minimums" => Ok(GeneratedField::Minimums),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryPlatformMinimumResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.v1.QueryPlatformMinimumResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<QueryPlatformMinimumResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut minimums__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Minimums => {
+                            if minimums__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("minimums"));
+                            }
+                            minimums__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(QueryPlatformMinimumResponse {
+                    minimums: minimums__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.v1.QueryPlatformMinimumResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+impl serde::Serialize for QueryPlatformPercentageRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser =
+            serializer.serialize_struct("xion.v1.QueryPlatformPercentageRequest", len)?;
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryPlatformPercentageRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryPlatformPercentageRequest;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.v1.QueryPlatformPercentageRequest")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<QueryPlatformPercentageRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(QueryPlatformPercentageRequest {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.v1.QueryPlatformPercentageRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+impl serde::Serialize for QueryPlatformPercentageResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.platform_percentage != 0 {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("xion.v1.QueryPlatformPercentageResponse", len)?;
+        if self.platform_percentage != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "platformPercentage",
+                ToString::to_string(&self.platform_percentage).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryPlatformPercentageResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["platform_percentage", "platformPercentage"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            PlatformPercentage,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "platformPercentage" | "platform_percentage" => {
+                                Ok(GeneratedField::PlatformPercentage)
+                            }
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryPlatformPercentageResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.v1.QueryPlatformPercentageResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<QueryPlatformPercentageResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut platform_percentage__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::PlatformPercentage => {
+                            if platform_percentage__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "platformPercentage",
+                                ));
+                            }
+                            platform_percentage__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(QueryPlatformPercentageResponse {
+                    platform_percentage: platform_percentage__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.v1.QueryPlatformPercentageResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
     }
 }
 impl serde::Serialize for QueryWebAuthNVerifyAuthenticateRequest {

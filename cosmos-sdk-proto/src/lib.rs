@@ -349,5 +349,8 @@ pub mod xion {
         pub mod jwk {
             include!("prost/xion/xion.jwk.v1.rs");
         }
+        pub mod dkim {
+            include!("prost/xion/xion.dkim.v1.rs");
+        }
     }
 }
