@@ -152,16 +152,15 @@ pub struct SnarkJsProof {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryVerifyRequest {
-    #[prost(string, tag = "1")]
-    pub dkim_domain: ::prost::alloc::string::String,
-    #[prost(bytes = "vec", tag = "2")]
+    #[prost(bytes = "vec", tag = "1")]
     pub tx_bytes: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "3")]
+    #[prost(bytes = "vec", tag = "2")]
     pub email_hash: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "4")]
-    pub dkim_hash: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "5")]
+    #[prost(bytes = "vec", tag = "3")]
     pub proof: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, repeated, tag = "4")]
+    pub public_inputs: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

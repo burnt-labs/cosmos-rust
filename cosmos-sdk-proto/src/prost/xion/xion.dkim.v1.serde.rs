@@ -1929,25 +1929,19 @@ impl serde::Serialize for QueryVerifyRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.dkim_domain.is_empty() {
-            len += 1;
-        }
         if !self.tx_bytes.is_empty() {
             len += 1;
         }
         if !self.email_hash.is_empty() {
             len += 1;
         }
-        if !self.dkim_hash.is_empty() {
-            len += 1;
-        }
         if !self.proof.is_empty() {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("xion.dkim.v1.QueryVerifyRequest", len)?;
-        if !self.dkim_domain.is_empty() {
-            struct_ser.serialize_field("dkimDomain", &self.dkim_domain)?;
+        if !self.public_inputs.is_empty() {
+            len += 1;
         }
+        let mut struct_ser = serializer.serialize_struct("xion.dkim.v1.QueryVerifyRequest", len)?;
         if !self.tx_bytes.is_empty() {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
@@ -1962,19 +1956,15 @@ impl serde::Serialize for QueryVerifyRequest {
                 pbjson::private::base64::encode(&self.email_hash).as_str(),
             )?;
         }
-        if !self.dkim_hash.is_empty() {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field(
-                "dkimHash",
-                pbjson::private::base64::encode(&self.dkim_hash).as_str(),
-            )?;
-        }
         if !self.proof.is_empty() {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
                 "proof",
                 pbjson::private::base64::encode(&self.proof).as_str(),
             )?;
+        }
+        if !self.public_inputs.is_empty() {
+            struct_ser.serialize_field("publicInputs", &self.public_inputs)?;
         }
         struct_ser.end()
     }
@@ -1986,24 +1976,21 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
-            "dkim_domain",
-            "dkimDomain",
             "tx_bytes",
             "txBytes",
             "email_hash",
             "emailHash",
-            "dkim_hash",
-            "dkimHash",
             "proof",
+            "public_inputs",
+            "publicInputs",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            DkimDomain,
             TxBytes,
             EmailHash,
-            DkimHash,
             Proof,
+            PublicInputs,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -2028,11 +2015,10 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
                         E: serde::de::Error,
                     {
                         match value {
-                            "dkimDomain" | "dkim_domain" => Ok(GeneratedField::DkimDomain),
                             "txBytes" | "tx_bytes" => Ok(GeneratedField::TxBytes),
                             "emailHash" | "email_hash" => Ok(GeneratedField::EmailHash),
-                            "dkimHash" | "dkim_hash" => Ok(GeneratedField::DkimHash),
                             "proof" => Ok(GeneratedField::Proof),
+                            "publicInputs" | "public_inputs" => Ok(GeneratedField::PublicInputs),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2052,19 +2038,12 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut dkim_domain__ = None;
                 let mut tx_bytes__ = None;
                 let mut email_hash__ = None;
-                let mut dkim_hash__ = None;
                 let mut proof__ = None;
+                let mut public_inputs__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::DkimDomain => {
-                            if dkim_domain__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("dkimDomain"));
-                            }
-                            dkim_domain__ = Some(map_.next_value()?);
-                        }
                         GeneratedField::TxBytes => {
                             if tx_bytes__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("txBytes"));
@@ -2083,15 +2062,6 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
                                     .0,
                             );
                         }
-                        GeneratedField::DkimHash => {
-                            if dkim_hash__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("dkimHash"));
-                            }
-                            dkim_hash__ = Some(
-                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
-                                    .0,
-                            );
-                        }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
@@ -2101,14 +2071,19 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
                                     .0,
                             );
                         }
+                        GeneratedField::PublicInputs => {
+                            if public_inputs__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("publicInputs"));
+                            }
+                            public_inputs__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(QueryVerifyRequest {
-                    dkim_domain: dkim_domain__.unwrap_or_default(),
                     tx_bytes: tx_bytes__.unwrap_or_default(),
                     email_hash: email_hash__.unwrap_or_default(),
-                    dkim_hash: dkim_hash__.unwrap_or_default(),
                     proof: proof__.unwrap_or_default(),
+                    public_inputs: public_inputs__.unwrap_or_default(),
                 })
             }
         }
