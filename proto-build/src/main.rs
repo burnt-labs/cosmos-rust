@@ -29,7 +29,7 @@ const IBC_REV: &str = "v3.0.0";
 const WASMD_REV: &str = "v0.45.0";
 
 /// The xion commit or tag to be cloned and used to build the proto files
-const XION_REV: &str = "94a7da1638b1f39fee7235a9a6dc928b51f68508";
+const XION_REV: &str = "a728ca4d6b93a6aeed762b0207071122bb0d4a6f";
 
 // All paths must end with a / and either be absolute or include a ./ to reference the current
 // working directory.

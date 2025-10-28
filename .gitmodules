@@ -10,4 +10,4 @@
 [submodule "xion"]
 	path = xion
 	url = https://github.com/burnt-labs/xion
-	branch = feat/dkim-module-gnark
+	branch = feat/dkim-module
