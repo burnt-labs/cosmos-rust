@@ -139,7 +139,7 @@ pub mod query_client {
                 .insert(GrpcMethod::new("xion.dkim.v1.Query", "DkimPubKeys"));
             self.inner.unary(req, path, codec).await
         }
-        pub async fn proof_verify(
+        pub async fn authenticate(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryVerifyRequest>,
         ) -> std::result::Result<tonic::Response<super::QueryVerifyResponse>, tonic::Status>
@@ -151,10 +151,10 @@ pub mod query_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Query/ProofVerify");
+            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Query/Authenticate");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Query", "ProofVerify"));
+                .insert(GrpcMethod::new("xion.dkim.v1.Query", "Authenticate"));
             self.inner.unary(req, path, codec).await
         }
     }
@@ -179,7 +179,7 @@ pub mod query_server {
             &self,
             request: tonic::Request<super::QueryDkimPubKeysRequest>,
         ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeysResponse>, tonic::Status>;
-        async fn proof_verify(
+        async fn authenticate(
             &self,
             request: tonic::Request<super::QueryVerifyRequest>,
         ) -> std::result::Result<tonic::Response<super::QueryVerifyResponse>, tonic::Status>;
@@ -374,10 +374,10 @@ pub mod query_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Query/ProofVerify" => {
+                "/xion.dkim.v1.Query/Authenticate" => {
                     #[allow(non_camel_case_types)]
-                    struct ProofVerifySvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryVerifyRequest> for ProofVerifySvc<T> {
+                    struct AuthenticateSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryVerifyRequest> for AuthenticateSvc<T> {
                         type Response = super::QueryVerifyResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
@@ -385,7 +385,7 @@ pub mod query_server {
                             request: tonic::Request<super::QueryVerifyRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).proof_verify(request).await };
+                            let fut = async move { (*inner).authenticate(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -396,7 +396,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = ProofVerifySvc(inner);
+                        let method = AuthenticateSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

@@ -154,8 +154,8 @@ pub struct SnarkJsProof {
 pub struct QueryVerifyRequest {
     #[prost(bytes = "vec", tag = "1")]
     pub tx_bytes: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "2")]
-    pub email_hash: ::prost::alloc::vec::Vec<u8>,
+    #[prost(string, tag = "2")]
+    pub email_hash: ::prost::alloc::string::String,
     #[prost(bytes = "vec", tag = "3")]
     pub proof: ::prost::alloc::vec::Vec<u8>,
     #[prost(string, repeated, tag = "4")]

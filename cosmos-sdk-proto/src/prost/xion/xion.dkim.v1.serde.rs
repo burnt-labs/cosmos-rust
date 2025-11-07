@@ -1950,11 +1950,7 @@ impl serde::Serialize for QueryVerifyRequest {
             )?;
         }
         if !self.email_hash.is_empty() {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field(
-                "emailHash",
-                pbjson::private::base64::encode(&self.email_hash).as_str(),
-            )?;
+            struct_ser.serialize_field("emailHash", &self.email_hash)?;
         }
         if !self.proof.is_empty() {
             #[allow(clippy::needless_borrow)]
@@ -2057,10 +2053,7 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
                             if email_hash__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("emailHash"));
                             }
-                            email_hash__ = Some(
-                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
-                                    .0,
-                            );
+                            email_hash__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
