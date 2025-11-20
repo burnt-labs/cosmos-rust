@@ -1995,6 +1995,7 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
             EmailHash,
             Proof,
             PublicInputs,
+            AllowedEmailHosts,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
