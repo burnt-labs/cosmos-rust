@@ -160,6 +160,8 @@ pub struct QueryVerifyRequest {
     pub proof: ::prost::alloc::vec::Vec<u8>,
     #[prost(string, repeated, tag = "4")]
     pub public_inputs: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "5")]
+    pub allowed_email_hosts: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 
 }
 #[allow(clippy::derive_partial_eq_without_eq)]

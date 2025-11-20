@@ -1941,6 +1941,9 @@ impl serde::Serialize for QueryVerifyRequest {
         if !self.public_inputs.is_empty() {
             len += 1;
         }
+        if !self.allowed_email_hosts.is_empty() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("xion.dkim.v1.QueryVerifyRequest", len)?;
         if !self.tx_bytes.is_empty() {
             #[allow(clippy::needless_borrow)]
@@ -1962,6 +1965,9 @@ impl serde::Serialize for QueryVerifyRequest {
         if !self.public_inputs.is_empty() {
             struct_ser.serialize_field("publicInputs", &self.public_inputs)?;
         }
+        if !self.allowed_email_hosts.is_empty() {
+            struct_ser.serialize_field("allowedEmailHosts", &self.allowed_email_hosts)?;
+        }
         struct_ser.end()
     }
 }
@@ -1979,6 +1985,8 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
             "proof",
             "public_inputs",
             "publicInputs",
+            "allowed_email_hosts",
+            "allowedEmailHosts",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -2015,6 +2023,7 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
                             "emailHash" | "email_hash" => Ok(GeneratedField::EmailHash),
                             "proof" => Ok(GeneratedField::Proof),
                             "publicInputs" | "public_inputs" => Ok(GeneratedField::PublicInputs),
+                            "allowedEmailHosts" | "allowed_email_hosts" => Ok(GeneratedField::AllowedEmailHosts),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2038,6 +2047,7 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
                 let mut email_hash__ = None;
                 let mut proof__ = None;
                 let mut public_inputs__ = None;
+                let mut allowed_email_hosts__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::TxBytes => {
@@ -2070,6 +2080,12 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
                             }
                             public_inputs__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::AllowedEmailHosts => {
+                            if allowed_email_hosts__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("allowedEmailHosts"));
+                            }
+                            allowed_email_hosts__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(QueryVerifyRequest {
@@ -2077,6 +2093,7 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
                     email_hash: email_hash__.unwrap_or_default(),
                     proof: proof__.unwrap_or_default(),
                     public_inputs: public_inputs__.unwrap_or_default(),
+                    allowed_email_hosts: allowed_email_hosts__.unwrap_or_default(),
                 })
             }
         }
