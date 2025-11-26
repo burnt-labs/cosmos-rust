@@ -1921,7 +1921,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
         )
     }
 }
-impl serde::Serialize for QueryVerifyRequest {
+impl serde::Serialize for QueryAuthenticateRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1944,7 +1944,7 @@ impl serde::Serialize for QueryVerifyRequest {
         if !self.allowed_email_hosts.is_empty() {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("xion.dkim.v1.QueryVerifyRequest", len)?;
+        let mut struct_ser = serializer.serialize_struct("xion.dkim.v1.QueryAuthenticateRequest", len)?;
         if !self.tx_bytes.is_empty() {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
@@ -1971,7 +1971,7 @@ impl serde::Serialize for QueryVerifyRequest {
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
+impl<'de> serde::Deserialize<'de> for QueryAuthenticateRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -2034,13 +2034,13 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryVerifyRequest;
+            type Value = QueryAuthenticateRequest;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.dkim.v1.QueryVerifyRequest")
+                formatter.write_str("struct xion.dkim.v1.QueryAuthenticateRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryVerifyRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryAuthenticateRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2089,7 +2089,7 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
                         }
                     }
                 }
-                Ok(QueryVerifyRequest {
+                Ok(QueryAuthenticateRequest {
                     tx_bytes: tx_bytes__.unwrap_or_default(),
                     email_hash: email_hash__.unwrap_or_default(),
                     proof: proof__.unwrap_or_default(),
@@ -2098,10 +2098,10 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
                 })
             }
         }
-        deserializer.deserialize_struct("xion.dkim.v1.QueryVerifyRequest", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("xion.dkim.v1.QueryAuthenticateRequest", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for QueryVerifyResponse {
+impl serde::Serialize for AuthenticateResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2113,14 +2113,14 @@ impl serde::Serialize for QueryVerifyResponse {
             len += 1;
         }
         let mut struct_ser =
-            serializer.serialize_struct("xion.dkim.v1.QueryVerifyResponse", len)?;
+            serializer.serialize_struct("xion.dkim.v1.AuthenticateResponse", len)?;
         if self.verified {
             struct_ser.serialize_field("verified", &self.verified)?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryVerifyResponse {
+impl<'de> serde::Deserialize<'de> for AuthenticateResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -2165,13 +2165,13 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyResponse {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryVerifyResponse;
+            type Value = AuthenticateResponse;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.dkim.v1.QueryVerifyResponse")
+                formatter.write_str("struct xion.dkim.v1.AuthenticateResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryVerifyResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<AuthenticateResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2186,13 +2186,13 @@ impl<'de> serde::Deserialize<'de> for QueryVerifyResponse {
                         }
                     }
                 }
-                Ok(QueryVerifyResponse {
+                Ok(AuthenticateResponse {
                     verified: verified__.unwrap_or_default(),
                 })
             }
         }
         deserializer.deserialize_struct(
-            "xion.dkim.v1.QueryVerifyResponse",
+            "xion.dkim.v1.AuthenticateResponse",
             FIELDS,
             GeneratedVisitor,
         )

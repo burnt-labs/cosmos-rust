@@ -151,7 +151,7 @@ pub struct SnarkJsProof {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryVerifyRequest {
+pub struct QueryAuthenticateRequest {
     #[prost(bytes = "vec", tag = "1")]
     pub tx_bytes: ::prost::alloc::vec::Vec<u8>,
     #[prost(string, tag = "2")]
@@ -166,7 +166,7 @@ pub struct QueryVerifyRequest {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryVerifyResponse {
+pub struct AuthenticateResponse {
     #[prost(bool, tag = "1")]
     pub verified: bool,
 }

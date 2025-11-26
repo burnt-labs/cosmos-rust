@@ -141,8 +141,8 @@ pub mod query_client {
         }
         pub async fn authenticate(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryVerifyRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryVerifyResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::QueryAuthenticateRequest>,
+        ) -> std::result::Result<tonic::Response<super::AuthenticateResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -181,8 +181,8 @@ pub mod query_server {
         ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeysResponse>, tonic::Status>;
         async fn authenticate(
             &self,
-            request: tonic::Request<super::QueryVerifyRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryVerifyResponse>, tonic::Status>;
+            request: tonic::Request<super::QueryAuthenticateRequest>,
+        ) -> std::result::Result<tonic::Response<super::AuthenticateResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct QueryServer<T: Query> {
@@ -377,12 +377,12 @@ pub mod query_server {
                 "/xion.dkim.v1.Query/Authenticate" => {
                     #[allow(non_camel_case_types)]
                     struct AuthenticateSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryVerifyRequest> for AuthenticateSvc<T> {
-                        type Response = super::QueryVerifyResponse;
+                    impl<T: Query> tonic::server::UnaryService<super::QueryAuthenticateRequest> for AuthenticateSvc<T> {
+                        type Response = super::AuthenticateResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryVerifyRequest>,
+                            request: tonic::Request<super::QueryAuthenticateRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).authenticate(request).await };
