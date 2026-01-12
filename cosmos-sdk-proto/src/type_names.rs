@@ -137,7 +137,7 @@ impl_name!(
 impl_name!(
     cosmos::slashing::v1beta1::GenesisState,
     "cosmos.slashing.v1beta1",
-    "MissedBlocks"
+    "GenesisState"
 );
 impl_name!(
     cosmos::slashing::v1beta1::MissedBlock,
