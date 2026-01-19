@@ -5,8 +5,6 @@ pub mod query_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
-    /** Query is the app module query service.
-     */
     #[derive(Debug, Clone)]
     pub struct QueryClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -87,12 +85,10 @@ pub mod query_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        /** Config returns the current app config.
-         */
-        pub async fn config(
+        pub async fn allowance(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryConfigRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryConfigResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::QueryAllowanceRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryAllowanceResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -101,10 +97,58 @@ pub mod query_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/cosmos.app.v1alpha1.Query/Config");
+            let path =
+                http::uri::PathAndQuery::from_static("/xion.indexer.feegrant.v1.Query/Allowance");
             let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.app.v1alpha1.Query", "Config"));
+            req.extensions_mut().insert(GrpcMethod::new(
+                "xion.indexer.feegrant.v1.Query",
+                "Allowance",
+            ));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn allowances(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryAllowancesRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryAllowancesResponse>, tonic::Status>
+        {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path =
+                http::uri::PathAndQuery::from_static("/xion.indexer.feegrant.v1.Query/Allowances");
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new(
+                "xion.indexer.feegrant.v1.Query",
+                "Allowances",
+            ));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn allowances_by_granter(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryAllowancesByGranterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryAllowancesByGranterResponse>,
+            tonic::Status,
+        > {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/xion.indexer.feegrant.v1.Query/AllowancesByGranter",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new(
+                "xion.indexer.feegrant.v1.Query",
+                "AllowancesByGranter",
+            ));
             self.inner.unary(req, path, codec).await
         }
     }
@@ -117,15 +161,22 @@ pub mod query_server {
     /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
     pub trait Query: Send + Sync + 'static {
-        /** Config returns the current app config.
-         */
-        async fn config(
+        async fn allowance(
             &self,
-            request: tonic::Request<super::QueryConfigRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryConfigResponse>, tonic::Status>;
+            request: tonic::Request<super::QueryAllowanceRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryAllowanceResponse>, tonic::Status>;
+        async fn allowances(
+            &self,
+            request: tonic::Request<super::QueryAllowancesRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryAllowancesResponse>, tonic::Status>;
+        async fn allowances_by_granter(
+            &self,
+            request: tonic::Request<super::QueryAllowancesByGranterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryAllowancesByGranterResponse>,
+            tonic::Status,
+        >;
     }
-    /** Query is the app module query service.
-     */
     #[derive(Debug)]
     pub struct QueryServer<T: Query> {
         inner: _Inner<T>,
@@ -202,18 +253,18 @@ pub mod query_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/cosmos.app.v1alpha1.Query/Config" => {
+                "/xion.indexer.feegrant.v1.Query/Allowance" => {
                     #[allow(non_camel_case_types)]
-                    struct ConfigSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryConfigRequest> for ConfigSvc<T> {
-                        type Response = super::QueryConfigResponse;
+                    struct AllowanceSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryAllowanceRequest> for AllowanceSvc<T> {
+                        type Response = super::QueryAllowanceResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryConfigRequest>,
+                            request: tonic::Request<super::QueryAllowanceRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).config(request).await };
+                            let fut = async move { (*inner).allowance(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -224,7 +275,86 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = ConfigSvc(inner);
+                        let method = AllowanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/xion.indexer.feegrant.v1.Query/Allowances" => {
+                    #[allow(non_camel_case_types)]
+                    struct AllowancesSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryAllowancesRequest> for AllowancesSvc<T> {
+                        type Response = super::QueryAllowancesResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryAllowancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).allowances(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AllowancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/xion.indexer.feegrant.v1.Query/AllowancesByGranter" => {
+                    #[allow(non_camel_case_types)]
+                    struct AllowancesByGranterSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query>
+                        tonic::server::UnaryService<super::QueryAllowancesByGranterRequest>
+                        for AllowancesByGranterSvc<T>
+                    {
+                        type Response = super::QueryAllowancesByGranterResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryAllowancesByGranterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).allowances_by_granter(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AllowancesByGranterSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -274,6 +404,6 @@ pub mod query_server {
         }
     }
     impl<T: Query> tonic::server::NamedService for QueryServer<T> {
-        const NAME: &'static str = "cosmos.app.v1alpha1.Query";
+        const NAME: &'static str = "xion.indexer.feegrant.v1.Query";
     }
 }

@@ -85,11 +85,13 @@ pub mod query_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        pub async fn dkim_pub_key(
+        pub async fn osmosis_arithmetic_twap(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryDkimPubKeyRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeyResponse>, tonic::Status>
-        {
+            request: impl tonic::IntoRequest<super::QueryOsmosisArithmeticTwapRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryOsmosisArithmeticTwapResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -97,17 +99,23 @@ pub mod query_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Query/DkimPubKey");
+            let path = http::uri::PathAndQuery::from_static(
+                "/xion.feeabs.v1beta1.Query/OsmosisArithmeticTwap",
+            );
             let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Query", "DkimPubKey"));
+            req.extensions_mut().insert(GrpcMethod::new(
+                "xion.feeabs.v1beta1.Query",
+                "OsmosisArithmeticTwap",
+            ));
             self.inner.unary(req, path, codec).await
         }
-        pub async fn dkim_pub_keys(
+        pub async fn feeabs_module_balances(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryDkimPubKeysRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeysResponse>, tonic::Status>
-        {
+            request: impl tonic::IntoRequest<super::QueryFeeabsModuleBalancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryFeeabsModuleBalancesResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -115,16 +123,20 @@ pub mod query_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Query/DkimPubKeys");
+            let path = http::uri::PathAndQuery::from_static(
+                "/xion.feeabs.v1beta1.Query/FeeabsModuleBalances",
+            );
             let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Query", "DkimPubKeys"));
+            req.extensions_mut().insert(GrpcMethod::new(
+                "xion.feeabs.v1beta1.Query",
+                "FeeabsModuleBalances",
+            ));
             self.inner.unary(req, path, codec).await
         }
-        pub async fn authenticate(
+        pub async fn host_chain_config(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryAuthenticateRequest>,
-        ) -> std::result::Result<tonic::Response<super::AuthenticateResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::QueryHostChainConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryHostChainConfigResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -133,17 +145,22 @@ pub mod query_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Query/Authenticate");
+            let path =
+                http::uri::PathAndQuery::from_static("/xion.feeabs.v1beta1.Query/HostChainConfig");
             let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Query", "Authenticate"));
+            req.extensions_mut().insert(GrpcMethod::new(
+                "xion.feeabs.v1beta1.Query",
+                "HostChainConfig",
+            ));
             self.inner.unary(req, path, codec).await
         }
-        pub async fn params(
+        pub async fn all_host_chain_config(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryParamsRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>
-        {
+            request: impl tonic::IntoRequest<super::QueryAllHostChainConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryAllHostChainConfigResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -151,10 +168,14 @@ pub mod query_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Query/Params");
+            let path = http::uri::PathAndQuery::from_static(
+                "/xion.feeabs.v1beta1.Query/AllHostChainConfig",
+            );
             let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Query", "Params"));
+            req.extensions_mut().insert(GrpcMethod::new(
+                "xion.feeabs.v1beta1.Query",
+                "AllHostChainConfig",
+            ));
             self.inner.unary(req, path, codec).await
         }
     }
@@ -167,22 +188,31 @@ pub mod query_server {
     /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
     pub trait Query: Send + Sync + 'static {
-        async fn dkim_pub_key(
+        async fn osmosis_arithmetic_twap(
             &self,
-            request: tonic::Request<super::QueryDkimPubKeyRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeyResponse>, tonic::Status>;
-        async fn dkim_pub_keys(
+            request: tonic::Request<super::QueryOsmosisArithmeticTwapRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryOsmosisArithmeticTwapResponse>,
+            tonic::Status,
+        >;
+        async fn feeabs_module_balances(
             &self,
-            request: tonic::Request<super::QueryDkimPubKeysRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeysResponse>, tonic::Status>;
-        async fn authenticate(
+            request: tonic::Request<super::QueryFeeabsModuleBalancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryFeeabsModuleBalancesResponse>,
+            tonic::Status,
+        >;
+        async fn host_chain_config(
             &self,
-            request: tonic::Request<super::QueryAuthenticateRequest>,
-        ) -> std::result::Result<tonic::Response<super::AuthenticateResponse>, tonic::Status>;
-        async fn params(
+            request: tonic::Request<super::QueryHostChainConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryHostChainConfigResponse>, tonic::Status>;
+        async fn all_host_chain_config(
             &self,
-            request: tonic::Request<super::QueryParamsRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>;
+            request: tonic::Request<super::QueryAllHostChainConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryAllHostChainConfigResponse>,
+            tonic::Status,
+        >;
     }
     #[derive(Debug)]
     pub struct QueryServer<T: Query> {
@@ -260,18 +290,22 @@ pub mod query_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/xion.dkim.v1.Query/DkimPubKey" => {
+                "/xion.feeabs.v1beta1.Query/OsmosisArithmeticTwap" => {
                     #[allow(non_camel_case_types)]
-                    struct DkimPubKeySvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryDkimPubKeyRequest> for DkimPubKeySvc<T> {
-                        type Response = super::QueryDkimPubKeyResponse;
+                    struct OsmosisArithmeticTwapSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query>
+                        tonic::server::UnaryService<super::QueryOsmosisArithmeticTwapRequest>
+                        for OsmosisArithmeticTwapSvc<T>
+                    {
+                        type Response = super::QueryOsmosisArithmeticTwapResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryDkimPubKeyRequest>,
+                            request: tonic::Request<super::QueryOsmosisArithmeticTwapRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).dkim_pub_key(request).await };
+                            let fut =
+                                async move { (*inner).osmosis_arithmetic_twap(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -282,7 +316,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = DkimPubKeySvc(inner);
+                        let method = OsmosisArithmeticTwapSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -298,18 +332,21 @@ pub mod query_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Query/DkimPubKeys" => {
+                "/xion.feeabs.v1beta1.Query/FeeabsModuleBalances" => {
                     #[allow(non_camel_case_types)]
-                    struct DkimPubKeysSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryDkimPubKeysRequest> for DkimPubKeysSvc<T> {
-                        type Response = super::QueryDkimPubKeysResponse;
+                    struct FeeabsModuleBalancesSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query>
+                        tonic::server::UnaryService<super::QueryFeeabsModuleBalancesRequest>
+                        for FeeabsModuleBalancesSvc<T>
+                    {
+                        type Response = super::QueryFeeabsModuleBalancesResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryDkimPubKeysRequest>,
+                            request: tonic::Request<super::QueryFeeabsModuleBalancesRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).dkim_pub_keys(request).await };
+                            let fut = async move { (*inner).feeabs_module_balances(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -320,7 +357,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = DkimPubKeysSvc(inner);
+                        let method = FeeabsModuleBalancesSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -336,18 +373,20 @@ pub mod query_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Query/Authenticate" => {
+                "/xion.feeabs.v1beta1.Query/HostChainConfig" => {
                     #[allow(non_camel_case_types)]
-                    struct AuthenticateSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryAuthenticateRequest> for AuthenticateSvc<T> {
-                        type Response = super::AuthenticateResponse;
+                    struct HostChainConfigSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryHostChainConfigRequest>
+                        for HostChainConfigSvc<T>
+                    {
+                        type Response = super::QueryHostChainConfigResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryAuthenticateRequest>,
+                            request: tonic::Request<super::QueryHostChainConfigRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).authenticate(request).await };
+                            let fut = async move { (*inner).host_chain_config(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -358,7 +397,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = AuthenticateSvc(inner);
+                        let method = HostChainConfigSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -374,18 +413,21 @@ pub mod query_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Query/Params" => {
+                "/xion.feeabs.v1beta1.Query/AllHostChainConfig" => {
                     #[allow(non_camel_case_types)]
-                    struct ParamsSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryParamsRequest> for ParamsSvc<T> {
-                        type Response = super::QueryParamsResponse;
+                    struct AllHostChainConfigSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query>
+                        tonic::server::UnaryService<super::QueryAllHostChainConfigRequest>
+                        for AllHostChainConfigSvc<T>
+                    {
+                        type Response = super::QueryAllHostChainConfigResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryParamsRequest>,
+                            request: tonic::Request<super::QueryAllHostChainConfigRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).params(request).await };
+                            let fut = async move { (*inner).all_host_chain_config(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -396,7 +438,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = ParamsSvc(inner);
+                        let method = AllHostChainConfigSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -446,7 +488,7 @@ pub mod query_server {
         }
     }
     impl<T: Query> tonic::server::NamedService for QueryServer<T> {
-        const NAME: &'static str = "xion.dkim.v1.Query";
+        const NAME: &'static str = "xion.feeabs.v1beta1.Query";
     }
 }
 /// Generated client implementations.
@@ -532,11 +574,13 @@ pub mod msg_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        pub async fn add_dkim_pub_keys(
+        pub async fn send_query_ibc_denom_twap(
             &mut self,
-            request: impl tonic::IntoRequest<super::MsgAddDkimPubKeys>,
-        ) -> std::result::Result<tonic::Response<super::MsgAddDkimPubKeysResponse>, tonic::Status>
-        {
+            request: impl tonic::IntoRequest<super::MsgSendQueryIbcDenomTwap>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSendQueryIbcDenomTwapResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -544,16 +588,20 @@ pub mod msg_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Msg/AddDkimPubKeys");
+            let path = http::uri::PathAndQuery::from_static(
+                "/xion.feeabs.v1beta1.Msg/SendQueryIbcDenomTWAP",
+            );
             let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Msg", "AddDkimPubKeys"));
+            req.extensions_mut().insert(GrpcMethod::new(
+                "xion.feeabs.v1beta1.Msg",
+                "SendQueryIbcDenomTWAP",
+            ));
             self.inner.unary(req, path, codec).await
         }
-        pub async fn remove_dkim_pub_key(
+        pub async fn swap_cross_chain(
             &mut self,
-            request: impl tonic::IntoRequest<super::MsgRemoveDkimPubKey>,
-        ) -> std::result::Result<tonic::Response<super::MsgRemoveDkimPubKeyResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::MsgSwapCrossChain>,
+        ) -> std::result::Result<tonic::Response<super::MsgSwapCrossChainResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -562,17 +610,20 @@ pub mod msg_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Msg/RemoveDkimPubKey");
+            let path =
+                http::uri::PathAndQuery::from_static("/xion.feeabs.v1beta1.Msg/SwapCrossChain");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Msg", "RemoveDkimPubKey"));
+                .insert(GrpcMethod::new("xion.feeabs.v1beta1.Msg", "SwapCrossChain"));
             self.inner.unary(req, path, codec).await
         }
-        pub async fn revoke_dkim_pub_key(
+        pub async fn fund_fee_abs_module_account(
             &mut self,
-            request: impl tonic::IntoRequest<super::MsgRevokeDkimPubKey>,
-        ) -> std::result::Result<tonic::Response<super::MsgRevokeDkimPubKeyResponse>, tonic::Status>
-        {
+            request: impl tonic::IntoRequest<super::MsgFundFeeAbsModuleAccount>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgFundFeeAbsModuleAccountResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -580,10 +631,14 @@ pub mod msg_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Msg/RevokeDkimPubKey");
+            let path = http::uri::PathAndQuery::from_static(
+                "/xion.feeabs.v1beta1.Msg/FundFeeAbsModuleAccount",
+            );
             let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Msg", "RevokeDkimPubKey"));
+            req.extensions_mut().insert(GrpcMethod::new(
+                "xion.feeabs.v1beta1.Msg",
+                "FundFeeAbsModuleAccount",
+            ));
             self.inner.unary(req, path, codec).await
         }
         pub async fn update_params(
@@ -598,10 +653,67 @@ pub mod msg_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Msg/UpdateParams");
+            let path =
+                http::uri::PathAndQuery::from_static("/xion.feeabs.v1beta1.Msg/UpdateParams");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Msg", "UpdateParams"));
+                .insert(GrpcMethod::new("xion.feeabs.v1beta1.Msg", "UpdateParams"));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn add_host_zone(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgAddHostZone>,
+        ) -> std::result::Result<tonic::Response<super::MsgAddHostZoneResponse>, tonic::Status>
+        {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/xion.feeabs.v1beta1.Msg/AddHostZone");
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("xion.feeabs.v1beta1.Msg", "AddHostZone"));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn update_host_zone(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgUpdateHostZone>,
+        ) -> std::result::Result<tonic::Response<super::MsgUpdateHostZoneResponse>, tonic::Status>
+        {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path =
+                http::uri::PathAndQuery::from_static("/xion.feeabs.v1beta1.Msg/UpdateHostZone");
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("xion.feeabs.v1beta1.Msg", "UpdateHostZone"));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn remove_host_zone(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgRemoveHostZone>,
+        ) -> std::result::Result<tonic::Response<super::MsgRemoveHostZoneResponse>, tonic::Status>
+        {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path =
+                http::uri::PathAndQuery::from_static("/xion.feeabs.v1beta1.Msg/RemoveHostZone");
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("xion.feeabs.v1beta1.Msg", "RemoveHostZone"));
             self.inner.unary(req, path, codec).await
         }
     }
@@ -614,22 +726,40 @@ pub mod msg_server {
     /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
     #[async_trait]
     pub trait Msg: Send + Sync + 'static {
-        async fn add_dkim_pub_keys(
+        async fn send_query_ibc_denom_twap(
             &self,
-            request: tonic::Request<super::MsgAddDkimPubKeys>,
-        ) -> std::result::Result<tonic::Response<super::MsgAddDkimPubKeysResponse>, tonic::Status>;
-        async fn remove_dkim_pub_key(
+            request: tonic::Request<super::MsgSendQueryIbcDenomTwap>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSendQueryIbcDenomTwapResponse>,
+            tonic::Status,
+        >;
+        async fn swap_cross_chain(
             &self,
-            request: tonic::Request<super::MsgRemoveDkimPubKey>,
-        ) -> std::result::Result<tonic::Response<super::MsgRemoveDkimPubKeyResponse>, tonic::Status>;
-        async fn revoke_dkim_pub_key(
+            request: tonic::Request<super::MsgSwapCrossChain>,
+        ) -> std::result::Result<tonic::Response<super::MsgSwapCrossChainResponse>, tonic::Status>;
+        async fn fund_fee_abs_module_account(
             &self,
-            request: tonic::Request<super::MsgRevokeDkimPubKey>,
-        ) -> std::result::Result<tonic::Response<super::MsgRevokeDkimPubKeyResponse>, tonic::Status>;
+            request: tonic::Request<super::MsgFundFeeAbsModuleAccount>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgFundFeeAbsModuleAccountResponse>,
+            tonic::Status,
+        >;
         async fn update_params(
             &self,
             request: tonic::Request<super::MsgUpdateParams>,
         ) -> std::result::Result<tonic::Response<super::MsgUpdateParamsResponse>, tonic::Status>;
+        async fn add_host_zone(
+            &self,
+            request: tonic::Request<super::MsgAddHostZone>,
+        ) -> std::result::Result<tonic::Response<super::MsgAddHostZoneResponse>, tonic::Status>;
+        async fn update_host_zone(
+            &self,
+            request: tonic::Request<super::MsgUpdateHostZone>,
+        ) -> std::result::Result<tonic::Response<super::MsgUpdateHostZoneResponse>, tonic::Status>;
+        async fn remove_host_zone(
+            &self,
+            request: tonic::Request<super::MsgRemoveHostZone>,
+        ) -> std::result::Result<tonic::Response<super::MsgRemoveHostZoneResponse>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
@@ -707,18 +837,21 @@ pub mod msg_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/xion.dkim.v1.Msg/AddDkimPubKeys" => {
+                "/xion.feeabs.v1beta1.Msg/SendQueryIbcDenomTWAP" => {
                     #[allow(non_camel_case_types)]
-                    struct AddDkimPubKeysSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgAddDkimPubKeys> for AddDkimPubKeysSvc<T> {
-                        type Response = super::MsgAddDkimPubKeysResponse;
+                    struct SendQueryIbcDenomTWAPSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgSendQueryIbcDenomTwap>
+                        for SendQueryIbcDenomTWAPSvc<T>
+                    {
+                        type Response = super::MsgSendQueryIbcDenomTwapResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::MsgAddDkimPubKeys>,
+                            request: tonic::Request<super::MsgSendQueryIbcDenomTwap>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).add_dkim_pub_keys(request).await };
+                            let fut =
+                                async move { (*inner).send_query_ibc_denom_twap(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -729,7 +862,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = AddDkimPubKeysSvc(inner);
+                        let method = SendQueryIbcDenomTWAPSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -745,18 +878,18 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Msg/RemoveDkimPubKey" => {
+                "/xion.feeabs.v1beta1.Msg/SwapCrossChain" => {
                     #[allow(non_camel_case_types)]
-                    struct RemoveDkimPubKeySvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgRemoveDkimPubKey> for RemoveDkimPubKeySvc<T> {
-                        type Response = super::MsgRemoveDkimPubKeyResponse;
+                    struct SwapCrossChainSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgSwapCrossChain> for SwapCrossChainSvc<T> {
+                        type Response = super::MsgSwapCrossChainResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::MsgRemoveDkimPubKey>,
+                            request: tonic::Request<super::MsgSwapCrossChain>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).remove_dkim_pub_key(request).await };
+                            let fut = async move { (*inner).swap_cross_chain(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -767,7 +900,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = RemoveDkimPubKeySvc(inner);
+                        let method = SwapCrossChainSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -783,18 +916,21 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Msg/RevokeDkimPubKey" => {
+                "/xion.feeabs.v1beta1.Msg/FundFeeAbsModuleAccount" => {
                     #[allow(non_camel_case_types)]
-                    struct RevokeDkimPubKeySvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgRevokeDkimPubKey> for RevokeDkimPubKeySvc<T> {
-                        type Response = super::MsgRevokeDkimPubKeyResponse;
+                    struct FundFeeAbsModuleAccountSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgFundFeeAbsModuleAccount>
+                        for FundFeeAbsModuleAccountSvc<T>
+                    {
+                        type Response = super::MsgFundFeeAbsModuleAccountResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::MsgRevokeDkimPubKey>,
+                            request: tonic::Request<super::MsgFundFeeAbsModuleAccount>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).revoke_dkim_pub_key(request).await };
+                            let fut =
+                                async move { (*inner).fund_fee_abs_module_account(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -805,7 +941,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = RevokeDkimPubKeySvc(inner);
+                        let method = FundFeeAbsModuleAccountSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -821,7 +957,7 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Msg/UpdateParams" => {
+                "/xion.feeabs.v1beta1.Msg/UpdateParams" => {
                     #[allow(non_camel_case_types)]
                     struct UpdateParamsSvc<T: Msg>(pub Arc<T>);
                     impl<T: Msg> tonic::server::UnaryService<super::MsgUpdateParams> for UpdateParamsSvc<T> {
@@ -844,6 +980,120 @@ pub mod msg_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = UpdateParamsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/xion.feeabs.v1beta1.Msg/AddHostZone" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddHostZoneSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgAddHostZone> for AddHostZoneSvc<T> {
+                        type Response = super::MsgAddHostZoneResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgAddHostZone>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).add_host_zone(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AddHostZoneSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/xion.feeabs.v1beta1.Msg/UpdateHostZone" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateHostZoneSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgUpdateHostZone> for UpdateHostZoneSvc<T> {
+                        type Response = super::MsgUpdateHostZoneResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgUpdateHostZone>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).update_host_zone(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UpdateHostZoneSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/xion.feeabs.v1beta1.Msg/RemoveHostZone" => {
+                    #[allow(non_camel_case_types)]
+                    struct RemoveHostZoneSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgRemoveHostZone> for RemoveHostZoneSvc<T> {
+                        type Response = super::MsgRemoveHostZoneResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgRemoveHostZone>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).remove_host_zone(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RemoveHostZoneSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -893,6 +1143,6 @@ pub mod msg_server {
         }
     }
     impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
-        const NAME: &'static str = "xion.dkim.v1.Msg";
+        const NAME: &'static str = "xion.feeabs.v1beta1.Msg";
     }
 }

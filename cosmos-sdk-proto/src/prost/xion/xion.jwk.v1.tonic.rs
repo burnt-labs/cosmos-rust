@@ -105,8 +105,8 @@ pub mod query_client {
         }
         pub async fn audience_claim(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryGetAudienceClaimRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGetAudienceClaimResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::QueryAudienceClaimRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryAudienceClaimResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -123,8 +123,8 @@ pub mod query_client {
         }
         pub async fn audience(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryGetAudienceRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGetAudienceResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::QueryAudienceRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryAudienceResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -141,8 +141,8 @@ pub mod query_client {
         }
         pub async fn audience_all(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryAllAudienceRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryAllAudienceResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::QueryAudienceAllRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryAudienceAllResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -191,16 +191,16 @@ pub mod query_server {
         ) -> std::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>;
         async fn audience_claim(
             &self,
-            request: tonic::Request<super::QueryGetAudienceClaimRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGetAudienceClaimResponse>, tonic::Status>;
+            request: tonic::Request<super::QueryAudienceClaimRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryAudienceClaimResponse>, tonic::Status>;
         async fn audience(
             &self,
-            request: tonic::Request<super::QueryGetAudienceRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGetAudienceResponse>, tonic::Status>;
+            request: tonic::Request<super::QueryAudienceRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryAudienceResponse>, tonic::Status>;
         async fn audience_all(
             &self,
-            request: tonic::Request<super::QueryAllAudienceRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryAllAudienceResponse>, tonic::Status>;
+            request: tonic::Request<super::QueryAudienceAllRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryAudienceAllResponse>, tonic::Status>;
         async fn validate_jwt(
             &self,
             request: tonic::Request<super::QueryValidateJwtRequest>,
@@ -323,14 +323,14 @@ pub mod query_server {
                 "/xion.jwk.v1.Query/AudienceClaim" => {
                     #[allow(non_camel_case_types)]
                     struct AudienceClaimSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryGetAudienceClaimRequest>
+                    impl<T: Query> tonic::server::UnaryService<super::QueryAudienceClaimRequest>
                         for AudienceClaimSvc<T>
                     {
-                        type Response = super::QueryGetAudienceClaimResponse;
+                        type Response = super::QueryAudienceClaimResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryGetAudienceClaimRequest>,
+                            request: tonic::Request<super::QueryAudienceClaimRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).audience_claim(request).await };
@@ -363,12 +363,12 @@ pub mod query_server {
                 "/xion.jwk.v1.Query/Audience" => {
                     #[allow(non_camel_case_types)]
                     struct AudienceSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryGetAudienceRequest> for AudienceSvc<T> {
-                        type Response = super::QueryGetAudienceResponse;
+                    impl<T: Query> tonic::server::UnaryService<super::QueryAudienceRequest> for AudienceSvc<T> {
+                        type Response = super::QueryAudienceResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryGetAudienceRequest>,
+                            request: tonic::Request<super::QueryAudienceRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).audience(request).await };
@@ -401,12 +401,12 @@ pub mod query_server {
                 "/xion.jwk.v1.Query/AudienceAll" => {
                     #[allow(non_camel_case_types)]
                     struct AudienceAllSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryAllAudienceRequest> for AudienceAllSvc<T> {
-                        type Response = super::QueryAllAudienceResponse;
+                    impl<T: Query> tonic::server::UnaryService<super::QueryAudienceAllRequest> for AudienceAllSvc<T> {
+                        type Response = super::QueryAudienceAllResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryAllAudienceRequest>,
+                            request: tonic::Request<super::QueryAudienceAllRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).audience_all(request).await };

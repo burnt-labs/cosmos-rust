@@ -39,6 +39,7 @@ pub struct QueryParamsRequest {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
+    /// The global fee parameters
     #[prost(message, optional, tag = "1")]
     pub params: ::core::option::Option<Params>,
 }

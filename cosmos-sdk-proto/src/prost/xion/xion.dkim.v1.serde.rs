@@ -1,4 +1,104 @@
 // @generated
+impl serde::Serialize for AuthenticateResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.verified {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("xion.dkim.v1.AuthenticateResponse", len)?;
+        if self.verified {
+            struct_ser.serialize_field("verified", &self.verified)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for AuthenticateResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["verified"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Verified,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "verified" => Ok(GeneratedField::Verified),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = AuthenticateResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.dkim.v1.AuthenticateResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<AuthenticateResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut verified__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Verified => {
+                            if verified__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("verified"));
+                            }
+                            verified__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(AuthenticateResponse {
+                    verified: verified__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.dkim.v1.AuthenticateResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
 impl serde::Serialize for DkimPubKey {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -208,12 +308,18 @@ impl serde::Serialize for GenesisState {
         if !self.dkim_pubkeys.is_empty() {
             len += 1;
         }
+        if !self.revoked_pubkeys.is_empty() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("xion.dkim.v1.GenesisState", len)?;
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
         }
         if !self.dkim_pubkeys.is_empty() {
             struct_ser.serialize_field("dkimPubkeys", &self.dkim_pubkeys)?;
+        }
+        if !self.revoked_pubkeys.is_empty() {
+            struct_ser.serialize_field("revokedPubkeys", &self.revoked_pubkeys)?;
         }
         struct_ser.end()
     }
@@ -224,12 +330,19 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["params", "dkim_pubkeys", "dkimPubkeys"];
+        const FIELDS: &[&str] = &[
+            "params",
+            "dkim_pubkeys",
+            "dkimPubkeys",
+            "revoked_pubkeys",
+            "revokedPubkeys",
+        ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
             Params,
             DkimPubkeys,
+            RevokedPubkeys,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -256,6 +369,9 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                         match value {
                             "params" => Ok(GeneratedField::Params),
                             "dkimPubkeys" | "dkim_pubkeys" => Ok(GeneratedField::DkimPubkeys),
+                            "revokedPubkeys" | "revoked_pubkeys" => {
+                                Ok(GeneratedField::RevokedPubkeys)
+                            }
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -277,6 +393,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             {
                 let mut params__ = None;
                 let mut dkim_pubkeys__ = None;
+                let mut revoked_pubkeys__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Params => {
@@ -291,11 +408,18 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             }
                             dkim_pubkeys__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::RevokedPubkeys => {
+                            if revoked_pubkeys__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("revokedPubkeys"));
+                            }
+                            revoked_pubkeys__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(GenesisState {
                     params: params__,
                     dkim_pubkeys: dkim_pubkeys__.unwrap_or_default(),
+                    revoked_pubkeys: revoked_pubkeys__.unwrap_or_default(),
                 })
             }
         }
@@ -309,7 +433,7 @@ impl serde::Serialize for KeyType {
         S: serde::Serializer,
     {
         let variant = match self {
-            Self::Rsa => "RSA",
+            Self::RsaUnspecified => "KEY_TYPE_RSA_UNSPECIFIED",
         };
         serializer.serialize_str(variant)
     }
@@ -320,7 +444,7 @@ impl<'de> serde::Deserialize<'de> for KeyType {
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["RSA"];
+        const FIELDS: &[&str] = &["KEY_TYPE_RSA_UNSPECIFIED"];
 
         struct GeneratedVisitor;
 
@@ -360,7 +484,7 @@ impl<'de> serde::Deserialize<'de> for KeyType {
                 E: serde::de::Error,
             {
                 match value {
-                    "RSA" => Ok(KeyType::Rsa),
+                    "KEY_TYPE_RSA_UNSPECIFIED" => Ok(KeyType::RsaUnspecified),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
                 }
             }
@@ -1173,14 +1297,26 @@ impl serde::Serialize for Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.vkey.is_empty() {
+        if self.vkey_identifier != 0 {
+            len += 1;
+        }
+        if self.max_pubkey_size_bytes != 0 {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("xion.dkim.v1.Params", len)?;
-        if !self.vkey.is_empty() {
+        if self.vkey_identifier != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser
-                .serialize_field("vkey", pbjson::private::base64::encode(&self.vkey).as_str())?;
+            struct_ser.serialize_field(
+                "vkeyIdentifier",
+                ToString::to_string(&self.vkey_identifier).as_str(),
+            )?;
+        }
+        if self.max_pubkey_size_bytes != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "maxPubkeySizeBytes",
+                ToString::to_string(&self.max_pubkey_size_bytes).as_str(),
+            )?;
         }
         struct_ser.end()
     }
@@ -1191,11 +1327,17 @@ impl<'de> serde::Deserialize<'de> for Params {
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["vkey"];
+        const FIELDS: &[&str] = &[
+            "vkey_identifier",
+            "vkeyIdentifier",
+            "max_pubkey_size_bytes",
+            "maxPubkeySizeBytes",
+        ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            Vkey,
+            VkeyIdentifier,
+            MaxPubkeySizeBytes,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -1220,7 +1362,12 @@ impl<'de> serde::Deserialize<'de> for Params {
                         E: serde::de::Error,
                     {
                         match value {
-                            "vkey" => Ok(GeneratedField::Vkey),
+                            "vkeyIdentifier" | "vkey_identifier" => {
+                                Ok(GeneratedField::VkeyIdentifier)
+                            }
+                            "maxPubkeySizeBytes" | "max_pubkey_size_bytes" => {
+                                Ok(GeneratedField::MaxPubkeySizeBytes)
+                            }
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1240,26 +1387,229 @@ impl<'de> serde::Deserialize<'de> for Params {
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut vkey__ = None;
+                let mut vkey_identifier__ = None;
+                let mut max_pubkey_size_bytes__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::Vkey => {
-                            if vkey__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("vkey"));
+                        GeneratedField::VkeyIdentifier => {
+                            if vkey_identifier__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vkeyIdentifier"));
                             }
-                            vkey__ = Some(
-                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                            vkey_identifier__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::MaxPubkeySizeBytes => {
+                            if max_pubkey_size_bytes__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "maxPubkeySizeBytes",
+                                ));
+                            }
+                            max_pubkey_size_bytes__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
                                     .0,
                             );
                         }
                     }
                 }
                 Ok(Params {
-                    vkey: vkey__.unwrap_or_default(),
+                    vkey_identifier: vkey_identifier__.unwrap_or_default(),
+                    max_pubkey_size_bytes: max_pubkey_size_bytes__.unwrap_or_default(),
                 })
             }
         }
         deserializer.deserialize_struct("xion.dkim.v1.Params", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for QueryAuthenticateRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.tx_bytes.is_empty() {
+            len += 1;
+        }
+        if !self.email_hash.is_empty() {
+            len += 1;
+        }
+        if !self.proof.is_empty() {
+            len += 1;
+        }
+        if !self.public_inputs.is_empty() {
+            len += 1;
+        }
+        if !self.allowed_email_hosts.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("xion.dkim.v1.QueryAuthenticateRequest", len)?;
+        if !self.tx_bytes.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "txBytes",
+                pbjson::private::base64::encode(&self.tx_bytes).as_str(),
+            )?;
+        }
+        if !self.email_hash.is_empty() {
+            struct_ser.serialize_field("emailHash", &self.email_hash)?;
+        }
+        if !self.proof.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "proof",
+                pbjson::private::base64::encode(&self.proof).as_str(),
+            )?;
+        }
+        if !self.public_inputs.is_empty() {
+            struct_ser.serialize_field("publicInputs", &self.public_inputs)?;
+        }
+        if !self.allowed_email_hosts.is_empty() {
+            struct_ser.serialize_field("allowedEmailHosts", &self.allowed_email_hosts)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryAuthenticateRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "tx_bytes",
+            "txBytes",
+            "email_hash",
+            "emailHash",
+            "proof",
+            "public_inputs",
+            "publicInputs",
+            "allowed_email_hosts",
+            "allowedEmailHosts",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            TxBytes,
+            EmailHash,
+            Proof,
+            PublicInputs,
+            AllowedEmailHosts,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "txBytes" | "tx_bytes" => Ok(GeneratedField::TxBytes),
+                            "emailHash" | "email_hash" => Ok(GeneratedField::EmailHash),
+                            "proof" => Ok(GeneratedField::Proof),
+                            "publicInputs" | "public_inputs" => Ok(GeneratedField::PublicInputs),
+                            "allowedEmailHosts" | "allowed_email_hosts" => {
+                                Ok(GeneratedField::AllowedEmailHosts)
+                            }
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryAuthenticateRequest;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.dkim.v1.QueryAuthenticateRequest")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<QueryAuthenticateRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut tx_bytes__ = None;
+                let mut email_hash__ = None;
+                let mut proof__ = None;
+                let mut public_inputs__ = None;
+                let mut allowed_email_hosts__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::TxBytes => {
+                            if tx_bytes__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("txBytes"));
+                            }
+                            tx_bytes__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::EmailHash => {
+                            if email_hash__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("emailHash"));
+                            }
+                            email_hash__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Proof => {
+                            if proof__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proof"));
+                            }
+                            proof__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::PublicInputs => {
+                            if public_inputs__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("publicInputs"));
+                            }
+                            public_inputs__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::AllowedEmailHosts => {
+                            if allowed_email_hosts__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("allowedEmailHosts"));
+                            }
+                            allowed_email_hosts__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(QueryAuthenticateRequest {
+                    tx_bytes: tx_bytes__.unwrap_or_default(),
+                    email_hash: email_hash__.unwrap_or_default(),
+                    proof: proof__.unwrap_or_default(),
+                    public_inputs: public_inputs__.unwrap_or_default(),
+                    allowed_email_hosts: allowed_email_hosts__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.dkim.v1.QueryAuthenticateRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
     }
 }
 impl serde::Serialize for QueryDkimPubKeyRequest {
@@ -1921,443 +2271,6 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
         )
     }
 }
-impl serde::Serialize for QueryAuthenticateRequest {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.tx_bytes.is_empty() {
-            len += 1;
-        }
-        if !self.email_hash.is_empty() {
-            len += 1;
-        }
-        if !self.proof.is_empty() {
-            len += 1;
-        }
-        if !self.public_inputs.is_empty() {
-            len += 1;
-        }
-        if !self.allowed_email_hosts.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("xion.dkim.v1.QueryAuthenticateRequest", len)?;
-        if !self.tx_bytes.is_empty() {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field(
-                "txBytes",
-                pbjson::private::base64::encode(&self.tx_bytes).as_str(),
-            )?;
-        }
-        if !self.email_hash.is_empty() {
-            struct_ser.serialize_field("emailHash", &self.email_hash)?;
-        }
-        if !self.proof.is_empty() {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field(
-                "proof",
-                pbjson::private::base64::encode(&self.proof).as_str(),
-            )?;
-        }
-        if !self.public_inputs.is_empty() {
-            struct_ser.serialize_field("publicInputs", &self.public_inputs)?;
-        }
-        if !self.allowed_email_hosts.is_empty() {
-            struct_ser.serialize_field("allowedEmailHosts", &self.allowed_email_hosts)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for QueryAuthenticateRequest {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &[
-            "tx_bytes",
-            "txBytes",
-            "email_hash",
-            "emailHash",
-            "proof",
-            "public_inputs",
-            "publicInputs",
-            "allowed_email_hosts",
-            "allowedEmailHosts",
-        ];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            TxBytes,
-            EmailHash,
-            Proof,
-            PublicInputs,
-            AllowedEmailHosts,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "txBytes" | "tx_bytes" => Ok(GeneratedField::TxBytes),
-                            "emailHash" | "email_hash" => Ok(GeneratedField::EmailHash),
-                            "proof" => Ok(GeneratedField::Proof),
-                            "publicInputs" | "public_inputs" => Ok(GeneratedField::PublicInputs),
-                            "allowedEmailHosts" | "allowed_email_hosts" => Ok(GeneratedField::AllowedEmailHosts),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryAuthenticateRequest;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.dkim.v1.QueryAuthenticateRequest")
-            }
-
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryAuthenticateRequest, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut tx_bytes__ = None;
-                let mut email_hash__ = None;
-                let mut proof__ = None;
-                let mut public_inputs__ = None;
-                let mut allowed_email_hosts__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::TxBytes => {
-                            if tx_bytes__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("txBytes"));
-                            }
-                            tx_bytes__ = Some(
-                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
-                                    .0,
-                            );
-                        }
-                        GeneratedField::EmailHash => {
-                            if email_hash__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("emailHash"));
-                            }
-                            email_hash__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::Proof => {
-                            if proof__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("proof"));
-                            }
-                            proof__ = Some(
-                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
-                                    .0,
-                            );
-                        }
-                        GeneratedField::PublicInputs => {
-                            if public_inputs__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("publicInputs"));
-                            }
-                            public_inputs__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::AllowedEmailHosts => {
-                            if allowed_email_hosts__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("allowedEmailHosts"));
-                            }
-                            allowed_email_hosts__ = Some(map_.next_value()?);
-                        }
-                    }
-                }
-                Ok(QueryAuthenticateRequest {
-                    tx_bytes: tx_bytes__.unwrap_or_default(),
-                    email_hash: email_hash__.unwrap_or_default(),
-                    proof: proof__.unwrap_or_default(),
-                    public_inputs: public_inputs__.unwrap_or_default(),
-                    allowed_email_hosts: allowed_email_hosts__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct("xion.dkim.v1.QueryAuthenticateRequest", FIELDS, GeneratedVisitor)
-    }
-}
-impl serde::Serialize for AuthenticateResponse {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if self.verified {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.dkim.v1.AuthenticateResponse", len)?;
-        if self.verified {
-            struct_ser.serialize_field("verified", &self.verified)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for AuthenticateResponse {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["verified"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Verified,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "verified" => Ok(GeneratedField::Verified),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = AuthenticateResponse;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.dkim.v1.AuthenticateResponse")
-            }
-
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<AuthenticateResponse, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut verified__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Verified => {
-                            if verified__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("verified"));
-                            }
-                            verified__ = Some(map_.next_value()?);
-                        }
-                    }
-                }
-                Ok(AuthenticateResponse {
-                    verified: verified__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.dkim.v1.AuthenticateResponse",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for SnarkJsProof {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.pi_a.is_empty() {
-            len += 1;
-        }
-        if !self.pi_b.is_empty() {
-            len += 1;
-        }
-        if !self.pi_c.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("xion.dkim.v1.SnarkJsProof", len)?;
-        if !self.pi_a.is_empty() {
-            struct_ser.serialize_field(
-                "piA",
-                &self
-                    .pi_a
-                    .iter()
-                    .map(pbjson::private::base64::encode)
-                    .collect::<Vec<_>>(),
-            )?;
-        }
-        if !self.pi_b.is_empty() {
-            struct_ser.serialize_field(
-                "piB",
-                &self
-                    .pi_b
-                    .iter()
-                    .map(pbjson::private::base64::encode)
-                    .collect::<Vec<_>>(),
-            )?;
-        }
-        if !self.pi_c.is_empty() {
-            struct_ser.serialize_field(
-                "piC",
-                &self
-                    .pi_c
-                    .iter()
-                    .map(pbjson::private::base64::encode)
-                    .collect::<Vec<_>>(),
-            )?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for SnarkJsProof {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["pi_a", "piA", "pi_b", "piB", "pi_c", "piC"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            PiA,
-            PiB,
-            PiC,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "piA" | "pi_a" => Ok(GeneratedField::PiA),
-                            "piB" | "pi_b" => Ok(GeneratedField::PiB),
-                            "piC" | "pi_c" => Ok(GeneratedField::PiC),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = SnarkJsProof;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.dkim.v1.SnarkJsProof")
-            }
-
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SnarkJsProof, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut pi_a__ = None;
-                let mut pi_b__ = None;
-                let mut pi_c__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::PiA => {
-                            if pi_a__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("piA"));
-                            }
-                            pi_a__ = Some(
-                                map_.next_value::<Vec<::pbjson::private::BytesDeserialize<_>>>()?
-                                    .into_iter()
-                                    .map(|x| x.0)
-                                    .collect(),
-                            );
-                        }
-                        GeneratedField::PiB => {
-                            if pi_b__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("piB"));
-                            }
-                            pi_b__ = Some(
-                                map_.next_value::<Vec<::pbjson::private::BytesDeserialize<_>>>()?
-                                    .into_iter()
-                                    .map(|x| x.0)
-                                    .collect(),
-                            );
-                        }
-                        GeneratedField::PiC => {
-                            if pi_c__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("piC"));
-                            }
-                            pi_c__ = Some(
-                                map_.next_value::<Vec<::pbjson::private::BytesDeserialize<_>>>()?
-                                    .into_iter()
-                                    .map(|x| x.0)
-                                    .collect(),
-                            );
-                        }
-                    }
-                }
-                Ok(SnarkJsProof {
-                    pi_a: pi_a__.unwrap_or_default(),
-                    pi_b: pi_b__.unwrap_or_default(),
-                    pi_c: pi_c__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct("xion.dkim.v1.SnarkJsProof", FIELDS, GeneratedVisitor)
-    }
-}
 impl serde::Serialize for Version {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2365,7 +2278,7 @@ impl serde::Serialize for Version {
         S: serde::Serializer,
     {
         let variant = match self {
-            Self::Dkim1 => "DKIM1",
+            Self::Dkim1Unspecified => "VERSION_DKIM1_UNSPECIFIED",
         };
         serializer.serialize_str(variant)
     }
@@ -2376,7 +2289,7 @@ impl<'de> serde::Deserialize<'de> for Version {
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["DKIM1"];
+        const FIELDS: &[&str] = &["VERSION_DKIM1_UNSPECIFIED"];
 
         struct GeneratedVisitor;
 
@@ -2416,7 +2329,7 @@ impl<'de> serde::Deserialize<'de> for Version {
                 E: serde::de::Error,
             {
                 match value {
-                    "DKIM1" => Ok(Version::Dkim1),
+                    "VERSION_DKIM1_UNSPECIFIED" => Ok(Version::Dkim1Unspecified),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
                 }
             }

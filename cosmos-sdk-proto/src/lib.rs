@@ -352,5 +352,8 @@ pub mod xion {
         pub mod dkim {
             include!("prost/xion/xion.dkim.v1.rs");
         }
+        pub mod zk {
+            include!("prost/xion/xion.zk.v1.rs");
+        }
     }
 }

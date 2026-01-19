@@ -29,7 +29,7 @@ const IBC_REV: &str = "v3.0.0";
 const WASMD_REV: &str = "v0.45.0";
 
 /// The xion commit or tag to be cloned and used to build the proto files
-const XION_REV: &str = "a728ca4d6b93a6aeed762b0207071122bb0d4a6f";
+const XION_REV: &str = "1ac3be69bf6a87a23c1a362c4fa7905d1e61359d";
 
 // All paths must end with a / and either be absolute or include a ./ to reference the current
 // working directory.
@@ -273,6 +273,7 @@ fn compile_xion_proto_and_services(out_dir: &Path) {
         format!("{}/proto/xion/globalfee", sdk_dir.display()),
         format!("{}/proto/xion/jwk", sdk_dir.display()),
         format!("{}/proto/xion/dkim", sdk_dir.display()),
+        format!("{}/proto/xion/zk", sdk_dir.display()),
     ];
 
     // List available proto files

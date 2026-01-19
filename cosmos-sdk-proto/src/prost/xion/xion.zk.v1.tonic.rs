@@ -85,10 +85,10 @@ pub mod query_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        pub async fn dkim_pub_key(
+        pub async fn proof_verify(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryDkimPubKeyRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeyResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::QueryVerifyRequest>,
+        ) -> std::result::Result<tonic::Response<super::ProofVerifyResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -97,17 +97,16 @@ pub mod query_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Query/DkimPubKey");
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Query/ProofVerify");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Query", "DkimPubKey"));
+                .insert(GrpcMethod::new("xion.zk.v1.Query", "ProofVerify"));
             self.inner.unary(req, path, codec).await
         }
-        pub async fn dkim_pub_keys(
+        pub async fn v_key(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryDkimPubKeysRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeysResponse>, tonic::Status>
-        {
+            request: impl tonic::IntoRequest<super::QueryVKeyRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryVKeyResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -115,16 +114,16 @@ pub mod query_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Query/DkimPubKeys");
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Query/VKey");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Query", "DkimPubKeys"));
+                .insert(GrpcMethod::new("xion.zk.v1.Query", "VKey"));
             self.inner.unary(req, path, codec).await
         }
-        pub async fn authenticate(
+        pub async fn v_key_by_name(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryAuthenticateRequest>,
-        ) -> std::result::Result<tonic::Response<super::AuthenticateResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::QueryVKeyByNameRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryVKeyByNameResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -133,10 +132,64 @@ pub mod query_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Query/Authenticate");
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Query/VKeyByName");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Query", "Authenticate"));
+                .insert(GrpcMethod::new("xion.zk.v1.Query", "VKeyByName"));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn v_keys(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryVKeysRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryVKeysResponse>, tonic::Status>
+        {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Query/VKeys");
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("xion.zk.v1.Query", "VKeys"));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn has_v_key(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryHasVKeyRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryHasVKeyResponse>, tonic::Status>
+        {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Query/HasVKey");
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("xion.zk.v1.Query", "HasVKey"));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn next_v_key_id(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryNextVKeyIdRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryNextVKeyIdResponse>, tonic::Status>
+        {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Query/NextVKeyID");
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("xion.zk.v1.Query", "NextVKeyID"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn params(
@@ -151,10 +204,10 @@ pub mod query_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Query/Params");
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Query/Params");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Query", "Params"));
+                .insert(GrpcMethod::new("xion.zk.v1.Query", "Params"));
             self.inner.unary(req, path, codec).await
         }
     }
@@ -167,18 +220,30 @@ pub mod query_server {
     /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
     pub trait Query: Send + Sync + 'static {
-        async fn dkim_pub_key(
+        async fn proof_verify(
             &self,
-            request: tonic::Request<super::QueryDkimPubKeyRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeyResponse>, tonic::Status>;
-        async fn dkim_pub_keys(
+            request: tonic::Request<super::QueryVerifyRequest>,
+        ) -> std::result::Result<tonic::Response<super::ProofVerifyResponse>, tonic::Status>;
+        async fn v_key(
             &self,
-            request: tonic::Request<super::QueryDkimPubKeysRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryDkimPubKeysResponse>, tonic::Status>;
-        async fn authenticate(
+            request: tonic::Request<super::QueryVKeyRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryVKeyResponse>, tonic::Status>;
+        async fn v_key_by_name(
             &self,
-            request: tonic::Request<super::QueryAuthenticateRequest>,
-        ) -> std::result::Result<tonic::Response<super::AuthenticateResponse>, tonic::Status>;
+            request: tonic::Request<super::QueryVKeyByNameRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryVKeyByNameResponse>, tonic::Status>;
+        async fn v_keys(
+            &self,
+            request: tonic::Request<super::QueryVKeysRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryVKeysResponse>, tonic::Status>;
+        async fn has_v_key(
+            &self,
+            request: tonic::Request<super::QueryHasVKeyRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryHasVKeyResponse>, tonic::Status>;
+        async fn next_v_key_id(
+            &self,
+            request: tonic::Request<super::QueryNextVKeyIdRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryNextVKeyIdResponse>, tonic::Status>;
         async fn params(
             &self,
             request: tonic::Request<super::QueryParamsRequest>,
@@ -260,18 +325,18 @@ pub mod query_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/xion.dkim.v1.Query/DkimPubKey" => {
+                "/xion.zk.v1.Query/ProofVerify" => {
                     #[allow(non_camel_case_types)]
-                    struct DkimPubKeySvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryDkimPubKeyRequest> for DkimPubKeySvc<T> {
-                        type Response = super::QueryDkimPubKeyResponse;
+                    struct ProofVerifySvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryVerifyRequest> for ProofVerifySvc<T> {
+                        type Response = super::ProofVerifyResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryDkimPubKeyRequest>,
+                            request: tonic::Request<super::QueryVerifyRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).dkim_pub_key(request).await };
+                            let fut = async move { (*inner).proof_verify(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -282,7 +347,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = DkimPubKeySvc(inner);
+                        let method = ProofVerifySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -298,18 +363,18 @@ pub mod query_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Query/DkimPubKeys" => {
+                "/xion.zk.v1.Query/VKey" => {
                     #[allow(non_camel_case_types)]
-                    struct DkimPubKeysSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryDkimPubKeysRequest> for DkimPubKeysSvc<T> {
-                        type Response = super::QueryDkimPubKeysResponse;
+                    struct VKeySvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryVKeyRequest> for VKeySvc<T> {
+                        type Response = super::QueryVKeyResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryDkimPubKeysRequest>,
+                            request: tonic::Request<super::QueryVKeyRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).dkim_pub_keys(request).await };
+                            let fut = async move { (*inner).v_key(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -320,7 +385,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = DkimPubKeysSvc(inner);
+                        let method = VKeySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -336,18 +401,18 @@ pub mod query_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Query/Authenticate" => {
+                "/xion.zk.v1.Query/VKeyByName" => {
                     #[allow(non_camel_case_types)]
-                    struct AuthenticateSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryAuthenticateRequest> for AuthenticateSvc<T> {
-                        type Response = super::AuthenticateResponse;
+                    struct VKeyByNameSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryVKeyByNameRequest> for VKeyByNameSvc<T> {
+                        type Response = super::QueryVKeyByNameResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryAuthenticateRequest>,
+                            request: tonic::Request<super::QueryVKeyByNameRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).authenticate(request).await };
+                            let fut = async move { (*inner).v_key_by_name(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -358,7 +423,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = AuthenticateSvc(inner);
+                        let method = VKeyByNameSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -374,7 +439,121 @@ pub mod query_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Query/Params" => {
+                "/xion.zk.v1.Query/VKeys" => {
+                    #[allow(non_camel_case_types)]
+                    struct VKeysSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryVKeysRequest> for VKeysSvc<T> {
+                        type Response = super::QueryVKeysResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryVKeysRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).v_keys(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = VKeysSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/xion.zk.v1.Query/HasVKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct HasVKeySvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryHasVKeyRequest> for HasVKeySvc<T> {
+                        type Response = super::QueryHasVKeyResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryHasVKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).has_v_key(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = HasVKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/xion.zk.v1.Query/NextVKeyID" => {
+                    #[allow(non_camel_case_types)]
+                    struct NextVKeyIDSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryNextVKeyIdRequest> for NextVKeyIDSvc<T> {
+                        type Response = super::QueryNextVKeyIdResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryNextVKeyIdRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).next_v_key_id(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NextVKeyIDSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/xion.zk.v1.Query/Params" => {
                     #[allow(non_camel_case_types)]
                     struct ParamsSvc<T: Query>(pub Arc<T>);
                     impl<T: Query> tonic::server::UnaryService<super::QueryParamsRequest> for ParamsSvc<T> {
@@ -446,7 +625,7 @@ pub mod query_server {
         }
     }
     impl<T: Query> tonic::server::NamedService for QueryServer<T> {
-        const NAME: &'static str = "xion.dkim.v1.Query";
+        const NAME: &'static str = "xion.zk.v1.Query";
     }
 }
 /// Generated client implementations.
@@ -532,10 +711,10 @@ pub mod msg_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        pub async fn add_dkim_pub_keys(
+        pub async fn add_v_key(
             &mut self,
-            request: impl tonic::IntoRequest<super::MsgAddDkimPubKeys>,
-        ) -> std::result::Result<tonic::Response<super::MsgAddDkimPubKeysResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::MsgAddVKey>,
+        ) -> std::result::Result<tonic::Response<super::MsgAddVKeyResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -544,16 +723,16 @@ pub mod msg_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Msg/AddDkimPubKeys");
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Msg/AddVKey");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Msg", "AddDkimPubKeys"));
+                .insert(GrpcMethod::new("xion.zk.v1.Msg", "AddVKey"));
             self.inner.unary(req, path, codec).await
         }
-        pub async fn remove_dkim_pub_key(
+        pub async fn update_v_key(
             &mut self,
-            request: impl tonic::IntoRequest<super::MsgRemoveDkimPubKey>,
-        ) -> std::result::Result<tonic::Response<super::MsgRemoveDkimPubKeyResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::MsgUpdateVKey>,
+        ) -> std::result::Result<tonic::Response<super::MsgUpdateVKeyResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -562,16 +741,16 @@ pub mod msg_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Msg/RemoveDkimPubKey");
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Msg/UpdateVKey");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Msg", "RemoveDkimPubKey"));
+                .insert(GrpcMethod::new("xion.zk.v1.Msg", "UpdateVKey"));
             self.inner.unary(req, path, codec).await
         }
-        pub async fn revoke_dkim_pub_key(
+        pub async fn remove_v_key(
             &mut self,
-            request: impl tonic::IntoRequest<super::MsgRevokeDkimPubKey>,
-        ) -> std::result::Result<tonic::Response<super::MsgRevokeDkimPubKeyResponse>, tonic::Status>
+            request: impl tonic::IntoRequest<super::MsgRemoveVKey>,
+        ) -> std::result::Result<tonic::Response<super::MsgRemoveVKeyResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
@@ -580,10 +759,10 @@ pub mod msg_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Msg/RevokeDkimPubKey");
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Msg/RemoveVKey");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Msg", "RevokeDkimPubKey"));
+                .insert(GrpcMethod::new("xion.zk.v1.Msg", "RemoveVKey"));
             self.inner.unary(req, path, codec).await
         }
         pub async fn update_params(
@@ -598,10 +777,10 @@ pub mod msg_client {
                 )
             })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/xion.dkim.v1.Msg/UpdateParams");
+            let path = http::uri::PathAndQuery::from_static("/xion.zk.v1.Msg/UpdateParams");
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("xion.dkim.v1.Msg", "UpdateParams"));
+                .insert(GrpcMethod::new("xion.zk.v1.Msg", "UpdateParams"));
             self.inner.unary(req, path, codec).await
         }
     }
@@ -614,18 +793,18 @@ pub mod msg_server {
     /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
     #[async_trait]
     pub trait Msg: Send + Sync + 'static {
-        async fn add_dkim_pub_keys(
+        async fn add_v_key(
             &self,
-            request: tonic::Request<super::MsgAddDkimPubKeys>,
-        ) -> std::result::Result<tonic::Response<super::MsgAddDkimPubKeysResponse>, tonic::Status>;
-        async fn remove_dkim_pub_key(
+            request: tonic::Request<super::MsgAddVKey>,
+        ) -> std::result::Result<tonic::Response<super::MsgAddVKeyResponse>, tonic::Status>;
+        async fn update_v_key(
             &self,
-            request: tonic::Request<super::MsgRemoveDkimPubKey>,
-        ) -> std::result::Result<tonic::Response<super::MsgRemoveDkimPubKeyResponse>, tonic::Status>;
-        async fn revoke_dkim_pub_key(
+            request: tonic::Request<super::MsgUpdateVKey>,
+        ) -> std::result::Result<tonic::Response<super::MsgUpdateVKeyResponse>, tonic::Status>;
+        async fn remove_v_key(
             &self,
-            request: tonic::Request<super::MsgRevokeDkimPubKey>,
-        ) -> std::result::Result<tonic::Response<super::MsgRevokeDkimPubKeyResponse>, tonic::Status>;
+            request: tonic::Request<super::MsgRemoveVKey>,
+        ) -> std::result::Result<tonic::Response<super::MsgRemoveVKeyResponse>, tonic::Status>;
         async fn update_params(
             &self,
             request: tonic::Request<super::MsgUpdateParams>,
@@ -707,18 +886,18 @@ pub mod msg_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/xion.dkim.v1.Msg/AddDkimPubKeys" => {
+                "/xion.zk.v1.Msg/AddVKey" => {
                     #[allow(non_camel_case_types)]
-                    struct AddDkimPubKeysSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgAddDkimPubKeys> for AddDkimPubKeysSvc<T> {
-                        type Response = super::MsgAddDkimPubKeysResponse;
+                    struct AddVKeySvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgAddVKey> for AddVKeySvc<T> {
+                        type Response = super::MsgAddVKeyResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::MsgAddDkimPubKeys>,
+                            request: tonic::Request<super::MsgAddVKey>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).add_dkim_pub_keys(request).await };
+                            let fut = async move { (*inner).add_v_key(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -729,7 +908,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = AddDkimPubKeysSvc(inner);
+                        let method = AddVKeySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -745,18 +924,18 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Msg/RemoveDkimPubKey" => {
+                "/xion.zk.v1.Msg/UpdateVKey" => {
                     #[allow(non_camel_case_types)]
-                    struct RemoveDkimPubKeySvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgRemoveDkimPubKey> for RemoveDkimPubKeySvc<T> {
-                        type Response = super::MsgRemoveDkimPubKeyResponse;
+                    struct UpdateVKeySvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgUpdateVKey> for UpdateVKeySvc<T> {
+                        type Response = super::MsgUpdateVKeyResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::MsgRemoveDkimPubKey>,
+                            request: tonic::Request<super::MsgUpdateVKey>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).remove_dkim_pub_key(request).await };
+                            let fut = async move { (*inner).update_v_key(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -767,7 +946,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = RemoveDkimPubKeySvc(inner);
+                        let method = UpdateVKeySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -783,18 +962,18 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Msg/RevokeDkimPubKey" => {
+                "/xion.zk.v1.Msg/RemoveVKey" => {
                     #[allow(non_camel_case_types)]
-                    struct RevokeDkimPubKeySvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgRevokeDkimPubKey> for RevokeDkimPubKeySvc<T> {
-                        type Response = super::MsgRevokeDkimPubKeyResponse;
+                    struct RemoveVKeySvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgRemoveVKey> for RemoveVKeySvc<T> {
+                        type Response = super::MsgRemoveVKeyResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::MsgRevokeDkimPubKey>,
+                            request: tonic::Request<super::MsgRemoveVKey>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).revoke_dkim_pub_key(request).await };
+                            let fut = async move { (*inner).remove_v_key(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -805,7 +984,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = RevokeDkimPubKeySvc(inner);
+                        let method = RemoveVKeySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -821,7 +1000,7 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
-                "/xion.dkim.v1.Msg/UpdateParams" => {
+                "/xion.zk.v1.Msg/UpdateParams" => {
                     #[allow(non_camel_case_types)]
                     struct UpdateParamsSvc<T: Msg>(pub Arc<T>);
                     impl<T: Msg> tonic::server::UnaryService<super::MsgUpdateParams> for UpdateParamsSvc<T> {
@@ -893,6 +1072,6 @@ pub mod msg_server {
         }
     }
     impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
-        const NAME: &'static str = "xion.dkim.v1.Msg";
+        const NAME: &'static str = "xion.zk.v1.Msg";
     }
 }

@@ -4,18 +4,25 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MintIncentiveTokens {
+    /// The ratio of bonded tokens to total supply
     #[prost(string, tag = "1")]
     pub bonded_ratio: ::prost::alloc::string::String,
+    /// The current inflation rate
     #[prost(string, tag = "2")]
     pub inflation: ::prost::alloc::string::String,
+    /// The total annual provisions for minting
     #[prost(string, tag = "3")]
     pub annual_provisions: ::prost::alloc::string::String,
+    /// The amount of tokens needed for incentives
     #[prost(uint64, tag = "4")]
     pub needed_amount: u64,
+    /// The amount of tokens collected for incentives
     #[prost(uint64, tag = "5")]
     pub collected_amount: u64,
+    /// The amount of tokens minted
     #[prost(uint64, tag = "6")]
     pub minted_amount: u64,
+    /// The amount of tokens burned
     #[prost(uint64, tag = "7")]
     pub burned_amount: u64,
 }

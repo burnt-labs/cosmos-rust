@@ -1,220 +1,4 @@
 // @generated
-impl serde::Serialize for Audience {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.aud.is_empty() {
-            len += 1;
-        }
-        if !self.key.is_empty() {
-            len += 1;
-        }
-        if !self.admin.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("xion.jwk.v1.Audience", len)?;
-        if !self.aud.is_empty() {
-            struct_ser.serialize_field("aud", &self.aud)?;
-        }
-        if !self.key.is_empty() {
-            struct_ser.serialize_field("key", &self.key)?;
-        }
-        if !self.admin.is_empty() {
-            struct_ser.serialize_field("admin", &self.admin)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for Audience {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["aud", "key", "admin"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Aud,
-            Key,
-            Admin,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "aud" => Ok(GeneratedField::Aud),
-                            "key" => Ok(GeneratedField::Key),
-                            "admin" => Ok(GeneratedField::Admin),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = Audience;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.Audience")
-            }
-
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Audience, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut aud__ = None;
-                let mut key__ = None;
-                let mut admin__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Aud => {
-                            if aud__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("aud"));
-                            }
-                            aud__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::Key => {
-                            if key__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("key"));
-                            }
-                            key__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::Admin => {
-                            if admin__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("admin"));
-                            }
-                            admin__ = Some(map_.next_value()?);
-                        }
-                    }
-                }
-                Ok(Audience {
-                    aud: aud__.unwrap_or_default(),
-                    key: key__.unwrap_or_default(),
-                    admin: admin__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct("xion.jwk.v1.Audience", FIELDS, GeneratedVisitor)
-    }
-}
-impl serde::Serialize for AudienceClaim {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.signer.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("xion.jwk.v1.AudienceClaim", len)?;
-        if !self.signer.is_empty() {
-            struct_ser.serialize_field("signer", &self.signer)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for AudienceClaim {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["signer"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Signer,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "signer" => Ok(GeneratedField::Signer),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = AudienceClaim;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.AudienceClaim")
-            }
-
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<AudienceClaim, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut signer__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Signer => {
-                            if signer__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("signer"));
-                            }
-                            signer__ = Some(map_.next_value()?);
-                        }
-                    }
-                }
-                Ok(AudienceClaim {
-                    signer: signer__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct("xion.jwk.v1.AudienceClaim", FIELDS, GeneratedVisitor)
-    }
-}
 impl serde::Serialize for GenesisState {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -223,18 +7,18 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
+        if !self.vkeys.is_empty() {
+            len += 1;
+        }
         if self.params.is_some() {
             len += 1;
         }
-        if !self.audience_list.is_empty() {
-            len += 1;
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.GenesisState", len)?;
+        if !self.vkeys.is_empty() {
+            struct_ser.serialize_field("vkeys", &self.vkeys)?;
         }
-        let mut struct_ser = serializer.serialize_struct("xion.jwk.v1.GenesisState", len)?;
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
-        }
-        if !self.audience_list.is_empty() {
-            struct_ser.serialize_field("audienceList", &self.audience_list)?;
         }
         struct_ser.end()
     }
@@ -245,12 +29,12 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["params", "audience_list", "audienceList"];
+        const FIELDS: &[&str] = &["vkeys", "params"];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
+            Vkeys,
             Params,
-            AudienceList,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -275,8 +59,8 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                         E: serde::de::Error,
                     {
                         match value {
+                            "vkeys" => Ok(GeneratedField::Vkeys),
                             "params" => Ok(GeneratedField::Params),
-                            "audienceList" | "audience_list" => Ok(GeneratedField::AudienceList),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -289,41 +73,41 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             type Value = GenesisState;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.GenesisState")
+                formatter.write_str("struct xion.zk.v1.GenesisState")
             }
 
             fn visit_map<V>(self, mut map_: V) -> std::result::Result<GenesisState, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
+                let mut vkeys__ = None;
                 let mut params__ = None;
-                let mut audience_list__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
+                        GeneratedField::Vkeys => {
+                            if vkeys__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vkeys"));
+                            }
+                            vkeys__ = Some(map_.next_value()?);
+                        }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
                             params__ = map_.next_value()?;
                         }
-                        GeneratedField::AudienceList => {
-                            if audience_list__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("audienceList"));
-                            }
-                            audience_list__ = Some(map_.next_value()?);
-                        }
                     }
                 }
                 Ok(GenesisState {
+                    vkeys: vkeys__.unwrap_or_default(),
                     params: params__,
-                    audience_list: audience_list__.unwrap_or_default(),
                 })
             }
         }
-        deserializer.deserialize_struct("xion.jwk.v1.GenesisState", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("xion.zk.v1.GenesisState", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for MsgCreateAudience {
+impl serde::Serialize for MsgAddVKey {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -331,878 +115,58 @@ impl serde::Serialize for MsgCreateAudience {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.admin.is_empty() {
+        if !self.authority.is_empty() {
             len += 1;
         }
-        if !self.aud.is_empty() {
+        if !self.name.is_empty() {
             len += 1;
         }
-        if !self.key.is_empty() {
+        if !self.description.is_empty() {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("xion.jwk.v1.MsgCreateAudience", len)?;
-        if !self.admin.is_empty() {
-            struct_ser.serialize_field("admin", &self.admin)?;
-        }
-        if !self.aud.is_empty() {
-            struct_ser.serialize_field("aud", &self.aud)?;
-        }
-        if !self.key.is_empty() {
-            struct_ser.serialize_field("key", &self.key)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for MsgCreateAudience {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["admin", "aud", "key"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Admin,
-            Aud,
-            Key,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "admin" => Ok(GeneratedField::Admin),
-                            "aud" => Ok(GeneratedField::Aud),
-                            "key" => Ok(GeneratedField::Key),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = MsgCreateAudience;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.MsgCreateAudience")
-            }
-
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgCreateAudience, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut admin__ = None;
-                let mut aud__ = None;
-                let mut key__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Admin => {
-                            if admin__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("admin"));
-                            }
-                            admin__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::Aud => {
-                            if aud__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("aud"));
-                            }
-                            aud__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::Key => {
-                            if key__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("key"));
-                            }
-                            key__ = Some(map_.next_value()?);
-                        }
-                    }
-                }
-                Ok(MsgCreateAudience {
-                    admin: admin__.unwrap_or_default(),
-                    aud: aud__.unwrap_or_default(),
-                    key: key__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct("xion.jwk.v1.MsgCreateAudience", FIELDS, GeneratedVisitor)
-    }
-}
-impl serde::Serialize for MsgCreateAudienceClaim {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.admin.is_empty() {
+        if !self.vkey_bytes.is_empty() {
             len += 1;
         }
-        if !self.aud_hash.is_empty() {
-            len += 1;
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.MsgAddVKey", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
         }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.MsgCreateAudienceClaim", len)?;
-        if !self.admin.is_empty() {
-            struct_ser.serialize_field("admin", &self.admin)?;
+        if !self.name.is_empty() {
+            struct_ser.serialize_field("name", &self.name)?;
         }
-        if !self.aud_hash.is_empty() {
+        if !self.description.is_empty() {
+            struct_ser.serialize_field("description", &self.description)?;
+        }
+        if !self.vkey_bytes.is_empty() {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
-                "audHash",
-                pbjson::private::base64::encode(&self.aud_hash).as_str(),
+                "vkeyBytes",
+                pbjson::private::base64::encode(&self.vkey_bytes).as_str(),
             )?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for MsgCreateAudienceClaim {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["admin", "aud_hash", "audHash"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Admin,
-            AudHash,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "admin" => Ok(GeneratedField::Admin),
-                            "audHash" | "aud_hash" => Ok(GeneratedField::AudHash),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = MsgCreateAudienceClaim;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.MsgCreateAudienceClaim")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<MsgCreateAudienceClaim, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut admin__ = None;
-                let mut aud_hash__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Admin => {
-                            if admin__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("admin"));
-                            }
-                            admin__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::AudHash => {
-                            if aud_hash__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("audHash"));
-                            }
-                            aud_hash__ = Some(
-                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
-                                    .0,
-                            );
-                        }
-                    }
-                }
-                Ok(MsgCreateAudienceClaim {
-                    admin: admin__.unwrap_or_default(),
-                    aud_hash: aud_hash__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.MsgCreateAudienceClaim",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for MsgCreateAudienceClaimResponse {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let len = 0;
-        let struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.MsgCreateAudienceClaimResponse", len)?;
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for MsgCreateAudienceClaimResponse {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &[];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {}
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        Err(serde::de::Error::unknown_field(value, FIELDS))
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = MsgCreateAudienceClaimResponse;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.MsgCreateAudienceClaimResponse")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<MsgCreateAudienceClaimResponse, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                while map_.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
-                }
-                Ok(MsgCreateAudienceClaimResponse {})
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.MsgCreateAudienceClaimResponse",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for MsgCreateAudienceResponse {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if self.audience.is_some() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.MsgCreateAudienceResponse", len)?;
-        if let Some(v) = self.audience.as_ref() {
-            struct_ser.serialize_field("audience", v)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for MsgCreateAudienceResponse {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["audience"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Audience,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "audience" => Ok(GeneratedField::Audience),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = MsgCreateAudienceResponse;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.MsgCreateAudienceResponse")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<MsgCreateAudienceResponse, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut audience__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Audience => {
-                            if audience__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("audience"));
-                            }
-                            audience__ = map_.next_value()?;
-                        }
-                    }
-                }
-                Ok(MsgCreateAudienceResponse {
-                    audience: audience__,
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.MsgCreateAudienceResponse",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for MsgDeleteAudience {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.admin.is_empty() {
-            len += 1;
-        }
-        if !self.aud.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("xion.jwk.v1.MsgDeleteAudience", len)?;
-        if !self.admin.is_empty() {
-            struct_ser.serialize_field("admin", &self.admin)?;
-        }
-        if !self.aud.is_empty() {
-            struct_ser.serialize_field("aud", &self.aud)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for MsgDeleteAudience {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["admin", "aud"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Admin,
-            Aud,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "admin" => Ok(GeneratedField::Admin),
-                            "aud" => Ok(GeneratedField::Aud),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = MsgDeleteAudience;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.MsgDeleteAudience")
-            }
-
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgDeleteAudience, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut admin__ = None;
-                let mut aud__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Admin => {
-                            if admin__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("admin"));
-                            }
-                            admin__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::Aud => {
-                            if aud__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("aud"));
-                            }
-                            aud__ = Some(map_.next_value()?);
-                        }
-                    }
-                }
-                Ok(MsgDeleteAudience {
-                    admin: admin__.unwrap_or_default(),
-                    aud: aud__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct("xion.jwk.v1.MsgDeleteAudience", FIELDS, GeneratedVisitor)
-    }
-}
-impl serde::Serialize for MsgDeleteAudienceClaim {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.admin.is_empty() {
-            len += 1;
-        }
-        if !self.aud_hash.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.MsgDeleteAudienceClaim", len)?;
-        if !self.admin.is_empty() {
-            struct_ser.serialize_field("admin", &self.admin)?;
-        }
-        if !self.aud_hash.is_empty() {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field(
-                "audHash",
-                pbjson::private::base64::encode(&self.aud_hash).as_str(),
-            )?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceClaim {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["admin", "aud_hash", "audHash"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Admin,
-            AudHash,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "admin" => Ok(GeneratedField::Admin),
-                            "audHash" | "aud_hash" => Ok(GeneratedField::AudHash),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = MsgDeleteAudienceClaim;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.MsgDeleteAudienceClaim")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<MsgDeleteAudienceClaim, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut admin__ = None;
-                let mut aud_hash__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Admin => {
-                            if admin__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("admin"));
-                            }
-                            admin__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::AudHash => {
-                            if aud_hash__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("audHash"));
-                            }
-                            aud_hash__ = Some(
-                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
-                                    .0,
-                            );
-                        }
-                    }
-                }
-                Ok(MsgDeleteAudienceClaim {
-                    admin: admin__.unwrap_or_default(),
-                    aud_hash: aud_hash__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.MsgDeleteAudienceClaim",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for MsgDeleteAudienceClaimResponse {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let len = 0;
-        let struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.MsgDeleteAudienceClaimResponse", len)?;
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceClaimResponse {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &[];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {}
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        Err(serde::de::Error::unknown_field(value, FIELDS))
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = MsgDeleteAudienceClaimResponse;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.MsgDeleteAudienceClaimResponse")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<MsgDeleteAudienceClaimResponse, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                while map_.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
-                }
-                Ok(MsgDeleteAudienceClaimResponse {})
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.MsgDeleteAudienceClaimResponse",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for MsgDeleteAudienceResponse {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let len = 0;
-        let struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.MsgDeleteAudienceResponse", len)?;
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for MsgDeleteAudienceResponse {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &[];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {}
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        Err(serde::de::Error::unknown_field(value, FIELDS))
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = MsgDeleteAudienceResponse;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.MsgDeleteAudienceResponse")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<MsgDeleteAudienceResponse, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                while map_.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
-                }
-                Ok(MsgDeleteAudienceResponse {})
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.MsgDeleteAudienceResponse",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for MsgUpdateAudience {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.admin.is_empty() {
-            len += 1;
-        }
-        if !self.new_admin.is_empty() {
-            len += 1;
-        }
-        if !self.aud.is_empty() {
-            len += 1;
-        }
-        if !self.key.is_empty() {
-            len += 1;
-        }
-        if !self.new_aud.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("xion.jwk.v1.MsgUpdateAudience", len)?;
-        if !self.admin.is_empty() {
-            struct_ser.serialize_field("admin", &self.admin)?;
-        }
-        if !self.new_admin.is_empty() {
-            struct_ser.serialize_field("newAdmin", &self.new_admin)?;
-        }
-        if !self.aud.is_empty() {
-            struct_ser.serialize_field("aud", &self.aud)?;
-        }
-        if !self.key.is_empty() {
-            struct_ser.serialize_field("key", &self.key)?;
-        }
-        if !self.new_aud.is_empty() {
-            struct_ser.serialize_field("newAud", &self.new_aud)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for MsgUpdateAudience {
+impl<'de> serde::Deserialize<'de> for MsgAddVKey {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
-            "admin",
-            "new_admin",
-            "newAdmin",
-            "aud",
-            "key",
-            "new_aud",
-            "newAud",
+            "authority",
+            "name",
+            "description",
+            "vkey_bytes",
+            "vkeyBytes",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            Admin,
-            NewAdmin,
-            Aud,
-            Key,
-            NewAud,
+            Authority,
+            Name,
+            Description,
+            VkeyBytes,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -1227,11 +191,10 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAudience {
                         E: serde::de::Error,
                     {
                         match value {
-                            "admin" => Ok(GeneratedField::Admin),
-                            "newAdmin" | "new_admin" => Ok(GeneratedField::NewAdmin),
-                            "aud" => Ok(GeneratedField::Aud),
-                            "key" => Ok(GeneratedField::Key),
-                            "newAud" | "new_aud" => Ok(GeneratedField::NewAud),
+                            "authority" => Ok(GeneratedField::Authority),
+                            "name" => Ok(GeneratedField::Name),
+                            "description" => Ok(GeneratedField::Description),
+                            "vkeyBytes" | "vkey_bytes" => Ok(GeneratedField::VkeyBytes),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1241,68 +204,63 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAudience {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = MsgUpdateAudience;
+            type Value = MsgAddVKey;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.MsgUpdateAudience")
+                formatter.write_str("struct xion.zk.v1.MsgAddVKey")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgUpdateAudience, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgAddVKey, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut admin__ = None;
-                let mut new_admin__ = None;
-                let mut aud__ = None;
-                let mut key__ = None;
-                let mut new_aud__ = None;
+                let mut authority__ = None;
+                let mut name__ = None;
+                let mut description__ = None;
+                let mut vkey_bytes__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::Admin => {
-                            if admin__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("admin"));
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
                             }
-                            admin__ = Some(map_.next_value()?);
+                            authority__ = Some(map_.next_value()?);
                         }
-                        GeneratedField::NewAdmin => {
-                            if new_admin__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("newAdmin"));
+                        GeneratedField::Name => {
+                            if name__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            new_admin__ = Some(map_.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
-                        GeneratedField::Aud => {
-                            if aud__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("aud"));
+                        GeneratedField::Description => {
+                            if description__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("description"));
                             }
-                            aud__ = Some(map_.next_value()?);
+                            description__ = Some(map_.next_value()?);
                         }
-                        GeneratedField::Key => {
-                            if key__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("key"));
+                        GeneratedField::VkeyBytes => {
+                            if vkey_bytes__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vkeyBytes"));
                             }
-                            key__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::NewAud => {
-                            if new_aud__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("newAud"));
-                            }
-                            new_aud__ = Some(map_.next_value()?);
+                            vkey_bytes__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
                         }
                     }
                 }
-                Ok(MsgUpdateAudience {
-                    admin: admin__.unwrap_or_default(),
-                    new_admin: new_admin__.unwrap_or_default(),
-                    aud: aud__.unwrap_or_default(),
-                    key: key__.unwrap_or_default(),
-                    new_aud: new_aud__.unwrap_or_default(),
+                Ok(MsgAddVKey {
+                    authority: authority__.unwrap_or_default(),
+                    name: name__.unwrap_or_default(),
+                    description: description__.unwrap_or_default(),
+                    vkey_bytes: vkey_bytes__.unwrap_or_default(),
                 })
             }
         }
-        deserializer.deserialize_struct("xion.jwk.v1.MsgUpdateAudience", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("xion.zk.v1.MsgAddVKey", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for MsgUpdateAudienceResponse {
+impl serde::Serialize for MsgAddVKeyResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1310,28 +268,28 @@ impl serde::Serialize for MsgUpdateAudienceResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.audience.is_some() {
+        if self.id != 0 {
             len += 1;
         }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.MsgUpdateAudienceResponse", len)?;
-        if let Some(v) = self.audience.as_ref() {
-            struct_ser.serialize_field("audience", v)?;
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.MsgAddVKeyResponse", len)?;
+        if self.id != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("id", ToString::to_string(&self.id).as_str())?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for MsgUpdateAudienceResponse {
+impl<'de> serde::Deserialize<'de> for MsgAddVKeyResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["audience"];
+        const FIELDS: &[&str] = &["id"];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            Audience,
+            Id,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -1356,7 +314,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAudienceResponse {
                         E: serde::de::Error,
                     {
                         match value {
-                            "audience" => Ok(GeneratedField::Audience),
+                            "id" => Ok(GeneratedField::Id),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1366,37 +324,636 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAudienceResponse {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = MsgUpdateAudienceResponse;
+            type Value = MsgAddVKeyResponse;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.MsgUpdateAudienceResponse")
+                formatter.write_str("struct xion.zk.v1.MsgAddVKeyResponse")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgAddVKeyResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut id__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Id => {
+                            if id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MsgAddVKeyResponse {
+                    id: id__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.MsgAddVKeyResponse", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for MsgRemoveVKey {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if !self.name.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.MsgRemoveVKey", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if !self.name.is_empty() {
+            struct_ser.serialize_field("name", &self.name)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgRemoveVKey {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["authority", "name"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            Name,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "name" => Ok(GeneratedField::Name),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgRemoveVKey;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.MsgRemoveVKey")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgRemoveVKey, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut name__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Name => {
+                            if name__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("name"));
+                            }
+                            name__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MsgRemoveVKey {
+                    authority: authority__.unwrap_or_default(),
+                    name: name__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.MsgRemoveVKey", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for MsgRemoveVKeyResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser = serializer.serialize_struct("xion.zk.v1.MsgRemoveVKeyResponse", len)?;
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgRemoveVKeyResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgRemoveVKeyResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.MsgRemoveVKeyResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MsgUpdateAudienceResponse, V::Error>
+            ) -> std::result::Result<MsgRemoveVKeyResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut audience__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Audience => {
-                            if audience__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("audience"));
-                            }
-                            audience__ = map_.next_value()?;
-                        }
-                    }
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
-                Ok(MsgUpdateAudienceResponse {
-                    audience: audience__,
-                })
+                Ok(MsgRemoveVKeyResponse {})
             }
         }
         deserializer.deserialize_struct(
-            "xion.jwk.v1.MsgUpdateAudienceResponse",
+            "xion.zk.v1.MsgRemoveVKeyResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+impl serde::Serialize for MsgUpdateParams {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if self.params.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.MsgUpdateParams", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if let Some(v) = self.params.as_ref() {
+            struct_ser.serialize_field("params", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["authority", "params"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            Params,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "params" => Ok(GeneratedField::Params),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateParams;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.MsgUpdateParams")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgUpdateParams, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut params__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Params => {
+                            if params__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("params"));
+                            }
+                            params__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(MsgUpdateParams {
+                    authority: authority__.unwrap_or_default(),
+                    params: params__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.MsgUpdateParams", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for MsgUpdateParamsResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser = serializer.serialize_struct("xion.zk.v1.MsgUpdateParamsResponse", len)?;
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateParamsResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.MsgUpdateParamsResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<MsgUpdateParamsResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgUpdateParamsResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.zk.v1.MsgUpdateParamsResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+impl serde::Serialize for MsgUpdateVKey {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if !self.name.is_empty() {
+            len += 1;
+        }
+        if !self.description.is_empty() {
+            len += 1;
+        }
+        if !self.vkey_bytes.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.MsgUpdateVKey", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if !self.name.is_empty() {
+            struct_ser.serialize_field("name", &self.name)?;
+        }
+        if !self.description.is_empty() {
+            struct_ser.serialize_field("description", &self.description)?;
+        }
+        if !self.vkey_bytes.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "vkeyBytes",
+                pbjson::private::base64::encode(&self.vkey_bytes).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgUpdateVKey {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "authority",
+            "name",
+            "description",
+            "vkey_bytes",
+            "vkeyBytes",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            Name,
+            Description,
+            VkeyBytes,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "name" => Ok(GeneratedField::Name),
+                            "description" => Ok(GeneratedField::Description),
+                            "vkeyBytes" | "vkey_bytes" => Ok(GeneratedField::VkeyBytes),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateVKey;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.MsgUpdateVKey")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgUpdateVKey, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut name__ = None;
+                let mut description__ = None;
+                let mut vkey_bytes__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Name => {
+                            if name__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("name"));
+                            }
+                            name__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Description => {
+                            if description__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("description"));
+                            }
+                            description__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::VkeyBytes => {
+                            if vkey_bytes__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vkeyBytes"));
+                            }
+                            vkey_bytes__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MsgUpdateVKey {
+                    authority: authority__.unwrap_or_default(),
+                    name: name__.unwrap_or_default(),
+                    description: description__.unwrap_or_default(),
+                    vkey_bytes: vkey_bytes__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.MsgUpdateVKey", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for MsgUpdateVKeyResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser = serializer.serialize_struct("xion.zk.v1.MsgUpdateVKeyResponse", len)?;
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgUpdateVKeyResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateVKeyResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.MsgUpdateVKeyResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> std::result::Result<MsgUpdateVKeyResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgUpdateVKeyResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "xion.zk.v1.MsgUpdateVKeyResponse",
             FIELDS,
             GeneratedVisitor,
         )
@@ -1410,25 +967,35 @@ impl serde::Serialize for Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.time_offset != 0 {
+        if self.max_vkey_size_bytes != 0 {
             len += 1;
         }
-        if self.deployment_gas != 0 {
+        if self.upload_chunk_size != 0 {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("xion.jwk.v1.Params", len)?;
-        if self.time_offset != 0 {
+        if self.upload_chunk_gas != 0 {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.Params", len)?;
+        if self.max_vkey_size_bytes != 0 {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
-                "timeOffset",
-                ToString::to_string(&self.time_offset).as_str(),
+                "maxVkeySizeBytes",
+                ToString::to_string(&self.max_vkey_size_bytes).as_str(),
             )?;
         }
-        if self.deployment_gas != 0 {
+        if self.upload_chunk_size != 0 {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
-                "deploymentGas",
-                ToString::to_string(&self.deployment_gas).as_str(),
+                "uploadChunkSize",
+                ToString::to_string(&self.upload_chunk_size).as_str(),
+            )?;
+        }
+        if self.upload_chunk_gas != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "uploadChunkGas",
+                ToString::to_string(&self.upload_chunk_gas).as_str(),
             )?;
         }
         struct_ser.end()
@@ -1441,16 +1008,19 @@ impl<'de> serde::Deserialize<'de> for Params {
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
-            "time_offset",
-            "timeOffset",
-            "deployment_gas",
-            "deploymentGas",
+            "max_vkey_size_bytes",
+            "maxVkeySizeBytes",
+            "upload_chunk_size",
+            "uploadChunkSize",
+            "upload_chunk_gas",
+            "uploadChunkGas",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            TimeOffset,
-            DeploymentGas,
+            MaxVkeySizeBytes,
+            UploadChunkSize,
+            UploadChunkGas,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -1475,8 +1045,15 @@ impl<'de> serde::Deserialize<'de> for Params {
                         E: serde::de::Error,
                     {
                         match value {
-                            "timeOffset" | "time_offset" => Ok(GeneratedField::TimeOffset),
-                            "deploymentGas" | "deployment_gas" => Ok(GeneratedField::DeploymentGas),
+                            "maxVkeySizeBytes" | "max_vkey_size_bytes" => {
+                                Ok(GeneratedField::MaxVkeySizeBytes)
+                            }
+                            "uploadChunkSize" | "upload_chunk_size" => {
+                                Ok(GeneratedField::UploadChunkSize)
+                            }
+                            "uploadChunkGas" | "upload_chunk_gas" => {
+                                Ok(GeneratedField::UploadChunkGas)
+                            }
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1489,31 +1066,41 @@ impl<'de> serde::Deserialize<'de> for Params {
             type Value = Params;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.Params")
+                formatter.write_str("struct xion.zk.v1.Params")
             }
 
             fn visit_map<V>(self, mut map_: V) -> std::result::Result<Params, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut time_offset__ = None;
-                let mut deployment_gas__ = None;
+                let mut max_vkey_size_bytes__ = None;
+                let mut upload_chunk_size__ = None;
+                let mut upload_chunk_gas__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::TimeOffset => {
-                            if time_offset__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("timeOffset"));
+                        GeneratedField::MaxVkeySizeBytes => {
+                            if max_vkey_size_bytes__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("maxVkeySizeBytes"));
                             }
-                            time_offset__ = Some(
+                            max_vkey_size_bytes__ = Some(
                                 map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
                                     .0,
                             );
                         }
-                        GeneratedField::DeploymentGas => {
-                            if deployment_gas__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("deploymentGas"));
+                        GeneratedField::UploadChunkSize => {
+                            if upload_chunk_size__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("uploadChunkSize"));
                             }
-                            deployment_gas__ = Some(
+                            upload_chunk_size__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::UploadChunkGas => {
+                            if upload_chunk_gas__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("uploadChunkGas"));
+                            }
+                            upload_chunk_gas__ = Some(
                                 map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
                                     .0,
                             );
@@ -1521,15 +1108,16 @@ impl<'de> serde::Deserialize<'de> for Params {
                     }
                 }
                 Ok(Params {
-                    time_offset: time_offset__.unwrap_or_default(),
-                    deployment_gas: deployment_gas__.unwrap_or_default(),
+                    max_vkey_size_bytes: max_vkey_size_bytes__.unwrap_or_default(),
+                    upload_chunk_size: upload_chunk_size__.unwrap_or_default(),
+                    upload_chunk_gas: upload_chunk_gas__.unwrap_or_default(),
                 })
             }
         }
-        deserializer.deserialize_struct("xion.jwk.v1.Params", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("xion.zk.v1.Params", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for PrivateClaim {
+impl serde::Serialize for ProofVerifyResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1537,34 +1125,27 @@ impl serde::Serialize for PrivateClaim {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if self.verified {
             len += 1;
         }
-        if !self.value.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("xion.jwk.v1.PrivateClaim", len)?;
-        if !self.key.is_empty() {
-            struct_ser.serialize_field("key", &self.key)?;
-        }
-        if !self.value.is_empty() {
-            struct_ser.serialize_field("value", &self.value)?;
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.ProofVerifyResponse", len)?;
+        if self.verified {
+            struct_ser.serialize_field("verified", &self.verified)?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for PrivateClaim {
+impl<'de> serde::Deserialize<'de> for ProofVerifyResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["key", "value"];
+        const FIELDS: &[&str] = &["verified"];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            Key,
-            Value,
+            Verified,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -1589,8 +1170,7 @@ impl<'de> serde::Deserialize<'de> for PrivateClaim {
                         E: serde::de::Error,
                     {
                         match value {
-                            "key" => Ok(GeneratedField::Key),
-                            "value" => Ok(GeneratedField::Value),
+                            "verified" => Ok(GeneratedField::Verified),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1600,44 +1180,36 @@ impl<'de> serde::Deserialize<'de> for PrivateClaim {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = PrivateClaim;
+            type Value = ProofVerifyResponse;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.PrivateClaim")
+                formatter.write_str("struct xion.zk.v1.ProofVerifyResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<PrivateClaim, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ProofVerifyResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut key__ = None;
-                let mut value__ = None;
+                let mut verified__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::Key => {
-                            if key__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("key"));
+                        GeneratedField::Verified => {
+                            if verified__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("verified"));
                             }
-                            key__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::Value => {
-                            if value__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("value"));
-                            }
-                            value__ = Some(map_.next_value()?);
+                            verified__ = Some(map_.next_value()?);
                         }
                     }
                 }
-                Ok(PrivateClaim {
-                    key: key__.unwrap_or_default(),
-                    value: value__.unwrap_or_default(),
+                Ok(ProofVerifyResponse {
+                    verified: verified__.unwrap_or_default(),
                 })
             }
         }
-        deserializer.deserialize_struct("xion.jwk.v1.PrivateClaim", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("xion.zk.v1.ProofVerifyResponse", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for QueryAllAudienceRequest {
+impl serde::Serialize for QueryHasVKeyRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1645,28 +1217,27 @@ impl serde::Serialize for QueryAllAudienceRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pagination.is_some() {
+        if !self.name.is_empty() {
             len += 1;
         }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryAllAudienceRequest", len)?;
-        if let Some(v) = self.pagination.as_ref() {
-            struct_ser.serialize_field("pagination", v)?;
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.QueryHasVKeyRequest", len)?;
+        if !self.name.is_empty() {
+            struct_ser.serialize_field("name", &self.name)?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryAllAudienceRequest {
+impl<'de> serde::Deserialize<'de> for QueryHasVKeyRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["pagination"];
+        const FIELDS: &[&str] = &["name"];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            Pagination,
+            Name,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -1691,7 +1262,7 @@ impl<'de> serde::Deserialize<'de> for QueryAllAudienceRequest {
                         E: serde::de::Error,
                     {
                         match value {
-                            "pagination" => Ok(GeneratedField::Pagination),
+                            "name" => Ok(GeneratedField::Name),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1701,43 +1272,36 @@ impl<'de> serde::Deserialize<'de> for QueryAllAudienceRequest {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryAllAudienceRequest;
+            type Value = QueryHasVKeyRequest;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryAllAudienceRequest")
+                formatter.write_str("struct xion.zk.v1.QueryHasVKeyRequest")
             }
 
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<QueryAllAudienceRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryHasVKeyRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut pagination__ = None;
+                let mut name__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::Pagination => {
-                            if pagination__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("pagination"));
+                        GeneratedField::Name => {
+                            if name__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            pagination__ = map_.next_value()?;
+                            name__ = Some(map_.next_value()?);
                         }
                     }
                 }
-                Ok(QueryAllAudienceRequest {
-                    pagination: pagination__,
+                Ok(QueryHasVKeyRequest {
+                    name: name__.unwrap_or_default(),
                 })
             }
         }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryAllAudienceRequest",
-            FIELDS,
-            GeneratedVisitor,
-        )
+        deserializer.deserialize_struct("xion.zk.v1.QueryHasVKeyRequest", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for QueryAllAudienceResponse {
+impl serde::Serialize for QueryHasVKeyResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1745,362 +1309,35 @@ impl serde::Serialize for QueryAllAudienceResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.audience.is_empty() {
+        if self.exists {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if self.id != 0 {
             len += 1;
         }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryAllAudienceResponse", len)?;
-        if !self.audience.is_empty() {
-            struct_ser.serialize_field("audience", &self.audience)?;
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.QueryHasVKeyResponse", len)?;
+        if self.exists {
+            struct_ser.serialize_field("exists", &self.exists)?;
         }
-        if let Some(v) = self.pagination.as_ref() {
-            struct_ser.serialize_field("pagination", v)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for QueryAllAudienceResponse {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["audience", "pagination"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Audience,
-            Pagination,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "audience" => Ok(GeneratedField::Audience),
-                            "pagination" => Ok(GeneratedField::Pagination),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryAllAudienceResponse;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryAllAudienceResponse")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<QueryAllAudienceResponse, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut audience__ = None;
-                let mut pagination__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Audience => {
-                            if audience__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("audience"));
-                            }
-                            audience__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::Pagination => {
-                            if pagination__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("pagination"));
-                            }
-                            pagination__ = map_.next_value()?;
-                        }
-                    }
-                }
-                Ok(QueryAllAudienceResponse {
-                    audience: audience__.unwrap_or_default(),
-                    pagination: pagination__,
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryAllAudienceResponse",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for QueryAudienceAllRequest {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if self.pagination.is_some() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryAudienceAllRequest", len)?;
-        if let Some(v) = self.pagination.as_ref() {
-            struct_ser.serialize_field("pagination", v)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for QueryAudienceAllRequest {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["pagination"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Pagination,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "pagination" => Ok(GeneratedField::Pagination),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryAudienceAllRequest;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryAudienceAllRequest")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<QueryAudienceAllRequest, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut pagination__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Pagination => {
-                            if pagination__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("pagination"));
-                            }
-                            pagination__ = map_.next_value()?;
-                        }
-                    }
-                }
-                Ok(QueryAudienceAllRequest {
-                    pagination: pagination__,
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryAudienceAllRequest",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for QueryAudienceAllResponse {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.audience.is_empty() {
-            len += 1;
-        }
-        if self.pagination.is_some() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryAudienceAllResponse", len)?;
-        if !self.audience.is_empty() {
-            struct_ser.serialize_field("audience", &self.audience)?;
-        }
-        if let Some(v) = self.pagination.as_ref() {
-            struct_ser.serialize_field("pagination", v)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for QueryAudienceAllResponse {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["audience", "pagination"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Audience,
-            Pagination,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "audience" => Ok(GeneratedField::Audience),
-                            "pagination" => Ok(GeneratedField::Pagination),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryAudienceAllResponse;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryAudienceAllResponse")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<QueryAudienceAllResponse, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut audience__ = None;
-                let mut pagination__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Audience => {
-                            if audience__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("audience"));
-                            }
-                            audience__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::Pagination => {
-                            if pagination__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("pagination"));
-                            }
-                            pagination__ = map_.next_value()?;
-                        }
-                    }
-                }
-                Ok(QueryAudienceAllResponse {
-                    audience: audience__.unwrap_or_default(),
-                    pagination: pagination__,
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryAudienceAllResponse",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for QueryAudienceClaimRequest {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.hash.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryAudienceClaimRequest", len)?;
-        if !self.hash.is_empty() {
+        if self.id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser
-                .serialize_field("hash", pbjson::private::base64::encode(&self.hash).as_str())?;
+            struct_ser.serialize_field("id", ToString::to_string(&self.id).as_str())?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryAudienceClaimRequest {
+impl<'de> serde::Deserialize<'de> for QueryHasVKeyResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["hash"];
+        const FIELDS: &[&str] = &["exists", "id"];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            Hash,
+            Exists,
+            Id,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -2125,7 +1362,8 @@ impl<'de> serde::Deserialize<'de> for QueryAudienceClaimRequest {
                         E: serde::de::Error,
                     {
                         match value {
-                            "hash" => Ok(GeneratedField::Hash),
+                            "exists" => Ok(GeneratedField::Exists),
+                            "id" => Ok(GeneratedField::Id),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2135,76 +1373,71 @@ impl<'de> serde::Deserialize<'de> for QueryAudienceClaimRequest {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryAudienceClaimRequest;
+            type Value = QueryHasVKeyResponse;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryAudienceClaimRequest")
+                formatter.write_str("struct xion.zk.v1.QueryHasVKeyResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryAudienceClaimRequest, V::Error>
+            ) -> std::result::Result<QueryHasVKeyResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut hash__ = None;
+                let mut exists__ = None;
+                let mut id__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::Hash => {
-                            if hash__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("hash"));
+                        GeneratedField::Exists => {
+                            if exists__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("exists"));
                             }
-                            hash__ = Some(
-                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                            exists__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Id => {
+                            if id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
                                     .0,
                             );
                         }
                     }
                 }
-                Ok(QueryAudienceClaimRequest {
-                    hash: hash__.unwrap_or_default(),
+                Ok(QueryHasVKeyResponse {
+                    exists: exists__.unwrap_or_default(),
+                    id: id__.unwrap_or_default(),
                 })
             }
         }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryAudienceClaimRequest",
-            FIELDS,
-            GeneratedVisitor,
-        )
+        deserializer.deserialize_struct("xion.zk.v1.QueryHasVKeyResponse", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for QueryAudienceClaimResponse {
+impl serde::Serialize for QueryNextVKeyIdRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
         use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if self.claim.is_some() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryAudienceClaimResponse", len)?;
-        if let Some(v) = self.claim.as_ref() {
-            struct_ser.serialize_field("claim", v)?;
-        }
+        let len = 0;
+        let struct_ser = serializer.serialize_struct("xion.zk.v1.QueryNextVKeyIDRequest", len)?;
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryAudienceClaimResponse {
+impl<'de> serde::Deserialize<'de> for QueryNextVKeyIdRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["claim"];
+        const FIELDS: &[&str] = &[];
 
         #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Claim,
-        }
+        enum GeneratedField {}
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
             where
@@ -2227,10 +1460,7 @@ impl<'de> serde::Deserialize<'de> for QueryAudienceClaimResponse {
                     where
                         E: serde::de::Error,
                     {
-                        match value {
-                            "claim" => Ok(GeneratedField::Claim),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
                     }
                 }
                 deserializer.deserialize_identifier(GeneratedVisitor)
@@ -2238,41 +1468,33 @@ impl<'de> serde::Deserialize<'de> for QueryAudienceClaimResponse {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryAudienceClaimResponse;
+            type Value = QueryNextVKeyIdRequest;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryAudienceClaimResponse")
+                formatter.write_str("struct xion.zk.v1.QueryNextVKeyIDRequest")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryAudienceClaimResponse, V::Error>
+            ) -> std::result::Result<QueryNextVKeyIdRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut claim__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Claim => {
-                            if claim__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("claim"));
-                            }
-                            claim__ = map_.next_value()?;
-                        }
-                    }
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
-                Ok(QueryAudienceClaimResponse { claim: claim__ })
+                Ok(QueryNextVKeyIdRequest {})
             }
         }
         deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryAudienceClaimResponse",
+            "xion.zk.v1.QueryNextVKeyIDRequest",
             FIELDS,
             GeneratedVisitor,
         )
     }
 }
-impl serde::Serialize for QueryAudienceRequest {
+impl serde::Serialize for QueryNextVKeyIdResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2280,230 +1502,29 @@ impl serde::Serialize for QueryAudienceRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.aud.is_empty() {
+        if self.next_id != 0 {
             len += 1;
         }
         let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryAudienceRequest", len)?;
-        if !self.aud.is_empty() {
-            struct_ser.serialize_field("aud", &self.aud)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for QueryAudienceRequest {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["aud"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Aud,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "aud" => Ok(GeneratedField::Aud),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryAudienceRequest;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryAudienceRequest")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<QueryAudienceRequest, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut aud__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Aud => {
-                            if aud__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("aud"));
-                            }
-                            aud__ = Some(map_.next_value()?);
-                        }
-                    }
-                }
-                Ok(QueryAudienceRequest {
-                    aud: aud__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryAudienceRequest",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for QueryAudienceResponse {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if self.audience.is_some() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryAudienceResponse", len)?;
-        if let Some(v) = self.audience.as_ref() {
-            struct_ser.serialize_field("audience", v)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for QueryAudienceResponse {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["audience"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Audience,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "audience" => Ok(GeneratedField::Audience),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryAudienceResponse;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryAudienceResponse")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<QueryAudienceResponse, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut audience__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Audience => {
-                            if audience__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("audience"));
-                            }
-                            audience__ = map_.next_value()?;
-                        }
-                    }
-                }
-                Ok(QueryAudienceResponse {
-                    audience: audience__,
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryAudienceResponse",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for QueryGetAudienceClaimRequest {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.hash.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryGetAudienceClaimRequest", len)?;
-        if !self.hash.is_empty() {
+            serializer.serialize_struct("xion.zk.v1.QueryNextVKeyIDResponse", len)?;
+        if self.next_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser
-                .serialize_field("hash", pbjson::private::base64::encode(&self.hash).as_str())?;
+            struct_ser.serialize_field("nextId", ToString::to_string(&self.next_id).as_str())?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryGetAudienceClaimRequest {
+impl<'de> serde::Deserialize<'de> for QueryNextVKeyIdResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["hash"];
+        const FIELDS: &[&str] = &["next_id", "nextId"];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            Hash,
+            NextId,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -2528,7 +1549,7 @@ impl<'de> serde::Deserialize<'de> for QueryGetAudienceClaimRequest {
                         E: serde::de::Error,
                     {
                         match value {
-                            "hash" => Ok(GeneratedField::Hash),
+                            "nextId" | "next_id" => Ok(GeneratedField::NextId),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2538,338 +1559,40 @@ impl<'de> serde::Deserialize<'de> for QueryGetAudienceClaimRequest {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryGetAudienceClaimRequest;
+            type Value = QueryNextVKeyIdResponse;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryGetAudienceClaimRequest")
+                formatter.write_str("struct xion.zk.v1.QueryNextVKeyIDResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryGetAudienceClaimRequest, V::Error>
+            ) -> std::result::Result<QueryNextVKeyIdResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut hash__ = None;
+                let mut next_id__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::Hash => {
-                            if hash__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("hash"));
+                        GeneratedField::NextId => {
+                            if next_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("nextId"));
                             }
-                            hash__ = Some(
-                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                            next_id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
                                     .0,
                             );
                         }
                     }
                 }
-                Ok(QueryGetAudienceClaimRequest {
-                    hash: hash__.unwrap_or_default(),
+                Ok(QueryNextVKeyIdResponse {
+                    next_id: next_id__.unwrap_or_default(),
                 })
             }
         }
         deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryGetAudienceClaimRequest",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for QueryGetAudienceClaimResponse {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if self.claim.is_some() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryGetAudienceClaimResponse", len)?;
-        if let Some(v) = self.claim.as_ref() {
-            struct_ser.serialize_field("claim", v)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for QueryGetAudienceClaimResponse {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["claim"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Claim,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "claim" => Ok(GeneratedField::Claim),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryGetAudienceClaimResponse;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryGetAudienceClaimResponse")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<QueryGetAudienceClaimResponse, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut claim__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Claim => {
-                            if claim__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("claim"));
-                            }
-                            claim__ = map_.next_value()?;
-                        }
-                    }
-                }
-                Ok(QueryGetAudienceClaimResponse { claim: claim__ })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryGetAudienceClaimResponse",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for QueryGetAudienceRequest {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if !self.aud.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryGetAudienceRequest", len)?;
-        if !self.aud.is_empty() {
-            struct_ser.serialize_field("aud", &self.aud)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for QueryGetAudienceRequest {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["aud"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Aud,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "aud" => Ok(GeneratedField::Aud),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryGetAudienceRequest;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryGetAudienceRequest")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<QueryGetAudienceRequest, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut aud__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Aud => {
-                            if aud__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("aud"));
-                            }
-                            aud__ = Some(map_.next_value()?);
-                        }
-                    }
-                }
-                Ok(QueryGetAudienceRequest {
-                    aud: aud__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryGetAudienceRequest",
-            FIELDS,
-            GeneratedVisitor,
-        )
-    }
-}
-impl serde::Serialize for QueryGetAudienceResponse {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if self.audience.is_some() {
-            len += 1;
-        }
-        let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryGetAudienceResponse", len)?;
-        if let Some(v) = self.audience.as_ref() {
-            struct_ser.serialize_field("audience", v)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for QueryGetAudienceResponse {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &["audience"];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Audience,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(
-                        &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "audience" => Ok(GeneratedField::Audience),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryGetAudienceResponse;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryGetAudienceResponse")
-            }
-
-            fn visit_map<V>(
-                self,
-                mut map_: V,
-            ) -> std::result::Result<QueryGetAudienceResponse, V::Error>
-            where
-                V: serde::de::MapAccess<'de>,
-            {
-                let mut audience__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Audience => {
-                            if audience__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("audience"));
-                            }
-                            audience__ = map_.next_value()?;
-                        }
-                    }
-                }
-                Ok(QueryGetAudienceResponse {
-                    audience: audience__,
-                })
-            }
-        }
-        deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryGetAudienceResponse",
+            "xion.zk.v1.QueryNextVKeyIDResponse",
             FIELDS,
             GeneratedVisitor,
         )
@@ -2883,7 +1606,7 @@ impl serde::Serialize for QueryParamsRequest {
     {
         use serde::ser::SerializeStruct;
         let len = 0;
-        let struct_ser = serializer.serialize_struct("xion.jwk.v1.QueryParamsRequest", len)?;
+        let struct_ser = serializer.serialize_struct("xion.zk.v1.QueryParamsRequest", len)?;
         struct_ser.end()
     }
 }
@@ -2930,7 +1653,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
             type Value = QueryParamsRequest;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryParamsRequest")
+                formatter.write_str("struct xion.zk.v1.QueryParamsRequest")
             }
 
             fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryParamsRequest, V::Error>
@@ -2943,7 +1666,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
                 Ok(QueryParamsRequest {})
             }
         }
-        deserializer.deserialize_struct("xion.jwk.v1.QueryParamsRequest", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("xion.zk.v1.QueryParamsRequest", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for QueryParamsResponse {
@@ -2957,7 +1680,7 @@ impl serde::Serialize for QueryParamsResponse {
         if self.params.is_some() {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("xion.jwk.v1.QueryParamsResponse", len)?;
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.QueryParamsResponse", len)?;
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
         }
@@ -3012,7 +1735,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
             type Value = QueryParamsResponse;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryParamsResponse")
+                formatter.write_str("struct xion.zk.v1.QueryParamsResponse")
             }
 
             fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryParamsResponse, V::Error>
@@ -3033,10 +1756,10 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
                 Ok(QueryParamsResponse { params: params__ })
             }
         }
-        deserializer.deserialize_struct("xion.jwk.v1.QueryParamsResponse", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("xion.zk.v1.QueryParamsResponse", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for QueryValidateJwtRequest {
+impl serde::Serialize for QueryVKeyByNameRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -3044,42 +1767,28 @@ impl serde::Serialize for QueryValidateJwtRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.aud.is_empty() {
-            len += 1;
-        }
-        if !self.sub.is_empty() {
-            len += 1;
-        }
-        if !self.sig_bytes.is_empty() {
+        if !self.name.is_empty() {
             len += 1;
         }
         let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryValidateJWTRequest", len)?;
-        if !self.aud.is_empty() {
-            struct_ser.serialize_field("aud", &self.aud)?;
-        }
-        if !self.sub.is_empty() {
-            struct_ser.serialize_field("sub", &self.sub)?;
-        }
-        if !self.sig_bytes.is_empty() {
-            struct_ser.serialize_field("sigBytes", &self.sig_bytes)?;
+            serializer.serialize_struct("xion.zk.v1.QueryVKeyByNameRequest", len)?;
+        if !self.name.is_empty() {
+            struct_ser.serialize_field("name", &self.name)?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryValidateJwtRequest {
+impl<'de> serde::Deserialize<'de> for QueryVKeyByNameRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["aud", "sub", "sig_bytes", "sigBytes"];
+        const FIELDS: &[&str] = &["name"];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            Aud,
-            Sub,
-            SigBytes,
+            Name,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -3104,9 +1813,7 @@ impl<'de> serde::Deserialize<'de> for QueryValidateJwtRequest {
                         E: serde::de::Error,
                     {
                         match value {
-                            "aud" => Ok(GeneratedField::Aud),
-                            "sub" => Ok(GeneratedField::Sub),
-                            "sigBytes" | "sig_bytes" => Ok(GeneratedField::SigBytes),
+                            "name" => Ok(GeneratedField::Name),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -3116,59 +1823,43 @@ impl<'de> serde::Deserialize<'de> for QueryValidateJwtRequest {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryValidateJwtRequest;
+            type Value = QueryVKeyByNameRequest;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryValidateJWTRequest")
+                formatter.write_str("struct xion.zk.v1.QueryVKeyByNameRequest")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryValidateJwtRequest, V::Error>
+            ) -> std::result::Result<QueryVKeyByNameRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut aud__ = None;
-                let mut sub__ = None;
-                let mut sig_bytes__ = None;
+                let mut name__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::Aud => {
-                            if aud__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("aud"));
+                        GeneratedField::Name => {
+                            if name__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            aud__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::Sub => {
-                            if sub__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("sub"));
-                            }
-                            sub__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::SigBytes => {
-                            if sig_bytes__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("sigBytes"));
-                            }
-                            sig_bytes__ = Some(map_.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
                     }
                 }
-                Ok(QueryValidateJwtRequest {
-                    aud: aud__.unwrap_or_default(),
-                    sub: sub__.unwrap_or_default(),
-                    sig_bytes: sig_bytes__.unwrap_or_default(),
+                Ok(QueryVKeyByNameRequest {
+                    name: name__.unwrap_or_default(),
                 })
             }
         }
         deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryValidateJWTRequest",
+            "xion.zk.v1.QueryVKeyByNameRequest",
             FIELDS,
             GeneratedVisitor,
         )
     }
 }
-impl serde::Serialize for QueryValidateJwtResponse {
+impl serde::Serialize for QueryVKeyByNameResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -3176,28 +1867,36 @@ impl serde::Serialize for QueryValidateJwtResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.private_claims.is_empty() {
+        if self.vkey.is_some() {
+            len += 1;
+        }
+        if self.id != 0 {
             len += 1;
         }
         let mut struct_ser =
-            serializer.serialize_struct("xion.jwk.v1.QueryValidateJWTResponse", len)?;
-        if !self.private_claims.is_empty() {
-            struct_ser.serialize_field("privateClaims", &self.private_claims)?;
+            serializer.serialize_struct("xion.zk.v1.QueryVKeyByNameResponse", len)?;
+        if let Some(v) = self.vkey.as_ref() {
+            struct_ser.serialize_field("vkey", v)?;
+        }
+        if self.id != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("id", ToString::to_string(&self.id).as_str())?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryValidateJwtResponse {
+impl<'de> serde::Deserialize<'de> for QueryVKeyByNameResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["private_claims", "privateClaims"];
+        const FIELDS: &[&str] = &["vkey", "id"];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            PrivateClaims,
+            Vkey,
+            Id,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
@@ -3222,7 +1921,8 @@ impl<'de> serde::Deserialize<'de> for QueryValidateJwtResponse {
                         E: serde::de::Error,
                     {
                         match value {
-                            "privateClaims" | "private_claims" => Ok(GeneratedField::PrivateClaims),
+                            "vkey" => Ok(GeneratedField::Vkey),
+                            "id" => Ok(GeneratedField::Id),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -3232,39 +1932,1038 @@ impl<'de> serde::Deserialize<'de> for QueryValidateJwtResponse {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryValidateJwtResponse;
+            type Value = QueryVKeyByNameResponse;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct xion.jwk.v1.QueryValidateJWTResponse")
+                formatter.write_str("struct xion.zk.v1.QueryVKeyByNameResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryValidateJwtResponse, V::Error>
+            ) -> std::result::Result<QueryVKeyByNameResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut private_claims__ = None;
+                let mut vkey__ = None;
+                let mut id__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::PrivateClaims => {
-                            if private_claims__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("privateClaims"));
+                        GeneratedField::Vkey => {
+                            if vkey__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vkey"));
                             }
-                            private_claims__ = Some(map_.next_value()?);
+                            vkey__ = map_.next_value()?;
+                        }
+                        GeneratedField::Id => {
+                            if id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
                         }
                     }
                 }
-                Ok(QueryValidateJwtResponse {
-                    private_claims: private_claims__.unwrap_or_default(),
+                Ok(QueryVKeyByNameResponse {
+                    vkey: vkey__,
+                    id: id__.unwrap_or_default(),
                 })
             }
         }
         deserializer.deserialize_struct(
-            "xion.jwk.v1.QueryValidateJWTResponse",
+            "xion.zk.v1.QueryVKeyByNameResponse",
             FIELDS,
             GeneratedVisitor,
         )
+    }
+}
+impl serde::Serialize for QueryVKeyRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.id != 0 {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.QueryVKeyRequest", len)?;
+        if self.id != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("id", ToString::to_string(&self.id).as_str())?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryVKeyRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["id"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Id,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "id" => Ok(GeneratedField::Id),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryVKeyRequest;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.QueryVKeyRequest")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryVKeyRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut id__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Id => {
+                            if id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(QueryVKeyRequest {
+                    id: id__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.QueryVKeyRequest", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for QueryVKeyResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.vkey.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.QueryVKeyResponse", len)?;
+        if let Some(v) = self.vkey.as_ref() {
+            struct_ser.serialize_field("vkey", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryVKeyResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["vkey"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Vkey,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "vkey" => Ok(GeneratedField::Vkey),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryVKeyResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.QueryVKeyResponse")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryVKeyResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut vkey__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Vkey => {
+                            if vkey__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vkey"));
+                            }
+                            vkey__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(QueryVKeyResponse { vkey: vkey__ })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.QueryVKeyResponse", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for QueryVKeysRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.pagination.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.QueryVKeysRequest", len)?;
+        if let Some(v) = self.pagination.as_ref() {
+            struct_ser.serialize_field("pagination", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryVKeysRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["pagination"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Pagination,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "pagination" => Ok(GeneratedField::Pagination),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryVKeysRequest;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.QueryVKeysRequest")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryVKeysRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut pagination__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Pagination => {
+                            if pagination__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("pagination"));
+                            }
+                            pagination__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(QueryVKeysRequest {
+                    pagination: pagination__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.QueryVKeysRequest", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for QueryVKeysResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.vkeys.is_empty() {
+            len += 1;
+        }
+        if self.pagination.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.QueryVKeysResponse", len)?;
+        if !self.vkeys.is_empty() {
+            struct_ser.serialize_field("vkeys", &self.vkeys)?;
+        }
+        if let Some(v) = self.pagination.as_ref() {
+            struct_ser.serialize_field("pagination", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryVKeysResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["vkeys", "pagination"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Vkeys,
+            Pagination,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "vkeys" => Ok(GeneratedField::Vkeys),
+                            "pagination" => Ok(GeneratedField::Pagination),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryVKeysResponse;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.QueryVKeysResponse")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryVKeysResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut vkeys__ = None;
+                let mut pagination__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Vkeys => {
+                            if vkeys__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vkeys"));
+                            }
+                            vkeys__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Pagination => {
+                            if pagination__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("pagination"));
+                            }
+                            pagination__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(QueryVKeysResponse {
+                    vkeys: vkeys__.unwrap_or_default(),
+                    pagination: pagination__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.QueryVKeysResponse", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for QueryVerifyRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.proof.is_empty() {
+            len += 1;
+        }
+        if !self.public_inputs.is_empty() {
+            len += 1;
+        }
+        if !self.vkey_name.is_empty() {
+            len += 1;
+        }
+        if self.vkey_id != 0 {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.QueryVerifyRequest", len)?;
+        if !self.proof.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "proof",
+                pbjson::private::base64::encode(&self.proof).as_str(),
+            )?;
+        }
+        if !self.public_inputs.is_empty() {
+            struct_ser.serialize_field("publicInputs", &self.public_inputs)?;
+        }
+        if !self.vkey_name.is_empty() {
+            struct_ser.serialize_field("vkeyName", &self.vkey_name)?;
+        }
+        if self.vkey_id != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("vkeyId", ToString::to_string(&self.vkey_id).as_str())?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryVerifyRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "proof",
+            "public_inputs",
+            "publicInputs",
+            "vkey_name",
+            "vkeyName",
+            "vkey_id",
+            "vkeyId",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Proof,
+            PublicInputs,
+            VkeyName,
+            VkeyId,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "proof" => Ok(GeneratedField::Proof),
+                            "publicInputs" | "public_inputs" => Ok(GeneratedField::PublicInputs),
+                            "vkeyName" | "vkey_name" => Ok(GeneratedField::VkeyName),
+                            "vkeyId" | "vkey_id" => Ok(GeneratedField::VkeyId),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryVerifyRequest;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.QueryVerifyRequest")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryVerifyRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut proof__ = None;
+                let mut public_inputs__ = None;
+                let mut vkey_name__ = None;
+                let mut vkey_id__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Proof => {
+                            if proof__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proof"));
+                            }
+                            proof__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::PublicInputs => {
+                            if public_inputs__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("publicInputs"));
+                            }
+                            public_inputs__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::VkeyName => {
+                            if vkey_name__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vkeyName"));
+                            }
+                            vkey_name__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::VkeyId => {
+                            if vkey_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vkeyId"));
+                            }
+                            vkey_id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(QueryVerifyRequest {
+                    proof: proof__.unwrap_or_default(),
+                    public_inputs: public_inputs__.unwrap_or_default(),
+                    vkey_name: vkey_name__.unwrap_or_default(),
+                    vkey_id: vkey_id__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.QueryVerifyRequest", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for SnarkJsProof {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.pi_a.is_empty() {
+            len += 1;
+        }
+        if !self.pi_b.is_empty() {
+            len += 1;
+        }
+        if !self.pi_c.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.SnarkJsProof", len)?;
+        if !self.pi_a.is_empty() {
+            struct_ser.serialize_field(
+                "piA",
+                &self
+                    .pi_a
+                    .iter()
+                    .map(pbjson::private::base64::encode)
+                    .collect::<Vec<_>>(),
+            )?;
+        }
+        if !self.pi_b.is_empty() {
+            struct_ser.serialize_field(
+                "piB",
+                &self
+                    .pi_b
+                    .iter()
+                    .map(pbjson::private::base64::encode)
+                    .collect::<Vec<_>>(),
+            )?;
+        }
+        if !self.pi_c.is_empty() {
+            struct_ser.serialize_field(
+                "piC",
+                &self
+                    .pi_c
+                    .iter()
+                    .map(pbjson::private::base64::encode)
+                    .collect::<Vec<_>>(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for SnarkJsProof {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["pi_a", "piA", "pi_b", "piB", "pi_c", "piC"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            PiA,
+            PiB,
+            PiC,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "piA" | "pi_a" => Ok(GeneratedField::PiA),
+                            "piB" | "pi_b" => Ok(GeneratedField::PiB),
+                            "piC" | "pi_c" => Ok(GeneratedField::PiC),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = SnarkJsProof;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.SnarkJsProof")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SnarkJsProof, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut pi_a__ = None;
+                let mut pi_b__ = None;
+                let mut pi_c__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::PiA => {
+                            if pi_a__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("piA"));
+                            }
+                            pi_a__ = Some(
+                                map_.next_value::<Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                    .into_iter()
+                                    .map(|x| x.0)
+                                    .collect(),
+                            );
+                        }
+                        GeneratedField::PiB => {
+                            if pi_b__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("piB"));
+                            }
+                            pi_b__ = Some(
+                                map_.next_value::<Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                    .into_iter()
+                                    .map(|x| x.0)
+                                    .collect(),
+                            );
+                        }
+                        GeneratedField::PiC => {
+                            if pi_c__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("piC"));
+                            }
+                            pi_c__ = Some(
+                                map_.next_value::<Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                    .into_iter()
+                                    .map(|x| x.0)
+                                    .collect(),
+                            );
+                        }
+                    }
+                }
+                Ok(SnarkJsProof {
+                    pi_a: pi_a__.unwrap_or_default(),
+                    pi_b: pi_b__.unwrap_or_default(),
+                    pi_c: pi_c__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.SnarkJsProof", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for VKey {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.key_bytes.is_empty() {
+            len += 1;
+        }
+        if !self.name.is_empty() {
+            len += 1;
+        }
+        if !self.description.is_empty() {
+            len += 1;
+        }
+        if !self.circuit_hash.is_empty() {
+            len += 1;
+        }
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.VKey", len)?;
+        if !self.key_bytes.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "keyBytes",
+                pbjson::private::base64::encode(&self.key_bytes).as_str(),
+            )?;
+        }
+        if !self.name.is_empty() {
+            struct_ser.serialize_field("name", &self.name)?;
+        }
+        if !self.description.is_empty() {
+            struct_ser.serialize_field("description", &self.description)?;
+        }
+        if !self.circuit_hash.is_empty() {
+            struct_ser.serialize_field("circuitHash", &self.circuit_hash)?;
+        }
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for VKey {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "key_bytes",
+            "keyBytes",
+            "name",
+            "description",
+            "circuit_hash",
+            "circuitHash",
+            "authority",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            KeyBytes,
+            Name,
+            Description,
+            CircuitHash,
+            Authority,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "keyBytes" | "key_bytes" => Ok(GeneratedField::KeyBytes),
+                            "name" => Ok(GeneratedField::Name),
+                            "description" => Ok(GeneratedField::Description),
+                            "circuitHash" | "circuit_hash" => Ok(GeneratedField::CircuitHash),
+                            "authority" => Ok(GeneratedField::Authority),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = VKey;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.VKey")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<VKey, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut key_bytes__ = None;
+                let mut name__ = None;
+                let mut description__ = None;
+                let mut circuit_hash__ = None;
+                let mut authority__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::KeyBytes => {
+                            if key_bytes__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("keyBytes"));
+                            }
+                            key_bytes__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Name => {
+                            if name__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("name"));
+                            }
+                            name__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Description => {
+                            if description__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("description"));
+                            }
+                            description__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CircuitHash => {
+                            if circuit_hash__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("circuitHash"));
+                            }
+                            circuit_hash__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(VKey {
+                    key_bytes: key_bytes__.unwrap_or_default(),
+                    name: name__.unwrap_or_default(),
+                    description: description__.unwrap_or_default(),
+                    circuit_hash: circuit_hash__.unwrap_or_default(),
+                    authority: authority__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.VKey", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for VKeyWithId {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.id != 0 {
+            len += 1;
+        }
+        if self.vkey.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("xion.zk.v1.VKeyWithID", len)?;
+        if self.id != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("id", ToString::to_string(&self.id).as_str())?;
+        }
+        if let Some(v) = self.vkey.as_ref() {
+            struct_ser.serialize_field("vkey", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for VKeyWithId {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["id", "vkey"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Id,
+            Vkey,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut std::fmt::Formatter<'_>,
+                    ) -> std::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "id" => Ok(GeneratedField::Id),
+                            "vkey" => Ok(GeneratedField::Vkey),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = VKeyWithId;
+
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("struct xion.zk.v1.VKeyWithID")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> std::result::Result<VKeyWithId, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut id__ = None;
+                let mut vkey__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Id => {
+                            if id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Vkey => {
+                            if vkey__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("vkey"));
+                            }
+                            vkey__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(VKeyWithId {
+                    id: id__.unwrap_or_default(),
+                    vkey: vkey__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("xion.zk.v1.VKeyWithID", FIELDS, GeneratedVisitor)
     }
 }

@@ -88,25 +88,17 @@ pub struct Metadata {
     #[prost(string, tag = "4")]
     pub display: ::prost::alloc::string::String,
     /// name defines the name of the token (eg: Cosmos Atom)
-    ///
-    /// Since: cosmos-sdk 0.43
     #[prost(string, tag = "5")]
     pub name: ::prost::alloc::string::String,
     /// symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
     /// be the same as the display.
-    ///
-    /// Since: cosmos-sdk 0.43
     #[prost(string, tag = "6")]
     pub symbol: ::prost::alloc::string::String,
     /// URI to a document (on or off-chain) that contains additional information. Optional.
-    ///
-    /// Since: cosmos-sdk 0.46
     #[prost(string, tag = "7")]
     pub uri: ::prost::alloc::string::String,
     /// URIHash is a sha256 hash of a document pointed by URI. It's used to verify that
     /// the document didn't change. Optional.
-    ///
-    /// Since: cosmos-sdk 0.46
     #[prost(string, tag = "8")]
     pub uri_hash: ::prost::alloc::string::String,
 }
