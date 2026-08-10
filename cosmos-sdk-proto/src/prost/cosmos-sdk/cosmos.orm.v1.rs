@@ -1,5 +1,6 @@
 // @generated
 /// TableDescriptor describes an ORM table.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TableDescriptor {
     /// primary_key defines the primary key for the table.
@@ -14,7 +15,15 @@ pub struct TableDescriptor {
     #[prost(uint32, tag = "3")]
     pub id: u32,
 }
+impl ::prost::Name for TableDescriptor {
+    const NAME: &'static str = "TableDescriptor";
+    const PACKAGE: &'static str = "cosmos.orm.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.orm.v1.{}", Self::NAME)
+    }
+}
 /// PrimaryKeyDescriptor describes a table primary key.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PrimaryKeyDescriptor {
     /// fields is a comma-separated list of fields in the primary key. Spaces are
@@ -36,8 +45,11 @@ pub struct PrimaryKeyDescriptor {
     ///    with a 32-bit unsigned varint in non-terminal segments.
     ///    - int32, sint32, int64, sint64, sfixed32, sfixed64 are encoded as fixed width bytes with
     ///    an encoding that enables sorted iteration.
-    ///    - google.protobuf.Timestamp and google.protobuf.Duration are encoded
-    ///    as 12 bytes using an encoding that enables sorted iteration.
+    ///    - google.protobuf.Timestamp is encoded such that values with only seconds occupy 6 bytes,
+    ///    values including nanos occupy 9 bytes, and nil values occupy 1 byte. When iterating, nil
+    ///    values will always be ordered last. Seconds and nanos values must conform to the officially
+    ///    specified ranges of 0001-01-01T00:00:00Z to 9999-12-31T23:59:59Z and 0 to 999,999,999 respectively.
+    ///    - google.protobuf.Duration is encoded as 12 bytes using an encoding that enables sorted iteration.
     ///    - enum fields are encoded using varint encoding and do not support sorted
     ///    iteration.
     ///    - bool fields are encoded as a single byte 0 or 1.
@@ -55,7 +67,15 @@ pub struct PrimaryKeyDescriptor {
     #[prost(bool, tag = "2")]
     pub auto_increment: bool,
 }
+impl ::prost::Name for PrimaryKeyDescriptor {
+    const NAME: &'static str = "PrimaryKeyDescriptor";
+    const PACKAGE: &'static str = "cosmos.orm.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.orm.v1.{}", Self::NAME)
+    }
+}
 /// PrimaryKeyDescriptor describes a table secondary index.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SecondaryIndexDescriptor {
     /// fields is a comma-separated list of fields in the index. The supported
@@ -78,7 +98,15 @@ pub struct SecondaryIndexDescriptor {
     #[prost(bool, tag = "3")]
     pub unique: bool,
 }
+impl ::prost::Name for SecondaryIndexDescriptor {
+    const NAME: &'static str = "SecondaryIndexDescriptor";
+    const PACKAGE: &'static str = "cosmos.orm.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.orm.v1.{}", Self::NAME)
+    }
+}
 /// TableDescriptor describes an ORM singleton table which has at most one instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SingletonDescriptor {
     /// id is a non-zero integer ID that must be unique within the
@@ -87,4 +115,12 @@ pub struct SingletonDescriptor {
     #[prost(uint32, tag = "1")]
     pub id: u32,
 }
+impl ::prost::Name for SingletonDescriptor {
+    const NAME: &'static str = "SingletonDescriptor";
+    const PACKAGE: &'static str = "cosmos.orm.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.orm.v1.{}", Self::NAME)
+    }
+}
+include!("cosmos.orm.v1.serde.rs");
 // @@protoc_insertion_point(module)

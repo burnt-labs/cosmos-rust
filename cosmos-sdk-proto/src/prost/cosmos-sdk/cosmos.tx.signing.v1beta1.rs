@@ -1,20 +1,29 @@
 // @generated
 /// SignatureDescriptors wraps multiple SignatureDescriptor's.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SignatureDescriptors {
     /// signatures are the signature descriptors
     #[prost(message, repeated, tag = "1")]
     pub signatures: ::prost::alloc::vec::Vec<SignatureDescriptor>,
 }
+impl ::prost::Name for SignatureDescriptors {
+    const NAME: &'static str = "SignatureDescriptors";
+    const PACKAGE: &'static str = "cosmos.tx.signing.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.tx.signing.v1beta1.{}", Self::NAME)
+    }
+}
 /// SignatureDescriptor is a convenience type which represents the full data for
 /// a signature including the public key of the signer, signing modes and the
 /// signature itself. It is primarily used for coordinating signatures between
 /// clients.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SignatureDescriptor {
     /// public_key is the public key of the signer
     #[prost(message, optional, tag = "1")]
-    pub public_key: ::core::option::Option<::prost_types::Any>,
+    pub public_key: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     #[prost(message, optional, tag = "2")]
     pub data: ::core::option::Option<signature_descriptor::Data>,
     /// sequence is the sequence of the account, which describes the
@@ -26,6 +35,7 @@ pub struct SignatureDescriptor {
 /// Nested message and enum types in `SignatureDescriptor`.
 pub mod signature_descriptor {
     /// Data represents signature data
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Data {
         /// sum is the oneof that specifies whether this represents single or multi-signature data
@@ -35,6 +45,7 @@ pub mod signature_descriptor {
     /// Nested message and enum types in `Data`.
     pub mod data {
         /// Single is the signature data for a single signer
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Single {
             /// mode is the signing mode of the single signer
@@ -44,7 +55,18 @@ pub mod signature_descriptor {
             #[prost(bytes = "vec", tag = "2")]
             pub signature: ::prost::alloc::vec::Vec<u8>,
         }
+        impl ::prost::Name for Single {
+            const NAME: &'static str = "Single";
+            const PACKAGE: &'static str = "cosmos.tx.signing.v1beta1";
+            fn full_name() -> ::prost::alloc::string::String {
+                ::prost::alloc::format!(
+                    "cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.{}",
+                    Self::NAME
+                )
+            }
+        }
         /// Multi is the signature data for a multisig public key
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Multi {
             /// bitarray specifies which keys within the multisig are signing
@@ -56,7 +78,18 @@ pub mod signature_descriptor {
             #[prost(message, repeated, tag = "2")]
             pub signatures: ::prost::alloc::vec::Vec<super::Data>,
         }
+        impl ::prost::Name for Multi {
+            const NAME: &'static str = "Multi";
+            const PACKAGE: &'static str = "cosmos.tx.signing.v1beta1";
+            fn full_name() -> ::prost::alloc::string::String {
+                ::prost::alloc::format!(
+                    "cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.{}",
+                    Self::NAME
+                )
+            }
+        }
         /// sum is the oneof that specifies whether this represents single or multi-signature data
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum Sum {
             /// single represents a single signer
@@ -66,6 +99,23 @@ pub mod signature_descriptor {
             #[prost(message, tag = "2")]
             Multi(Multi),
         }
+    }
+    impl ::prost::Name for Data {
+        const NAME: &'static str = "Data";
+        const PACKAGE: &'static str = "cosmos.tx.signing.v1beta1";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!(
+                "cosmos.tx.signing.v1beta1.SignatureDescriptor.{}",
+                Self::NAME
+            )
+        }
+    }
+}
+impl ::prost::Name for SignatureDescriptor {
+    const NAME: &'static str = "SignatureDescriptor";
+    const PACKAGE: &'static str = "cosmos.tx.signing.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.tx.signing.v1beta1.{}", Self::NAME)
     }
 }
 /// SignMode represents a signing mode with its own security guarantees.
@@ -87,12 +137,13 @@ pub enum SignMode {
     Direct = 1,
     /// SIGN_MODE_TEXTUAL is a future signing mode that will verify some
     /// human-readable textual representation on top of the binary representation
-    /// from SIGN_MODE_DIRECT. It is currently not supported.
+    /// from SIGN_MODE_DIRECT.
+    ///
+    /// Since: cosmos-sdk 0.50
     Textual = 2,
     /// SIGN_MODE_DIRECT_AUX specifies a signing mode which uses
     /// SignDocDirectAux. As opposed to SIGN_MODE_DIRECT, this sign mode does not
-    /// require signers signing over other signers' `signer_info`. It also allows
-    /// for adding Tips in transactions.
+    /// require signers signing over other signers' `signer_info`.
     ///
     /// Since: cosmos-sdk 0.46
     DirectAux = 3,
@@ -126,5 +177,18 @@ impl SignMode {
             SignMode::Eip191 => "SIGN_MODE_EIP_191",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "SIGN_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+            "SIGN_MODE_DIRECT" => Some(Self::Direct),
+            "SIGN_MODE_TEXTUAL" => Some(Self::Textual),
+            "SIGN_MODE_DIRECT_AUX" => Some(Self::DirectAux),
+            "SIGN_MODE_LEGACY_AMINO_JSON" => Some(Self::LegacyAminoJson),
+            "SIGN_MODE_EIP_191" => Some(Self::Eip191),
+            _ => None,
+        }
+    }
 }
+include!("cosmos.tx.signing.v1beta1.serde.rs");
 // @@protoc_insertion_point(module)

@@ -1,6 +1,7 @@
 // @generated
 /// TxResponse defines a structure containing relevant tx data and metadata. The
 /// tags are stringified and the log is JSON decoded.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TxResponse {
     /// The block height
@@ -36,7 +37,7 @@ pub struct TxResponse {
     pub gas_used: i64,
     /// The request transaction bytes.
     #[prost(message, optional, tag = "11")]
-    pub tx: ::core::option::Option<::prost_types::Any>,
+    pub tx: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     /// Time of the previous block. For heights > 1, it's the weighted median of
     /// the timestamps of the valid votes in the block.LastCommit. For height == 1,
     /// it's genesis time.
@@ -49,9 +50,17 @@ pub struct TxResponse {
     ///
     /// Since: cosmos-sdk 0.42.11, 0.44.5, 0.45
     #[prost(message, repeated, tag = "13")]
-    pub events: ::prost::alloc::vec::Vec<::tendermint_proto::v0_34::abci::Event>,
+    pub events: ::prost::alloc::vec::Vec<::tendermint_proto::abci::Event>,
+}
+impl ::prost::Name for TxResponse {
+    const NAME: &'static str = "TxResponse";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
 }
 /// ABCIMessageLog defines a structure containing an indexed tx ABCI message log.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AbciMessageLog {
     #[prost(uint32, tag = "1")]
@@ -63,8 +72,16 @@ pub struct AbciMessageLog {
     #[prost(message, repeated, tag = "3")]
     pub events: ::prost::alloc::vec::Vec<StringEvent>,
 }
+impl ::prost::Name for AbciMessageLog {
+    const NAME: &'static str = "ABCIMessageLog";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
+}
 /// StringEvent defines en Event object wrapper where all the attributes
 /// contain key/value pairs that are strings instead of raw bytes.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StringEvent {
     #[prost(string, tag = "1")]
@@ -72,8 +89,16 @@ pub struct StringEvent {
     #[prost(message, repeated, tag = "2")]
     pub attributes: ::prost::alloc::vec::Vec<Attribute>,
 }
+impl ::prost::Name for StringEvent {
+    const NAME: &'static str = "StringEvent";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
+}
 /// Attribute defines an attribute wrapper where the key and value are
 /// strings instead of raw bytes.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Attribute {
     #[prost(string, tag = "1")]
@@ -81,7 +106,15 @@ pub struct Attribute {
     #[prost(string, tag = "2")]
     pub value: ::prost::alloc::string::String,
 }
+impl ::prost::Name for Attribute {
+    const NAME: &'static str = "Attribute";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
+}
 /// GasInfo defines tx execution gas context.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GasInfo {
     /// GasWanted is the maximum units of work we allow this tx to perform.
@@ -91,7 +124,15 @@ pub struct GasInfo {
     #[prost(uint64, tag = "2")]
     pub gas_used: u64,
 }
+impl ::prost::Name for GasInfo {
+    const NAME: &'static str = "GasInfo";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
+}
 /// Result is the union of ResponseFormat and ResponseCheckTx.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Result {
     /// Data is any data returned from message or handler execution. It MUST be
@@ -107,15 +148,23 @@ pub struct Result {
     /// Events contains a slice of Event objects that were emitted during message
     /// or handler execution.
     #[prost(message, repeated, tag = "3")]
-    pub events: ::prost::alloc::vec::Vec<::tendermint_proto::v0_34::abci::Event>,
+    pub events: ::prost::alloc::vec::Vec<::tendermint_proto::abci::Event>,
     /// msg_responses contains the Msg handler responses type packed in Anys.
     ///
     /// Since: cosmos-sdk 0.46
     #[prost(message, repeated, tag = "4")]
-    pub msg_responses: ::prost::alloc::vec::Vec<::prost_types::Any>,
+    pub msg_responses: ::prost::alloc::vec::Vec<::tendermint_proto::google::protobuf::Any>,
+}
+impl ::prost::Name for Result {
+    const NAME: &'static str = "Result";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
 }
 /// SimulationResponse defines the response generated when a transaction is
 /// successfully simulated.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SimulationResponse {
     #[prost(message, optional, tag = "1")]
@@ -123,8 +172,16 @@ pub struct SimulationResponse {
     #[prost(message, optional, tag = "2")]
     pub result: ::core::option::Option<Result>,
 }
+impl ::prost::Name for SimulationResponse {
+    const NAME: &'static str = "SimulationResponse";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
+}
 /// MsgData defines the data returned in a Result object during message
 /// execution.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgData {
     #[prost(string, tag = "1")]
@@ -132,8 +189,16 @@ pub struct MsgData {
     #[prost(bytes = "vec", tag = "2")]
     pub data: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for MsgData {
+    const NAME: &'static str = "MsgData";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
+}
 /// TxMsgData defines a list of MsgData. A transaction will have a MsgData object
 /// for each message.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TxMsgData {
     /// data field is deprecated and not populated.
@@ -144,9 +209,17 @@ pub struct TxMsgData {
     ///
     /// Since: cosmos-sdk 0.46
     #[prost(message, repeated, tag = "2")]
-    pub msg_responses: ::prost::alloc::vec::Vec<::prost_types::Any>,
+    pub msg_responses: ::prost::alloc::vec::Vec<::tendermint_proto::google::protobuf::Any>,
+}
+impl ::prost::Name for TxMsgData {
+    const NAME: &'static str = "TxMsgData";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
 }
 /// SearchTxsResult defines a structure for querying txs pageable
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchTxsResult {
     /// Count of all txs
@@ -168,4 +241,42 @@ pub struct SearchTxsResult {
     #[prost(message, repeated, tag = "6")]
     pub txs: ::prost::alloc::vec::Vec<TxResponse>,
 }
+impl ::prost::Name for SearchTxsResult {
+    const NAME: &'static str = "SearchTxsResult";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
+}
+/// SearchBlocksResult defines a structure for querying blocks pageable
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SearchBlocksResult {
+    /// Count of all blocks
+    #[prost(int64, tag = "1")]
+    pub total_count: i64,
+    /// Count of blocks in current page
+    #[prost(int64, tag = "2")]
+    pub count: i64,
+    /// Index of current page, start from 1
+    #[prost(int64, tag = "3")]
+    pub page_number: i64,
+    /// Count of total pages
+    #[prost(int64, tag = "4")]
+    pub page_total: i64,
+    /// Max count blocks per page
+    #[prost(int64, tag = "5")]
+    pub limit: i64,
+    /// List of blocks in current page
+    #[prost(message, repeated, tag = "6")]
+    pub blocks: ::prost::alloc::vec::Vec<::tendermint_proto::types::Block>,
+}
+impl ::prost::Name for SearchBlocksResult {
+    const NAME: &'static str = "SearchBlocksResult";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
+}
+include!("cosmos.base.abci.v1beta1.serde.rs");
 // @@protoc_insertion_point(module)
