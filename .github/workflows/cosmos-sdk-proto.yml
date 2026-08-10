@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         rust:
-          - 1.72.0 # MSRV
+          - 1.75.0 # MSRV
         target:
           - x86_64-unknown-linux-gnu
           - wasm32-unknown-unknown
@@ -35,13 +35,14 @@ jobs:
           target: ${{ matrix.target }}
       - run: cargo build --target ${{ matrix.target }} --release --no-default-features
       - run: cargo build --target ${{ matrix.target }} --release --no-default-features --features grpc
+      - run: cargo build --target ${{ matrix.target }} --release --no-default-features --features serde
 
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         rust:
-          - 1.72.0 # MSRV
+          - 1.75.0 # MSRV
           - stable
     steps:
       - uses: actions/checkout@v1
@@ -49,3 +50,4 @@ jobs:
         with:
           toolchain: ${{ matrix.rust }}
       - run: cargo test --release
+      - run: cargo test --all-features --release

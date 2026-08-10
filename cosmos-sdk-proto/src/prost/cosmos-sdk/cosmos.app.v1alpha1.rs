@@ -24,6 +24,13 @@ pub struct ModuleDescriptor {
     #[prost(message, repeated, tag = "3")]
     pub can_migrate_from: ::prost::alloc::vec::Vec<MigrateFromInfo>,
 }
+impl ::prost::Name for ModuleDescriptor {
+    const NAME: &'static str = "ModuleDescriptor";
+    const PACKAGE: &'static str = "cosmos.app.v1alpha1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.app.v1alpha1.{}", Self::NAME)
+    }
+}
 /// PackageReference is a reference to a protobuf package used by a module.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -45,7 +52,7 @@ pub struct PackageReference {
     ///
     /// When a new version of a module is released and items are added to existing
     /// .proto files, these definitions should contain comments of the form
-    /// "Since Revision N" where N is an integer revision.
+    /// "Since: Revision N" where N is an integer revision.
     ///
     /// When the module runtime starts up, it will check the pinned proto
     /// image and panic if there are runtime protobuf definitions that are not
@@ -69,6 +76,13 @@ pub struct PackageReference {
     #[prost(uint32, tag = "2")]
     pub revision: u32,
 }
+impl ::prost::Name for PackageReference {
+    const NAME: &'static str = "PackageReference";
+    const PACKAGE: &'static str = "cosmos.app.v1alpha1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.app.v1alpha1.{}", Self::NAME)
+    }
+}
 /// MigrateFromInfo is information on a module version that a newer module
 /// can migrate from.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -78,6 +92,13 @@ pub struct MigrateFromInfo {
     /// for the previous module version, ex: "cosmos.group.module.v1.Module".
     #[prost(string, tag = "1")]
     pub module: ::prost::alloc::string::String,
+}
+impl ::prost::Name for MigrateFromInfo {
+    const NAME: &'static str = "MigrateFromInfo";
+    const PACKAGE: &'static str = "cosmos.app.v1alpha1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.app.v1alpha1.{}", Self::NAME)
+    }
 }
 /// Config represents the configuration for a Cosmos SDK ABCI app.
 /// It is intended that all state machine logic including the version of
@@ -92,6 +113,18 @@ pub struct Config {
     /// modules are the module configurations for the app.
     #[prost(message, repeated, tag = "1")]
     pub modules: ::prost::alloc::vec::Vec<ModuleConfig>,
+    /// golang_bindings specifies explicit interface to implementation type bindings which
+    /// depinject uses to resolve interface inputs to provider functions.  The scope of this
+    /// field's configuration is global (not module specific).
+    #[prost(message, repeated, tag = "2")]
+    pub golang_bindings: ::prost::alloc::vec::Vec<GolangBinding>,
+}
+impl ::prost::Name for Config {
+    const NAME: &'static str = "Config";
+    const PACKAGE: &'static str = "cosmos.app.v1alpha1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.app.v1alpha1.{}", Self::NAME)
+    }
 }
 /// ModuleConfig is a module configuration for an app.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -113,11 +146,48 @@ pub struct ModuleConfig {
     /// define a ModuleDescriptor using the cosmos.app.v1alpha1.is_module extension.
     #[prost(message, optional, tag = "2")]
     pub config: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
+    /// golang_bindings specifies explicit interface to implementation type bindings which
+    /// depinject uses to resolve interface inputs to provider functions.  The scope of this
+    /// field's configuration is module specific.
+    #[prost(message, repeated, tag = "3")]
+    pub golang_bindings: ::prost::alloc::vec::Vec<GolangBinding>,
+}
+impl ::prost::Name for ModuleConfig {
+    const NAME: &'static str = "ModuleConfig";
+    const PACKAGE: &'static str = "cosmos.app.v1alpha1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.app.v1alpha1.{}", Self::NAME)
+    }
+}
+/// GolangBinding is an explicit interface type to implementing type binding for dependency injection.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GolangBinding {
+    /// interface_type is the interface type which will be bound to a specific implementation type
+    #[prost(string, tag = "1")]
+    pub interface_type: ::prost::alloc::string::String,
+    /// implementation is the implementing type which will be supplied when an input of type interface is requested
+    #[prost(string, tag = "2")]
+    pub implementation: ::prost::alloc::string::String,
+}
+impl ::prost::Name for GolangBinding {
+    const NAME: &'static str = "GolangBinding";
+    const PACKAGE: &'static str = "cosmos.app.v1alpha1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.app.v1alpha1.{}", Self::NAME)
+    }
 }
 /// QueryConfigRequest is the Query/Config request type.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConfigRequest {}
+impl ::prost::Name for QueryConfigRequest {
+    const NAME: &'static str = "QueryConfigRequest";
+    const PACKAGE: &'static str = "cosmos.app.v1alpha1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.app.v1alpha1.{}", Self::NAME)
+    }
+}
 /// QueryConfigRequest is the Query/Config response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -125,6 +195,13 @@ pub struct QueryConfigResponse {
     /// config is the current app config.
     #[prost(message, optional, tag = "1")]
     pub config: ::core::option::Option<Config>,
+}
+impl ::prost::Name for QueryConfigResponse {
+    const NAME: &'static str = "QueryConfigResponse";
+    const PACKAGE: &'static str = "cosmos.app.v1alpha1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.app.v1alpha1.{}", Self::NAME)
+    }
 }
 include!("cosmos.app.v1alpha1.serde.rs");
 include!("cosmos.app.v1alpha1.tonic.rs");

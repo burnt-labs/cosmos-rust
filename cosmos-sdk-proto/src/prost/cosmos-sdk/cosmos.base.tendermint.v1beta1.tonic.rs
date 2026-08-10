@@ -2,7 +2,13 @@
 /// Generated client implementations.
 #[cfg(feature = "grpc")]
 pub mod service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
     #[derive(Debug, Clone)]
@@ -23,10 +29,10 @@ pub mod service_client {
     }
     impl<T> ServiceClient<T>
     where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T: tonic::client::GrpcService<tonic::body::Body>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -44,13 +50,13 @@ pub mod service_client {
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
             T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
+                http::Request<tonic::body::Body>,
                 Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                    <T as tonic::client::GrpcService<tonic::body::Body>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<http::Request<tonic::body::Body>>>::Error:
+                Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             ServiceClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -88,13 +94,10 @@ pub mod service_client {
         pub async fn get_node_info(
             &mut self,
             request: impl tonic::IntoRequest<super::GetNodeInfoRequest>,
-        ) -> std::result::Result<tonic::Response<super::GetNodeInfoResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::GetNodeInfoResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -110,13 +113,10 @@ pub mod service_client {
         pub async fn get_syncing(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSyncingRequest>,
-        ) -> std::result::Result<tonic::Response<super::GetSyncingResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::GetSyncingResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -132,13 +132,10 @@ pub mod service_client {
         pub async fn get_latest_block(
             &mut self,
             request: impl tonic::IntoRequest<super::GetLatestBlockRequest>,
-        ) -> std::result::Result<tonic::Response<super::GetLatestBlockResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::GetLatestBlockResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -154,13 +151,10 @@ pub mod service_client {
         pub async fn get_block_by_height(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBlockByHeightRequest>,
-        ) -> std::result::Result<tonic::Response<super::GetBlockByHeightResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::GetBlockByHeightResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -176,13 +170,12 @@ pub mod service_client {
         pub async fn get_latest_validator_set(
             &mut self,
             request: impl tonic::IntoRequest<super::GetLatestValidatorSetRequest>,
-        ) -> std::result::Result<tonic::Response<super::GetLatestValidatorSetResponse>, tonic::Status>
-        {
+        ) -> core::result::Result<
+            tonic::Response<super::GetLatestValidatorSetResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -198,15 +191,12 @@ pub mod service_client {
         pub async fn get_validator_set_by_height(
             &mut self,
             request: impl tonic::IntoRequest<super::GetValidatorSetByHeightRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::GetValidatorSetByHeightResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -222,12 +212,10 @@ pub mod service_client {
         pub async fn abci_query(
             &mut self,
             request: impl tonic::IntoRequest<super::AbciQueryRequest>,
-        ) -> std::result::Result<tonic::Response<super::AbciQueryResponse>, tonic::Status> {
+        ) -> core::result::Result<tonic::Response<super::AbciQueryResponse>, tonic::Status>
+        {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -245,58 +233,65 @@ pub mod service_client {
 /// Generated server implementations.
 #[cfg(feature = "grpc")]
 pub mod service_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::*;
     /// Generated trait containing gRPC methods that should be implemented for use with ServiceServer.
     #[async_trait]
-    pub trait Service: Send + Sync + 'static {
+    pub trait Service: std::marker::Send + std::marker::Sync + 'static {
         async fn get_node_info(
             &self,
             request: tonic::Request<super::GetNodeInfoRequest>,
-        ) -> std::result::Result<tonic::Response<super::GetNodeInfoResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::GetNodeInfoResponse>, tonic::Status>;
         async fn get_syncing(
             &self,
             request: tonic::Request<super::GetSyncingRequest>,
-        ) -> std::result::Result<tonic::Response<super::GetSyncingResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::GetSyncingResponse>, tonic::Status>;
         async fn get_latest_block(
             &self,
             request: tonic::Request<super::GetLatestBlockRequest>,
-        ) -> std::result::Result<tonic::Response<super::GetLatestBlockResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::GetLatestBlockResponse>, tonic::Status>;
         async fn get_block_by_height(
             &self,
             request: tonic::Request<super::GetBlockByHeightRequest>,
-        ) -> std::result::Result<tonic::Response<super::GetBlockByHeightResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::GetBlockByHeightResponse>, tonic::Status>;
         async fn get_latest_validator_set(
             &self,
             request: tonic::Request<super::GetLatestValidatorSetRequest>,
-        ) -> std::result::Result<tonic::Response<super::GetLatestValidatorSetResponse>, tonic::Status>;
+        ) -> core::result::Result<
+            tonic::Response<super::GetLatestValidatorSetResponse>,
+            tonic::Status,
+        >;
         async fn get_validator_set_by_height(
             &self,
             request: tonic::Request<super::GetValidatorSetByHeightRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::GetValidatorSetByHeightResponse>,
             tonic::Status,
         >;
         async fn abci_query(
             &self,
             request: tonic::Request<super::AbciQueryRequest>,
-        ) -> std::result::Result<tonic::Response<super::AbciQueryResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::AbciQueryResponse>, tonic::Status>;
     }
     #[derive(Debug)]
-    pub struct ServiceServer<T: Service> {
-        inner: _Inner<T>,
+    pub struct ServiceServer<T> {
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
-    impl<T: Service> ServiceServer<T> {
+    impl<T> ServiceServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -343,20 +338,19 @@ pub mod service_server {
     impl<T, B> tonic::codegen::Service<http::Request<B>> for ServiceServer<T>
     where
         T: Service,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
     {
-        type Response = http::Response<tonic::body::BoxBody>;
+        type Response = http::Response<tonic::body::Body>;
         type Error = std::convert::Infallible;
         type Future = BoxFuture<Self::Response, Self::Error>;
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/cosmos.base.tendermint.v1beta1.Service/GetNodeInfo" => {
                     #[allow(non_camel_case_types)]
@@ -369,7 +363,8 @@ pub mod service_server {
                             request: tonic::Request<super::GetNodeInfoRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_node_info(request).await };
+                            let fut =
+                                async move { <T as Service>::get_node_info(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -379,7 +374,6 @@ pub mod service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetNodeInfoSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -407,7 +401,8 @@ pub mod service_server {
                             request: tonic::Request<super::GetSyncingRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_syncing(request).await };
+                            let fut =
+                                async move { <T as Service>::get_syncing(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -417,7 +412,6 @@ pub mod service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetSyncingSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -447,7 +441,9 @@ pub mod service_server {
                             request: tonic::Request<super::GetLatestBlockRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_latest_block(request).await };
+                            let fut = async move {
+                                <T as Service>::get_latest_block(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -457,7 +453,6 @@ pub mod service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetLatestBlockSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -487,7 +482,9 @@ pub mod service_server {
                             request: tonic::Request<super::GetBlockByHeightRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_block_by_height(request).await };
+                            let fut = async move {
+                                <T as Service>::get_block_by_height(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -497,7 +494,6 @@ pub mod service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetBlockByHeightSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -528,8 +524,9 @@ pub mod service_server {
                             request: tonic::Request<super::GetLatestValidatorSetRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).get_latest_validator_set(request).await };
+                            let fut = async move {
+                                <T as Service>::get_latest_validator_set(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -539,7 +536,6 @@ pub mod service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetLatestValidatorSetSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -570,8 +566,9 @@ pub mod service_server {
                             request: tonic::Request<super::GetValidatorSetByHeightRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).get_validator_set_by_height(request).await };
+                            let fut = async move {
+                                <T as Service>::get_validator_set_by_height(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -581,7 +578,6 @@ pub mod service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetValidatorSetByHeightSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -609,7 +605,8 @@ pub mod service_server {
                             request: tonic::Request<super::AbciQueryRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).abci_query(request).await };
+                            let fut =
+                                async move { <T as Service>::abci_query(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -619,7 +616,6 @@ pub mod service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ABCIQuerySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -637,17 +633,22 @@ pub mod service_server {
                     Box::pin(fut)
                 }
                 _ => Box::pin(async move {
-                    Ok(http::Response::builder()
-                        .status(200)
-                        .header("grpc-status", "12")
-                        .header("content-type", "application/grpc")
-                        .body(empty_body())
-                        .unwrap())
+                    let mut response = http::Response::new(tonic::body::Body::default());
+                    let headers = response.headers_mut();
+                    headers.insert(
+                        tonic::Status::GRPC_STATUS,
+                        (tonic::Code::Unimplemented as i32).into(),
+                    );
+                    headers.insert(
+                        http::header::CONTENT_TYPE,
+                        tonic::metadata::GRPC_CONTENT_TYPE,
+                    );
+                    Ok(response)
                 }),
             }
         }
     }
-    impl<T: Service> Clone for ServiceServer<T> {
+    impl<T> Clone for ServiceServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -659,17 +660,9 @@ pub mod service_server {
             }
         }
     }
-    impl<T: Service> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: Service> tonic::server::NamedService for ServiceServer<T> {
-        const NAME: &'static str = "cosmos.base.tendermint.v1beta1.Service";
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "cosmos.base.tendermint.v1beta1.Service";
+    impl<T> tonic::server::NamedService for ServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

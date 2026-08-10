@@ -2,7 +2,13 @@
 /// Generated client implementations.
 #[cfg(feature = "grpc")]
 pub mod query_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
     #[derive(Debug, Clone)]
@@ -23,10 +29,10 @@ pub mod query_client {
     }
     impl<T> QueryClient<T>
     where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T: tonic::client::GrpcService<tonic::body::Body>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -44,13 +50,13 @@ pub mod query_client {
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
             T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
+                http::Request<tonic::body::Body>,
                 Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                    <T as tonic::client::GrpcService<tonic::body::Body>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<http::Request<tonic::body::Body>>>::Error:
+                Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             QueryClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -88,13 +94,10 @@ pub mod query_client {
         pub async fn group_info(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGroupInfoRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupInfoResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryGroupInfoResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Query/GroupInfo");
@@ -106,13 +109,10 @@ pub mod query_client {
         pub async fn group_policy_info(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGroupPolicyInfoRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupPolicyInfoResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryGroupPolicyInfoResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -125,13 +125,10 @@ pub mod query_client {
         pub async fn group_members(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGroupMembersRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupMembersResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryGroupMembersResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Query/GroupMembers");
@@ -143,13 +140,10 @@ pub mod query_client {
         pub async fn groups_by_admin(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGroupsByAdminRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupsByAdminResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryGroupsByAdminResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Query/GroupsByAdmin");
@@ -161,15 +155,12 @@ pub mod query_client {
         pub async fn group_policies_by_group(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGroupPoliciesByGroupRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryGroupPoliciesByGroupResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -184,15 +175,12 @@ pub mod query_client {
         pub async fn group_policies_by_admin(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGroupPoliciesByAdminRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryGroupPoliciesByAdminResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -207,13 +195,10 @@ pub mod query_client {
         pub async fn proposal(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryProposalRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryProposalResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryProposalResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Query/Proposal");
@@ -225,15 +210,12 @@ pub mod query_client {
         pub async fn proposals_by_group_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryProposalsByGroupPolicyRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryProposalsByGroupPolicyResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -249,15 +231,12 @@ pub mod query_client {
         pub async fn vote_by_proposal_voter(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryVoteByProposalVoterRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryVoteByProposalVoterResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -272,13 +251,10 @@ pub mod query_client {
         pub async fn votes_by_proposal(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryVotesByProposalRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryVotesByProposalResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryVotesByProposalResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -291,13 +267,10 @@ pub mod query_client {
         pub async fn votes_by_voter(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryVotesByVoterRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryVotesByVoterResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryVotesByVoterResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Query/VotesByVoter");
@@ -309,13 +282,10 @@ pub mod query_client {
         pub async fn groups_by_member(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGroupsByMemberRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupsByMemberResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryGroupsByMemberResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -328,13 +298,10 @@ pub mod query_client {
         pub async fn tally_result(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryTallyResultRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryTallyResultResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryTallyResultResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Query/TallyResult");
@@ -346,13 +313,10 @@ pub mod query_client {
         pub async fn groups(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGroupsRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupsResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryGroupsResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Query/Groups");
@@ -366,95 +330,99 @@ pub mod query_client {
 /// Generated server implementations.
 #[cfg(feature = "grpc")]
 pub mod query_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::*;
     /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
-    pub trait Query: Send + Sync + 'static {
+    pub trait Query: std::marker::Send + std::marker::Sync + 'static {
         async fn group_info(
             &self,
             request: tonic::Request<super::QueryGroupInfoRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupInfoResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryGroupInfoResponse>, tonic::Status>;
         async fn group_policy_info(
             &self,
             request: tonic::Request<super::QueryGroupPolicyInfoRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupPolicyInfoResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryGroupPolicyInfoResponse>, tonic::Status>;
         async fn group_members(
             &self,
             request: tonic::Request<super::QueryGroupMembersRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupMembersResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryGroupMembersResponse>, tonic::Status>;
         async fn groups_by_admin(
             &self,
             request: tonic::Request<super::QueryGroupsByAdminRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupsByAdminResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryGroupsByAdminResponse>, tonic::Status>;
         async fn group_policies_by_group(
             &self,
             request: tonic::Request<super::QueryGroupPoliciesByGroupRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryGroupPoliciesByGroupResponse>,
             tonic::Status,
         >;
         async fn group_policies_by_admin(
             &self,
             request: tonic::Request<super::QueryGroupPoliciesByAdminRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryGroupPoliciesByAdminResponse>,
             tonic::Status,
         >;
         async fn proposal(
             &self,
             request: tonic::Request<super::QueryProposalRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryProposalResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryProposalResponse>, tonic::Status>;
         async fn proposals_by_group_policy(
             &self,
             request: tonic::Request<super::QueryProposalsByGroupPolicyRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryProposalsByGroupPolicyResponse>,
             tonic::Status,
         >;
         async fn vote_by_proposal_voter(
             &self,
             request: tonic::Request<super::QueryVoteByProposalVoterRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryVoteByProposalVoterResponse>,
             tonic::Status,
         >;
         async fn votes_by_proposal(
             &self,
             request: tonic::Request<super::QueryVotesByProposalRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryVotesByProposalResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryVotesByProposalResponse>, tonic::Status>;
         async fn votes_by_voter(
             &self,
             request: tonic::Request<super::QueryVotesByVoterRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryVotesByVoterResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryVotesByVoterResponse>, tonic::Status>;
         async fn groups_by_member(
             &self,
             request: tonic::Request<super::QueryGroupsByMemberRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupsByMemberResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryGroupsByMemberResponse>, tonic::Status>;
         async fn tally_result(
             &self,
             request: tonic::Request<super::QueryTallyResultRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryTallyResultResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryTallyResultResponse>, tonic::Status>;
         async fn groups(
             &self,
             request: tonic::Request<super::QueryGroupsRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryGroupsResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryGroupsResponse>, tonic::Status>;
     }
     #[derive(Debug)]
-    pub struct QueryServer<T: Query> {
-        inner: _Inner<T>,
+    pub struct QueryServer<T> {
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
-    impl<T: Query> QueryServer<T> {
+    impl<T> QueryServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -501,20 +469,19 @@ pub mod query_server {
     impl<T, B> tonic::codegen::Service<http::Request<B>> for QueryServer<T>
     where
         T: Query,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
     {
-        type Response = http::Response<tonic::body::BoxBody>;
+        type Response = http::Response<tonic::body::Body>;
         type Error = std::convert::Infallible;
         type Future = BoxFuture<Self::Response, Self::Error>;
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/cosmos.group.v1.Query/GroupInfo" => {
                     #[allow(non_camel_case_types)]
@@ -527,7 +494,8 @@ pub mod query_server {
                             request: tonic::Request<super::QueryGroupInfoRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).group_info(request).await };
+                            let fut =
+                                async move { <T as Query>::group_info(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -537,7 +505,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GroupInfoSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -567,7 +534,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryGroupPolicyInfoRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).group_policy_info(request).await };
+                            let fut = async move {
+                                <T as Query>::group_policy_info(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -577,7 +546,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GroupPolicyInfoSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -605,7 +573,8 @@ pub mod query_server {
                             request: tonic::Request<super::QueryGroupMembersRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).group_members(request).await };
+                            let fut =
+                                async move { <T as Query>::group_members(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -615,7 +584,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GroupMembersSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -645,7 +613,8 @@ pub mod query_server {
                             request: tonic::Request<super::QueryGroupsByAdminRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).groups_by_admin(request).await };
+                            let fut =
+                                async move { <T as Query>::groups_by_admin(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -655,7 +624,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GroupsByAdminSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -686,8 +654,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryGroupPoliciesByGroupRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).group_policies_by_group(request).await };
+                            let fut = async move {
+                                <T as Query>::group_policies_by_group(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -697,7 +666,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GroupPoliciesByGroupSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -728,8 +696,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryGroupPoliciesByAdminRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).group_policies_by_admin(request).await };
+                            let fut = async move {
+                                <T as Query>::group_policies_by_admin(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -739,7 +708,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GroupPoliciesByAdminSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -767,7 +735,7 @@ pub mod query_server {
                             request: tonic::Request<super::QueryProposalRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).proposal(request).await };
+                            let fut = async move { <T as Query>::proposal(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -777,7 +745,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ProposalSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -808,8 +775,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryProposalsByGroupPolicyRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).proposals_by_group_policy(request).await };
+                            let fut = async move {
+                                <T as Query>::proposals_by_group_policy(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -819,7 +787,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ProposalsByGroupPolicySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -850,7 +817,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryVoteByProposalVoterRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).vote_by_proposal_voter(request).await };
+                            let fut = async move {
+                                <T as Query>::vote_by_proposal_voter(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -860,7 +829,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = VoteByProposalVoterSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -890,7 +858,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryVotesByProposalRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).votes_by_proposal(request).await };
+                            let fut = async move {
+                                <T as Query>::votes_by_proposal(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -900,7 +870,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = VotesByProposalSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -928,7 +897,8 @@ pub mod query_server {
                             request: tonic::Request<super::QueryVotesByVoterRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).votes_by_voter(request).await };
+                            let fut =
+                                async move { <T as Query>::votes_by_voter(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -938,7 +908,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = VotesByVoterSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -968,7 +937,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryGroupsByMemberRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).groups_by_member(request).await };
+                            let fut = async move {
+                                <T as Query>::groups_by_member(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -978,7 +949,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GroupsByMemberSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1006,7 +976,8 @@ pub mod query_server {
                             request: tonic::Request<super::QueryTallyResultRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).tally_result(request).await };
+                            let fut =
+                                async move { <T as Query>::tally_result(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -1016,7 +987,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = TallyResultSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1044,7 +1014,7 @@ pub mod query_server {
                             request: tonic::Request<super::QueryGroupsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).groups(request).await };
+                            let fut = async move { <T as Query>::groups(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -1054,7 +1024,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GroupsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1072,17 +1041,22 @@ pub mod query_server {
                     Box::pin(fut)
                 }
                 _ => Box::pin(async move {
-                    Ok(http::Response::builder()
-                        .status(200)
-                        .header("grpc-status", "12")
-                        .header("content-type", "application/grpc")
-                        .body(empty_body())
-                        .unwrap())
+                    let mut response = http::Response::new(tonic::body::Body::default());
+                    let headers = response.headers_mut();
+                    headers.insert(
+                        tonic::Status::GRPC_STATUS,
+                        (tonic::Code::Unimplemented as i32).into(),
+                    );
+                    headers.insert(
+                        http::header::CONTENT_TYPE,
+                        tonic::metadata::GRPC_CONTENT_TYPE,
+                    );
+                    Ok(response)
                 }),
             }
         }
     }
-    impl<T: Query> Clone for QueryServer<T> {
+    impl<T> Clone for QueryServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -1094,24 +1068,22 @@ pub mod query_server {
             }
         }
     }
-    impl<T: Query> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: Query> tonic::server::NamedService for QueryServer<T> {
-        const NAME: &'static str = "cosmos.group.v1.Query";
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "cosmos.group.v1.Query";
+    impl<T> tonic::server::NamedService for QueryServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// Generated client implementations.
 #[cfg(feature = "grpc")]
 pub mod msg_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
     #[derive(Debug, Clone)]
@@ -1132,10 +1104,10 @@ pub mod msg_client {
     }
     impl<T> MsgClient<T>
     where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T: tonic::client::GrpcService<tonic::body::Body>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -1150,13 +1122,13 @@ pub mod msg_client {
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
             T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
+                http::Request<tonic::body::Body>,
                 Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                    <T as tonic::client::GrpcService<tonic::body::Body>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<http::Request<tonic::body::Body>>>::Error:
+                Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             MsgClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -1194,13 +1166,10 @@ pub mod msg_client {
         pub async fn create_group(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgCreateGroup>,
-        ) -> std::result::Result<tonic::Response<super::MsgCreateGroupResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgCreateGroupResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Msg/CreateGroup");
@@ -1212,13 +1181,12 @@ pub mod msg_client {
         pub async fn update_group_members(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgUpdateGroupMembers>,
-        ) -> std::result::Result<tonic::Response<super::MsgUpdateGroupMembersResponse>, tonic::Status>
-        {
+        ) -> core::result::Result<
+            tonic::Response<super::MsgUpdateGroupMembersResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1231,13 +1199,10 @@ pub mod msg_client {
         pub async fn update_group_admin(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgUpdateGroupAdmin>,
-        ) -> std::result::Result<tonic::Response<super::MsgUpdateGroupAdminResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgUpdateGroupAdminResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1250,15 +1215,12 @@ pub mod msg_client {
         pub async fn update_group_metadata(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgUpdateGroupMetadata>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgUpdateGroupMetadataResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1273,13 +1235,10 @@ pub mod msg_client {
         pub async fn create_group_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgCreateGroupPolicy>,
-        ) -> std::result::Result<tonic::Response<super::MsgCreateGroupPolicyResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgCreateGroupPolicyResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1292,15 +1251,12 @@ pub mod msg_client {
         pub async fn create_group_with_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgCreateGroupWithPolicy>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgCreateGroupWithPolicyResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1315,15 +1271,12 @@ pub mod msg_client {
         pub async fn update_group_policy_admin(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgUpdateGroupPolicyAdmin>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgUpdateGroupPolicyAdminResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1338,15 +1291,12 @@ pub mod msg_client {
         pub async fn update_group_policy_decision_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgUpdateGroupPolicyDecisionPolicy>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgUpdateGroupPolicyDecisionPolicyResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -1362,15 +1312,12 @@ pub mod msg_client {
         pub async fn update_group_policy_metadata(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgUpdateGroupPolicyMetadata>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgUpdateGroupPolicyMetadataResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -1386,13 +1333,10 @@ pub mod msg_client {
         pub async fn submit_proposal(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgSubmitProposal>,
-        ) -> std::result::Result<tonic::Response<super::MsgSubmitProposalResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgSubmitProposalResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Msg/SubmitProposal");
@@ -1404,13 +1348,10 @@ pub mod msg_client {
         pub async fn withdraw_proposal(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgWithdrawProposal>,
-        ) -> std::result::Result<tonic::Response<super::MsgWithdrawProposalResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgWithdrawProposalResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -1423,12 +1364,9 @@ pub mod msg_client {
         pub async fn vote(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgVote>,
-        ) -> std::result::Result<tonic::Response<super::MsgVoteResponse>, tonic::Status> {
+        ) -> core::result::Result<tonic::Response<super::MsgVoteResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Msg/Vote");
@@ -1440,12 +1378,9 @@ pub mod msg_client {
         pub async fn exec(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgExec>,
-        ) -> std::result::Result<tonic::Response<super::MsgExecResponse>, tonic::Status> {
+        ) -> core::result::Result<tonic::Response<super::MsgExecResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Msg/Exec");
@@ -1457,13 +1392,10 @@ pub mod msg_client {
         pub async fn leave_group(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgLeaveGroup>,
-        ) -> std::result::Result<tonic::Response<super::MsgLeaveGroupResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgLeaveGroupResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.group.v1.Msg/LeaveGroup");
@@ -1477,98 +1409,105 @@ pub mod msg_client {
 /// Generated server implementations.
 #[cfg(feature = "grpc")]
 pub mod msg_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::*;
     /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
     #[async_trait]
-    pub trait Msg: Send + Sync + 'static {
+    pub trait Msg: std::marker::Send + std::marker::Sync + 'static {
         async fn create_group(
             &self,
             request: tonic::Request<super::MsgCreateGroup>,
-        ) -> std::result::Result<tonic::Response<super::MsgCreateGroupResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgCreateGroupResponse>, tonic::Status>;
         async fn update_group_members(
             &self,
             request: tonic::Request<super::MsgUpdateGroupMembers>,
-        ) -> std::result::Result<tonic::Response<super::MsgUpdateGroupMembersResponse>, tonic::Status>;
+        ) -> core::result::Result<
+            tonic::Response<super::MsgUpdateGroupMembersResponse>,
+            tonic::Status,
+        >;
         async fn update_group_admin(
             &self,
             request: tonic::Request<super::MsgUpdateGroupAdmin>,
-        ) -> std::result::Result<tonic::Response<super::MsgUpdateGroupAdminResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgUpdateGroupAdminResponse>, tonic::Status>;
         async fn update_group_metadata(
             &self,
             request: tonic::Request<super::MsgUpdateGroupMetadata>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgUpdateGroupMetadataResponse>,
             tonic::Status,
         >;
         async fn create_group_policy(
             &self,
             request: tonic::Request<super::MsgCreateGroupPolicy>,
-        ) -> std::result::Result<tonic::Response<super::MsgCreateGroupPolicyResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgCreateGroupPolicyResponse>, tonic::Status>;
         async fn create_group_with_policy(
             &self,
             request: tonic::Request<super::MsgCreateGroupWithPolicy>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgCreateGroupWithPolicyResponse>,
             tonic::Status,
         >;
         async fn update_group_policy_admin(
             &self,
             request: tonic::Request<super::MsgUpdateGroupPolicyAdmin>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgUpdateGroupPolicyAdminResponse>,
             tonic::Status,
         >;
         async fn update_group_policy_decision_policy(
             &self,
             request: tonic::Request<super::MsgUpdateGroupPolicyDecisionPolicy>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgUpdateGroupPolicyDecisionPolicyResponse>,
             tonic::Status,
         >;
         async fn update_group_policy_metadata(
             &self,
             request: tonic::Request<super::MsgUpdateGroupPolicyMetadata>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgUpdateGroupPolicyMetadataResponse>,
             tonic::Status,
         >;
         async fn submit_proposal(
             &self,
             request: tonic::Request<super::MsgSubmitProposal>,
-        ) -> std::result::Result<tonic::Response<super::MsgSubmitProposalResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgSubmitProposalResponse>, tonic::Status>;
         async fn withdraw_proposal(
             &self,
             request: tonic::Request<super::MsgWithdrawProposal>,
-        ) -> std::result::Result<tonic::Response<super::MsgWithdrawProposalResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgWithdrawProposalResponse>, tonic::Status>;
         async fn vote(
             &self,
             request: tonic::Request<super::MsgVote>,
-        ) -> std::result::Result<tonic::Response<super::MsgVoteResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgVoteResponse>, tonic::Status>;
         async fn exec(
             &self,
             request: tonic::Request<super::MsgExec>,
-        ) -> std::result::Result<tonic::Response<super::MsgExecResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgExecResponse>, tonic::Status>;
         async fn leave_group(
             &self,
             request: tonic::Request<super::MsgLeaveGroup>,
-        ) -> std::result::Result<tonic::Response<super::MsgLeaveGroupResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgLeaveGroupResponse>, tonic::Status>;
     }
     #[derive(Debug)]
-    pub struct MsgServer<T: Msg> {
-        inner: _Inner<T>,
+    pub struct MsgServer<T> {
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
-    impl<T: Msg> MsgServer<T> {
+    impl<T> MsgServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -1615,20 +1554,19 @@ pub mod msg_server {
     impl<T, B> tonic::codegen::Service<http::Request<B>> for MsgServer<T>
     where
         T: Msg,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
     {
-        type Response = http::Response<tonic::body::BoxBody>;
+        type Response = http::Response<tonic::body::Body>;
         type Error = std::convert::Infallible;
         type Future = BoxFuture<Self::Response, Self::Error>;
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/cosmos.group.v1.Msg/CreateGroup" => {
                     #[allow(non_camel_case_types)]
@@ -1641,7 +1579,8 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgCreateGroup>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).create_group(request).await };
+                            let fut =
+                                async move { <T as Msg>::create_group(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -1651,7 +1590,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = CreateGroupSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1681,7 +1619,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgUpdateGroupMembers>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).update_group_members(request).await };
+                            let fut = async move {
+                                <T as Msg>::update_group_members(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1691,7 +1631,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UpdateGroupMembersSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1719,7 +1658,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgUpdateGroupAdmin>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).update_group_admin(request).await };
+                            let fut = async move {
+                                <T as Msg>::update_group_admin(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1729,7 +1670,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UpdateGroupAdminSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1759,7 +1699,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgUpdateGroupMetadata>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).update_group_metadata(request).await };
+                            let fut = async move {
+                                <T as Msg>::update_group_metadata(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1769,7 +1711,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UpdateGroupMetadataSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1797,7 +1738,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgCreateGroupPolicy>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).create_group_policy(request).await };
+                            let fut = async move {
+                                <T as Msg>::create_group_policy(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1807,7 +1750,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = CreateGroupPolicySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1837,8 +1779,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgCreateGroupWithPolicy>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).create_group_with_policy(request).await };
+                            let fut = async move {
+                                <T as Msg>::create_group_with_policy(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1848,7 +1791,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = CreateGroupWithPolicySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1878,8 +1820,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgUpdateGroupPolicyAdmin>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).update_group_policy_admin(request).await };
+                            let fut = async move {
+                                <T as Msg>::update_group_policy_admin(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1889,7 +1832,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UpdateGroupPolicyAdminSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1921,7 +1863,8 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_group_policy_decision_policy(request).await
+                                <T as Msg>::update_group_policy_decision_policy(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1932,7 +1875,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UpdateGroupPolicyDecisionPolicySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1962,8 +1904,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgUpdateGroupPolicyMetadata>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).update_group_policy_metadata(request).await };
+                            let fut = async move {
+                                <T as Msg>::update_group_policy_metadata(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1973,7 +1916,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UpdateGroupPolicyMetadataSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2001,7 +1943,8 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgSubmitProposal>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).submit_proposal(request).await };
+                            let fut =
+                                async move { <T as Msg>::submit_proposal(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -2011,7 +1954,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = SubmitProposalSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2039,7 +1981,8 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgWithdrawProposal>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).withdraw_proposal(request).await };
+                            let fut =
+                                async move { <T as Msg>::withdraw_proposal(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -2049,7 +1992,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = WithdrawProposalSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2077,7 +2019,7 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgVote>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).vote(request).await };
+                            let fut = async move { <T as Msg>::vote(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -2087,7 +2029,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = VoteSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2115,7 +2056,7 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgExec>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).exec(request).await };
+                            let fut = async move { <T as Msg>::exec(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -2125,7 +2066,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ExecSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2153,7 +2093,7 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgLeaveGroup>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).leave_group(request).await };
+                            let fut = async move { <T as Msg>::leave_group(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -2163,7 +2103,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = LeaveGroupSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2181,17 +2120,22 @@ pub mod msg_server {
                     Box::pin(fut)
                 }
                 _ => Box::pin(async move {
-                    Ok(http::Response::builder()
-                        .status(200)
-                        .header("grpc-status", "12")
-                        .header("content-type", "application/grpc")
-                        .body(empty_body())
-                        .unwrap())
+                    let mut response = http::Response::new(tonic::body::Body::default());
+                    let headers = response.headers_mut();
+                    headers.insert(
+                        tonic::Status::GRPC_STATUS,
+                        (tonic::Code::Unimplemented as i32).into(),
+                    );
+                    headers.insert(
+                        http::header::CONTENT_TYPE,
+                        tonic::metadata::GRPC_CONTENT_TYPE,
+                    );
+                    Ok(response)
                 }),
             }
         }
     }
-    impl<T: Msg> Clone for MsgServer<T> {
+    impl<T> Clone for MsgServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -2203,17 +2147,9 @@ pub mod msg_server {
             }
         }
     }
-    impl<T: Msg> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
-        const NAME: &'static str = "cosmos.group.v1.Msg";
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "cosmos.group.v1.Msg";
+    impl<T> tonic::server::NamedService for MsgServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
