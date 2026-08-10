@@ -2,7 +2,7 @@
 #[cfg(feature = "serde")]
 impl serde::Serialize for AuthInfo {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -33,7 +33,7 @@ impl serde::Serialize for AuthInfo {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for AuthInfo {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -47,7 +47,7 @@ impl<'de> serde::Deserialize<'de> for AuthInfo {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -58,13 +58,13 @@ impl<'de> serde::Deserialize<'de> for AuthInfo {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -83,11 +83,11 @@ impl<'de> serde::Deserialize<'de> for AuthInfo {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = AuthInfo;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.AuthInfo")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<AuthInfo, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<AuthInfo, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -129,7 +129,7 @@ impl<'de> serde::Deserialize<'de> for AuthInfo {
 #[cfg(feature = "serde")]
 impl serde::Serialize for AuxSignerData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -155,8 +155,9 @@ impl serde::Serialize for AuxSignerData {
             struct_ser.serialize_field("signDoc", v)?;
         }
         if self.mode != 0 {
-            let v = super::signing::v1beta1::SignMode::try_from(self.mode)
-                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.mode)))?;
+            let v = super::signing::v1beta1::SignMode::try_from(self.mode).map_err(|_| {
+                serde::ser::Error::custom(alloc::format!("Invalid variant {}", self.mode))
+            })?;
             struct_ser.serialize_field("mode", &v)?;
         }
         if !self.sig.is_empty() {
@@ -170,7 +171,7 @@ impl serde::Serialize for AuxSignerData {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for AuxSignerData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -185,7 +186,7 @@ impl<'de> serde::Deserialize<'de> for AuxSignerData {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -196,13 +197,13 @@ impl<'de> serde::Deserialize<'de> for AuxSignerData {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -222,11 +223,11 @@ impl<'de> serde::Deserialize<'de> for AuxSignerData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = AuxSignerData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.AuxSignerData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<AuxSignerData, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<AuxSignerData, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -281,7 +282,7 @@ impl<'de> serde::Deserialize<'de> for AuxSignerData {
 #[cfg(feature = "serde")]
 impl serde::Serialize for BroadcastMode {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -297,7 +298,7 @@ impl serde::Serialize for BroadcastMode {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for BroadcastMode {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -313,11 +314,11 @@ impl<'de> serde::Deserialize<'de> for BroadcastMode {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = BroadcastMode;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 write!(formatter, "expected one of: {:?}", &FIELDS)
             }
 
-            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            fn visit_i64<E>(self, v: i64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -329,7 +330,7 @@ impl<'de> serde::Deserialize<'de> for BroadcastMode {
                     })
             }
 
-            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            fn visit_u64<E>(self, v: u64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -341,7 +342,7 @@ impl<'de> serde::Deserialize<'de> for BroadcastMode {
                     })
             }
 
-            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            fn visit_str<E>(self, value: &str) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -360,7 +361,7 @@ impl<'de> serde::Deserialize<'de> for BroadcastMode {
 #[cfg(feature = "serde")]
 impl serde::Serialize for BroadcastTxRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -382,8 +383,9 @@ impl serde::Serialize for BroadcastTxRequest {
             )?;
         }
         if self.mode != 0 {
-            let v = BroadcastMode::try_from(self.mode)
-                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.mode)))?;
+            let v = BroadcastMode::try_from(self.mode).map_err(|_| {
+                serde::ser::Error::custom(alloc::format!("Invalid variant {}", self.mode))
+            })?;
             struct_ser.serialize_field("mode", &v)?;
         }
         struct_ser.end()
@@ -392,7 +394,7 @@ impl serde::Serialize for BroadcastTxRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for BroadcastTxRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -405,7 +407,7 @@ impl<'de> serde::Deserialize<'de> for BroadcastTxRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -416,13 +418,13 @@ impl<'de> serde::Deserialize<'de> for BroadcastTxRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -440,11 +442,11 @@ impl<'de> serde::Deserialize<'de> for BroadcastTxRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = BroadcastTxRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.BroadcastTxRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<BroadcastTxRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<BroadcastTxRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -485,7 +487,7 @@ impl<'de> serde::Deserialize<'de> for BroadcastTxRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for BroadcastTxResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -505,7 +507,7 @@ impl serde::Serialize for BroadcastTxResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for BroadcastTxResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -517,7 +519,7 @@ impl<'de> serde::Deserialize<'de> for BroadcastTxResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -528,13 +530,13 @@ impl<'de> serde::Deserialize<'de> for BroadcastTxResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -551,11 +553,14 @@ impl<'de> serde::Deserialize<'de> for BroadcastTxResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = BroadcastTxResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.BroadcastTxResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<BroadcastTxResponse, V::Error>
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<BroadcastTxResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -585,7 +590,7 @@ impl<'de> serde::Deserialize<'de> for BroadcastTxResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for Fee {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -609,8 +614,10 @@ impl serde::Serialize for Fee {
         }
         if self.gas_limit != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser
-                .serialize_field("gasLimit", ToString::to_string(&self.gas_limit).as_str())?;
+            struct_ser.serialize_field(
+                "gasLimit",
+                alloc::string::ToString::to_string(&self.gas_limit).as_str(),
+            )?;
         }
         if !self.payer.is_empty() {
             struct_ser.serialize_field("payer", &self.payer)?;
@@ -624,7 +631,7 @@ impl serde::Serialize for Fee {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Fee {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -639,7 +646,7 @@ impl<'de> serde::Deserialize<'de> for Fee {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -650,13 +657,13 @@ impl<'de> serde::Deserialize<'de> for Fee {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -676,11 +683,11 @@ impl<'de> serde::Deserialize<'de> for Fee {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Fee;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.Fee")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Fee, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Fee, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -733,7 +740,7 @@ impl<'de> serde::Deserialize<'de> for Fee {
 #[cfg(feature = "serde")]
 impl serde::Serialize for GetBlockWithTxsRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -749,7 +756,10 @@ impl serde::Serialize for GetBlockWithTxsRequest {
             serializer.serialize_struct("cosmos.tx.v1beta1.GetBlockWithTxsRequest", len)?;
         if self.height != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("height", ToString::to_string(&self.height).as_str())?;
+            struct_ser.serialize_field(
+                "height",
+                alloc::string::ToString::to_string(&self.height).as_str(),
+            )?;
         }
         if let Some(v) = self.pagination.as_ref() {
             struct_ser.serialize_field("pagination", v)?;
@@ -760,7 +770,7 @@ impl serde::Serialize for GetBlockWithTxsRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for GetBlockWithTxsRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -773,7 +783,7 @@ impl<'de> serde::Deserialize<'de> for GetBlockWithTxsRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -784,13 +794,13 @@ impl<'de> serde::Deserialize<'de> for GetBlockWithTxsRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -808,14 +818,14 @@ impl<'de> serde::Deserialize<'de> for GetBlockWithTxsRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = GetBlockWithTxsRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.GetBlockWithTxsRequest")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<GetBlockWithTxsRequest, V::Error>
+            ) -> core::result::Result<GetBlockWithTxsRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -856,7 +866,7 @@ impl<'de> serde::Deserialize<'de> for GetBlockWithTxsRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for GetBlockWithTxsResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -894,7 +904,7 @@ impl serde::Serialize for GetBlockWithTxsResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for GetBlockWithTxsResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -909,7 +919,7 @@ impl<'de> serde::Deserialize<'de> for GetBlockWithTxsResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -920,13 +930,13 @@ impl<'de> serde::Deserialize<'de> for GetBlockWithTxsResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -946,14 +956,14 @@ impl<'de> serde::Deserialize<'de> for GetBlockWithTxsResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = GetBlockWithTxsResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.GetBlockWithTxsResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<GetBlockWithTxsResponse, V::Error>
+            ) -> core::result::Result<GetBlockWithTxsResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1007,7 +1017,7 @@ impl<'de> serde::Deserialize<'de> for GetBlockWithTxsResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for GetTxRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1026,7 +1036,7 @@ impl serde::Serialize for GetTxRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for GetTxRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1038,7 +1048,7 @@ impl<'de> serde::Deserialize<'de> for GetTxRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1049,13 +1059,13 @@ impl<'de> serde::Deserialize<'de> for GetTxRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1072,11 +1082,11 @@ impl<'de> serde::Deserialize<'de> for GetTxRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = GetTxRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.GetTxRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<GetTxRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetTxRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1102,7 +1112,7 @@ impl<'de> serde::Deserialize<'de> for GetTxRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for GetTxResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1127,7 +1137,7 @@ impl serde::Serialize for GetTxResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for GetTxResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1140,7 +1150,7 @@ impl<'de> serde::Deserialize<'de> for GetTxResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1151,13 +1161,13 @@ impl<'de> serde::Deserialize<'de> for GetTxResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1175,11 +1185,11 @@ impl<'de> serde::Deserialize<'de> for GetTxResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = GetTxResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.GetTxResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<GetTxResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetTxResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1213,7 +1223,7 @@ impl<'de> serde::Deserialize<'de> for GetTxResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for GetTxsEventRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1234,6 +1244,9 @@ impl serde::Serialize for GetTxsEventRequest {
         if self.limit != 0 {
             len += 1;
         }
+        if !self.query.is_empty() {
+            len += 1;
+        }
         let mut struct_ser =
             serializer.serialize_struct("cosmos.tx.v1beta1.GetTxsEventRequest", len)?;
         if !self.events.is_empty() {
@@ -1244,17 +1257,26 @@ impl serde::Serialize for GetTxsEventRequest {
         }
         if self.order_by != 0 {
             let v = OrderBy::try_from(self.order_by).map_err(|_| {
-                serde::ser::Error::custom(format!("Invalid variant {}", self.order_by))
+                serde::ser::Error::custom(alloc::format!("Invalid variant {}", self.order_by))
             })?;
             struct_ser.serialize_field("orderBy", &v)?;
         }
         if self.page != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("page", ToString::to_string(&self.page).as_str())?;
+            struct_ser.serialize_field(
+                "page",
+                alloc::string::ToString::to_string(&self.page).as_str(),
+            )?;
         }
         if self.limit != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("limit", ToString::to_string(&self.limit).as_str())?;
+            struct_ser.serialize_field(
+                "limit",
+                alloc::string::ToString::to_string(&self.limit).as_str(),
+            )?;
+        }
+        if !self.query.is_empty() {
+            struct_ser.serialize_field("query", &self.query)?;
         }
         struct_ser.end()
     }
@@ -1262,7 +1284,7 @@ impl serde::Serialize for GetTxsEventRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for GetTxsEventRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1273,6 +1295,7 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventRequest {
             "orderBy",
             "page",
             "limit",
+            "query",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -1282,10 +1305,11 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventRequest {
             OrderBy,
             Page,
             Limit,
+            Query,
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1296,13 +1320,13 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1312,6 +1336,7 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventRequest {
                             "orderBy" | "order_by" => Ok(GeneratedField::OrderBy),
                             "page" => Ok(GeneratedField::Page),
                             "limit" => Ok(GeneratedField::Limit),
+                            "query" => Ok(GeneratedField::Query),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1323,11 +1348,11 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = GetTxsEventRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.GetTxsEventRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<GetTxsEventRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetTxsEventRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1336,6 +1361,7 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventRequest {
                 let mut order_by__ = None;
                 let mut page__ = None;
                 let mut limit__ = None;
+                let mut query__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Events => {
@@ -1374,6 +1400,12 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventRequest {
                                     .0,
                             );
                         }
+                        GeneratedField::Query => {
+                            if query__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("query"));
+                            }
+                            query__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(GetTxsEventRequest {
@@ -1382,6 +1414,7 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventRequest {
                     order_by: order_by__.unwrap_or_default(),
                     page: page__.unwrap_or_default(),
                     limit: limit__.unwrap_or_default(),
+                    query: query__.unwrap_or_default(),
                 })
             }
         }
@@ -1395,7 +1428,7 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for GetTxsEventResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1426,7 +1459,10 @@ impl serde::Serialize for GetTxsEventResponse {
         }
         if self.total != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("total", ToString::to_string(&self.total).as_str())?;
+            struct_ser.serialize_field(
+                "total",
+                alloc::string::ToString::to_string(&self.total).as_str(),
+            )?;
         }
         struct_ser.end()
     }
@@ -1434,7 +1470,7 @@ impl serde::Serialize for GetTxsEventResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for GetTxsEventResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1449,7 +1485,7 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1460,13 +1496,13 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1486,11 +1522,14 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = GetTxsEventResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.GetTxsEventResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<GetTxsEventResponse, V::Error>
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<GetTxsEventResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1547,7 +1586,7 @@ impl<'de> serde::Deserialize<'de> for GetTxsEventResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for ModeInfo {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1573,7 +1612,7 @@ impl serde::Serialize for ModeInfo {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for ModeInfo {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1586,7 +1625,7 @@ impl<'de> serde::Deserialize<'de> for ModeInfo {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1597,13 +1636,13 @@ impl<'de> serde::Deserialize<'de> for ModeInfo {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1621,11 +1660,11 @@ impl<'de> serde::Deserialize<'de> for ModeInfo {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ModeInfo;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.ModeInfo")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ModeInfo, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ModeInfo, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1637,7 +1676,7 @@ impl<'de> serde::Deserialize<'de> for ModeInfo {
                                 return Err(serde::de::Error::duplicate_field("single"));
                             }
                             sum__ = map_
-                                .next_value::<::std::option::Option<_>>()?
+                                .next_value::<::core::option::Option<_>>()?
                                 .map(mode_info::Sum::Single);
                         }
                         GeneratedField::Multi => {
@@ -1645,7 +1684,7 @@ impl<'de> serde::Deserialize<'de> for ModeInfo {
                                 return Err(serde::de::Error::duplicate_field("multi"));
                             }
                             sum__ = map_
-                                .next_value::<::std::option::Option<_>>()?
+                                .next_value::<::core::option::Option<_>>()?
                                 .map(mode_info::Sum::Multi);
                         }
                     }
@@ -1659,7 +1698,7 @@ impl<'de> serde::Deserialize<'de> for ModeInfo {
 #[cfg(feature = "serde")]
 impl serde::Serialize for mode_info::Multi {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1685,7 +1724,7 @@ impl serde::Serialize for mode_info::Multi {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for mode_info::Multi {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1698,7 +1737,7 @@ impl<'de> serde::Deserialize<'de> for mode_info::Multi {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1709,13 +1748,13 @@ impl<'de> serde::Deserialize<'de> for mode_info::Multi {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1733,11 +1772,11 @@ impl<'de> serde::Deserialize<'de> for mode_info::Multi {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = mode_info::Multi;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.ModeInfo.Multi")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<mode_info::Multi, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<mode_info::Multi, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1775,7 +1814,7 @@ impl<'de> serde::Deserialize<'de> for mode_info::Multi {
 #[cfg(feature = "serde")]
 impl serde::Serialize for mode_info::Single {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1787,8 +1826,9 @@ impl serde::Serialize for mode_info::Single {
         let mut struct_ser =
             serializer.serialize_struct("cosmos.tx.v1beta1.ModeInfo.Single", len)?;
         if self.mode != 0 {
-            let v = super::signing::v1beta1::SignMode::try_from(self.mode)
-                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.mode)))?;
+            let v = super::signing::v1beta1::SignMode::try_from(self.mode).map_err(|_| {
+                serde::ser::Error::custom(alloc::format!("Invalid variant {}", self.mode))
+            })?;
             struct_ser.serialize_field("mode", &v)?;
         }
         struct_ser.end()
@@ -1797,7 +1837,7 @@ impl serde::Serialize for mode_info::Single {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for mode_info::Single {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1809,7 +1849,7 @@ impl<'de> serde::Deserialize<'de> for mode_info::Single {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1820,13 +1860,13 @@ impl<'de> serde::Deserialize<'de> for mode_info::Single {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1843,11 +1883,11 @@ impl<'de> serde::Deserialize<'de> for mode_info::Single {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = mode_info::Single;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.ModeInfo.Single")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<mode_info::Single, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<mode_info::Single, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1879,7 +1919,7 @@ impl<'de> serde::Deserialize<'de> for mode_info::Single {
 #[cfg(feature = "serde")]
 impl serde::Serialize for OrderBy {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1894,7 +1934,7 @@ impl serde::Serialize for OrderBy {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for OrderBy {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1905,11 +1945,11 @@ impl<'de> serde::Deserialize<'de> for OrderBy {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = OrderBy;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 write!(formatter, "expected one of: {:?}", &FIELDS)
             }
 
-            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            fn visit_i64<E>(self, v: i64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -1921,7 +1961,7 @@ impl<'de> serde::Deserialize<'de> for OrderBy {
                     })
             }
 
-            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            fn visit_u64<E>(self, v: u64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -1933,7 +1973,7 @@ impl<'de> serde::Deserialize<'de> for OrderBy {
                     })
             }
 
-            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            fn visit_str<E>(self, value: &str) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -1951,7 +1991,7 @@ impl<'de> serde::Deserialize<'de> for OrderBy {
 #[cfg(feature = "serde")]
 impl serde::Serialize for SignDoc {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1991,7 +2031,7 @@ impl serde::Serialize for SignDoc {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
                 "accountNumber",
-                ToString::to_string(&self.account_number).as_str(),
+                alloc::string::ToString::to_string(&self.account_number).as_str(),
             )?;
         }
         struct_ser.end()
@@ -2000,7 +2040,7 @@ impl serde::Serialize for SignDoc {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for SignDoc {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2024,7 +2064,7 @@ impl<'de> serde::Deserialize<'de> for SignDoc {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2035,13 +2075,13 @@ impl<'de> serde::Deserialize<'de> for SignDoc {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2063,11 +2103,11 @@ impl<'de> serde::Deserialize<'de> for SignDoc {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SignDoc;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.SignDoc")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SignDoc, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SignDoc, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2126,7 +2166,7 @@ impl<'de> serde::Deserialize<'de> for SignDoc {
 #[cfg(feature = "serde")]
 impl serde::Serialize for SignDocDirectAux {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2169,12 +2209,15 @@ impl serde::Serialize for SignDocDirectAux {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
                 "accountNumber",
-                ToString::to_string(&self.account_number).as_str(),
+                alloc::string::ToString::to_string(&self.account_number).as_str(),
             )?;
         }
         if self.sequence != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("sequence", ToString::to_string(&self.sequence).as_str())?;
+            struct_ser.serialize_field(
+                "sequence",
+                alloc::string::ToString::to_string(&self.sequence).as_str(),
+            )?;
         }
         if let Some(v) = self.tip.as_ref() {
             struct_ser.serialize_field("tip", v)?;
@@ -2185,7 +2228,7 @@ impl serde::Serialize for SignDocDirectAux {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for SignDocDirectAux {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2213,7 +2256,7 @@ impl<'de> serde::Deserialize<'de> for SignDocDirectAux {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2224,13 +2267,13 @@ impl<'de> serde::Deserialize<'de> for SignDocDirectAux {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2252,11 +2295,11 @@ impl<'de> serde::Deserialize<'de> for SignDocDirectAux {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SignDocDirectAux;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.SignDocDirectAux")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SignDocDirectAux, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SignDocDirectAux, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2335,7 +2378,7 @@ impl<'de> serde::Deserialize<'de> for SignDocDirectAux {
 #[cfg(feature = "serde")]
 impl serde::Serialize for SignerInfo {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2359,7 +2402,10 @@ impl serde::Serialize for SignerInfo {
         }
         if self.sequence != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("sequence", ToString::to_string(&self.sequence).as_str())?;
+            struct_ser.serialize_field(
+                "sequence",
+                alloc::string::ToString::to_string(&self.sequence).as_str(),
+            )?;
         }
         struct_ser.end()
     }
@@ -2367,7 +2413,7 @@ impl serde::Serialize for SignerInfo {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for SignerInfo {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2387,7 +2433,7 @@ impl<'de> serde::Deserialize<'de> for SignerInfo {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2398,13 +2444,13 @@ impl<'de> serde::Deserialize<'de> for SignerInfo {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2423,11 +2469,11 @@ impl<'de> serde::Deserialize<'de> for SignerInfo {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SignerInfo;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.SignerInfo")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SignerInfo, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SignerInfo, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2472,7 +2518,7 @@ impl<'de> serde::Deserialize<'de> for SignerInfo {
 #[cfg(feature = "serde")]
 impl serde::Serialize for SimulateRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2502,7 +2548,7 @@ impl serde::Serialize for SimulateRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for SimulateRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2515,7 +2561,7 @@ impl<'de> serde::Deserialize<'de> for SimulateRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2526,13 +2572,13 @@ impl<'de> serde::Deserialize<'de> for SimulateRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2550,11 +2596,11 @@ impl<'de> serde::Deserialize<'de> for SimulateRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SimulateRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.SimulateRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SimulateRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SimulateRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2595,7 +2641,7 @@ impl<'de> serde::Deserialize<'de> for SimulateRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for SimulateResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2621,7 +2667,7 @@ impl serde::Serialize for SimulateResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for SimulateResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2634,7 +2680,7 @@ impl<'de> serde::Deserialize<'de> for SimulateResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2645,13 +2691,13 @@ impl<'de> serde::Deserialize<'de> for SimulateResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2669,11 +2715,11 @@ impl<'de> serde::Deserialize<'de> for SimulateResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SimulateResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.SimulateResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SimulateResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SimulateResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2711,7 +2757,7 @@ impl<'de> serde::Deserialize<'de> for SimulateResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for Tip {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2736,7 +2782,7 @@ impl serde::Serialize for Tip {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Tip {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2749,7 +2795,7 @@ impl<'de> serde::Deserialize<'de> for Tip {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2760,13 +2806,13 @@ impl<'de> serde::Deserialize<'de> for Tip {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2784,11 +2830,11 @@ impl<'de> serde::Deserialize<'de> for Tip {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Tip;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.Tip")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Tip, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Tip, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2822,7 +2868,7 @@ impl<'de> serde::Deserialize<'de> for Tip {
 #[cfg(feature = "serde")]
 impl serde::Serialize for Tx {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2851,7 +2897,7 @@ impl serde::Serialize for Tx {
                     .signatures
                     .iter()
                     .map(pbjson::private::base64::encode)
-                    .collect::<Vec<_>>(),
+                    .collect::<alloc::vec::Vec<_>>(),
             )?;
         }
         struct_ser.end()
@@ -2860,7 +2906,7 @@ impl serde::Serialize for Tx {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Tx {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2874,7 +2920,7 @@ impl<'de> serde::Deserialize<'de> for Tx {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2885,13 +2931,13 @@ impl<'de> serde::Deserialize<'de> for Tx {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2910,11 +2956,11 @@ impl<'de> serde::Deserialize<'de> for Tx {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Tx;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.Tx")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Tx, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Tx, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2939,12 +2985,10 @@ impl<'de> serde::Deserialize<'de> for Tx {
                             if signatures__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signatures"));
                             }
-                            signatures__ = Some(
-                                map_.next_value::<Vec<::pbjson::private::BytesDeserialize<_>>>()?
-                                    .into_iter()
-                                    .map(|x| x.0)
-                                    .collect(),
-                            );
+                            signatures__ =
+                                Some(map_.next_value::<alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                    .into_iter().map(|x| x.0).collect())
+                            ;
                         }
                     }
                 }
@@ -2961,7 +3005,7 @@ impl<'de> serde::Deserialize<'de> for Tx {
 #[cfg(feature = "serde")]
 impl serde::Serialize for TxBody {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2993,7 +3037,7 @@ impl serde::Serialize for TxBody {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
                 "timeoutHeight",
-                ToString::to_string(&self.timeout_height).as_str(),
+                alloc::string::ToString::to_string(&self.timeout_height).as_str(),
             )?;
         }
         if !self.extension_options.is_empty() {
@@ -3011,7 +3055,7 @@ impl serde::Serialize for TxBody {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for TxBody {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3036,7 +3080,7 @@ impl<'de> serde::Deserialize<'de> for TxBody {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3047,13 +3091,13 @@ impl<'de> serde::Deserialize<'de> for TxBody {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3078,11 +3122,11 @@ impl<'de> serde::Deserialize<'de> for TxBody {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = TxBody;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.TxBody")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<TxBody, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TxBody, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -3144,9 +3188,845 @@ impl<'de> serde::Deserialize<'de> for TxBody {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for TxDecodeAminoRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.amino_binary.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmos.tx.v1beta1.TxDecodeAminoRequest", len)?;
+        if !self.amino_binary.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "aminoBinary",
+                pbjson::private::base64::encode(&self.amino_binary).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for TxDecodeAminoRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["amino_binary", "aminoBinary"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            AminoBinary,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "aminoBinary" | "amino_binary" => Ok(GeneratedField::AminoBinary),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = TxDecodeAminoRequest;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.tx.v1beta1.TxDecodeAminoRequest")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<TxDecodeAminoRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut amino_binary__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::AminoBinary => {
+                            if amino_binary__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("aminoBinary"));
+                            }
+                            amino_binary__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(TxDecodeAminoRequest {
+                    amino_binary: amino_binary__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.tx.v1beta1.TxDecodeAminoRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for TxDecodeAminoResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.amino_json.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmos.tx.v1beta1.TxDecodeAminoResponse", len)?;
+        if !self.amino_json.is_empty() {
+            struct_ser.serialize_field("aminoJson", &self.amino_json)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for TxDecodeAminoResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["amino_json", "aminoJson"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            AminoJson,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "aminoJson" | "amino_json" => Ok(GeneratedField::AminoJson),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = TxDecodeAminoResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.tx.v1beta1.TxDecodeAminoResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<TxDecodeAminoResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut amino_json__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::AminoJson => {
+                            if amino_json__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("aminoJson"));
+                            }
+                            amino_json__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(TxDecodeAminoResponse {
+                    amino_json: amino_json__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.tx.v1beta1.TxDecodeAminoResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for TxDecodeRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.tx_bytes.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmos.tx.v1beta1.TxDecodeRequest", len)?;
+        if !self.tx_bytes.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "txBytes",
+                pbjson::private::base64::encode(&self.tx_bytes).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for TxDecodeRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["tx_bytes", "txBytes"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            TxBytes,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "txBytes" | "tx_bytes" => Ok(GeneratedField::TxBytes),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = TxDecodeRequest;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.tx.v1beta1.TxDecodeRequest")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TxDecodeRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut tx_bytes__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::TxBytes => {
+                            if tx_bytes__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("txBytes"));
+                            }
+                            tx_bytes__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(TxDecodeRequest {
+                    tx_bytes: tx_bytes__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.tx.v1beta1.TxDecodeRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for TxDecodeResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.tx.is_some() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmos.tx.v1beta1.TxDecodeResponse", len)?;
+        if let Some(v) = self.tx.as_ref() {
+            struct_ser.serialize_field("tx", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for TxDecodeResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["tx"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Tx,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "tx" => Ok(GeneratedField::Tx),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = TxDecodeResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.tx.v1beta1.TxDecodeResponse")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TxDecodeResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut tx__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Tx => {
+                            if tx__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tx"));
+                            }
+                            tx__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(TxDecodeResponse { tx: tx__ })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.tx.v1beta1.TxDecodeResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for TxEncodeAminoRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.amino_json.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmos.tx.v1beta1.TxEncodeAminoRequest", len)?;
+        if !self.amino_json.is_empty() {
+            struct_ser.serialize_field("aminoJson", &self.amino_json)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for TxEncodeAminoRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["amino_json", "aminoJson"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            AminoJson,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "aminoJson" | "amino_json" => Ok(GeneratedField::AminoJson),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = TxEncodeAminoRequest;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.tx.v1beta1.TxEncodeAminoRequest")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<TxEncodeAminoRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut amino_json__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::AminoJson => {
+                            if amino_json__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("aminoJson"));
+                            }
+                            amino_json__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(TxEncodeAminoRequest {
+                    amino_json: amino_json__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.tx.v1beta1.TxEncodeAminoRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for TxEncodeAminoResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.amino_binary.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmos.tx.v1beta1.TxEncodeAminoResponse", len)?;
+        if !self.amino_binary.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "aminoBinary",
+                pbjson::private::base64::encode(&self.amino_binary).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for TxEncodeAminoResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["amino_binary", "aminoBinary"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            AminoBinary,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "aminoBinary" | "amino_binary" => Ok(GeneratedField::AminoBinary),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = TxEncodeAminoResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.tx.v1beta1.TxEncodeAminoResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<TxEncodeAminoResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut amino_binary__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::AminoBinary => {
+                            if amino_binary__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("aminoBinary"));
+                            }
+                            amino_binary__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(TxEncodeAminoResponse {
+                    amino_binary: amino_binary__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.tx.v1beta1.TxEncodeAminoResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for TxEncodeRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.tx.is_some() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmos.tx.v1beta1.TxEncodeRequest", len)?;
+        if let Some(v) = self.tx.as_ref() {
+            struct_ser.serialize_field("tx", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for TxEncodeRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["tx"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Tx,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "tx" => Ok(GeneratedField::Tx),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = TxEncodeRequest;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.tx.v1beta1.TxEncodeRequest")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TxEncodeRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut tx__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Tx => {
+                            if tx__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tx"));
+                            }
+                            tx__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(TxEncodeRequest { tx: tx__ })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.tx.v1beta1.TxEncodeRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for TxEncodeResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.tx_bytes.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmos.tx.v1beta1.TxEncodeResponse", len)?;
+        if !self.tx_bytes.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "txBytes",
+                pbjson::private::base64::encode(&self.tx_bytes).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for TxEncodeResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["tx_bytes", "txBytes"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            TxBytes,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "txBytes" | "tx_bytes" => Ok(GeneratedField::TxBytes),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = TxEncodeResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.tx.v1beta1.TxEncodeResponse")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TxEncodeResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut tx_bytes__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::TxBytes => {
+                            if tx_bytes__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("txBytes"));
+                            }
+                            tx_bytes__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(TxEncodeResponse {
+                    tx_bytes: tx_bytes__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmos.tx.v1beta1.TxEncodeResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for TxRaw {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3183,7 +4063,7 @@ impl serde::Serialize for TxRaw {
                     .signatures
                     .iter()
                     .map(pbjson::private::base64::encode)
-                    .collect::<Vec<_>>(),
+                    .collect::<alloc::vec::Vec<_>>(),
             )?;
         }
         struct_ser.end()
@@ -3192,7 +4072,7 @@ impl serde::Serialize for TxRaw {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for TxRaw {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3212,7 +4092,7 @@ impl<'de> serde::Deserialize<'de> for TxRaw {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3223,13 +4103,13 @@ impl<'de> serde::Deserialize<'de> for TxRaw {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3250,11 +4130,11 @@ impl<'de> serde::Deserialize<'de> for TxRaw {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = TxRaw;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.v1beta1.TxRaw")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<TxRaw, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TxRaw, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -3285,12 +4165,10 @@ impl<'de> serde::Deserialize<'de> for TxRaw {
                             if signatures__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signatures"));
                             }
-                            signatures__ = Some(
-                                map_.next_value::<Vec<::pbjson::private::BytesDeserialize<_>>>()?
-                                    .into_iter()
-                                    .map(|x| x.0)
-                                    .collect(),
-                            );
+                            signatures__ =
+                                Some(map_.next_value::<alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                    .into_iter().map(|x| x.0).collect())
+                            ;
                         }
                     }
                 }

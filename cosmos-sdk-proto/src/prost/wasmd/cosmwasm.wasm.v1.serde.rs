@@ -2,7 +2,7 @@
 #[cfg(feature = "serde")]
 impl serde::Serialize for AbsoluteTxPosition {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -20,12 +20,15 @@ impl serde::Serialize for AbsoluteTxPosition {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
                 "blockHeight",
-                ToString::to_string(&self.block_height).as_str(),
+                alloc::string::ToString::to_string(&self.block_height).as_str(),
             )?;
         }
         if self.tx_index != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("txIndex", ToString::to_string(&self.tx_index).as_str())?;
+            struct_ser.serialize_field(
+                "txIndex",
+                alloc::string::ToString::to_string(&self.tx_index).as_str(),
+            )?;
         }
         struct_ser.end()
     }
@@ -33,7 +36,7 @@ impl serde::Serialize for AbsoluteTxPosition {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for AbsoluteTxPosition {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -46,7 +49,7 @@ impl<'de> serde::Deserialize<'de> for AbsoluteTxPosition {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -57,13 +60,13 @@ impl<'de> serde::Deserialize<'de> for AbsoluteTxPosition {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -81,11 +84,11 @@ impl<'de> serde::Deserialize<'de> for AbsoluteTxPosition {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = AbsoluteTxPosition;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.AbsoluteTxPosition")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<AbsoluteTxPosition, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<AbsoluteTxPosition, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -127,57 +130,41 @@ impl<'de> serde::Deserialize<'de> for AbsoluteTxPosition {
     }
 }
 #[cfg(feature = "serde")]
-impl serde::Serialize for AccessConfig {
+impl serde::Serialize for AcceptedMessageKeysFilter {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.permission != 0 {
+        if !self.keys.is_empty() {
             len += 1;
         }
-        if !self.address.is_empty() {
-            len += 1;
-        }
-        if !self.addresses.is_empty() {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.AccessConfig", len)?;
-        if self.permission != 0 {
-            let v = AccessType::try_from(self.permission).map_err(|_| {
-                serde::ser::Error::custom(format!("Invalid variant {}", self.permission))
-            })?;
-            struct_ser.serialize_field("permission", &v)?;
-        }
-        if !self.address.is_empty() {
-            struct_ser.serialize_field("address", &self.address)?;
-        }
-        if !self.addresses.is_empty() {
-            struct_ser.serialize_field("addresses", &self.addresses)?;
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.AcceptedMessageKeysFilter", len)?;
+        if !self.keys.is_empty() {
+            struct_ser.serialize_field("keys", &self.keys)?;
         }
         struct_ser.end()
     }
 }
 #[cfg(feature = "serde")]
-impl<'de> serde::Deserialize<'de> for AccessConfig {
+impl<'de> serde::Deserialize<'de> for AcceptedMessageKeysFilter {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &["permission", "address", "addresses"];
+        const FIELDS: &[&str] = &["keys"];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            Permission,
-            Address,
-            Addresses,
+            Keys,
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -188,19 +175,243 @@ impl<'de> serde::Deserialize<'de> for AccessConfig {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "keys" => Ok(GeneratedField::Keys),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = AcceptedMessageKeysFilter;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.AcceptedMessageKeysFilter")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<AcceptedMessageKeysFilter, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut keys__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Keys => {
+                            if keys__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("keys"));
+                            }
+                            keys__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(AcceptedMessageKeysFilter {
+                    keys: keys__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.AcceptedMessageKeysFilter",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for AcceptedMessagesFilter {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.messages.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.AcceptedMessagesFilter", len)?;
+        if !self.messages.is_empty() {
+            struct_ser.serialize_field(
+                "messages",
+                &self
+                    .messages
+                    .iter()
+                    .map(pbjson::private::base64::encode)
+                    .collect::<alloc::vec::Vec<_>>(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for AcceptedMessagesFilter {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["messages"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Messages,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "messages" => Ok(GeneratedField::Messages),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = AcceptedMessagesFilter;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.AcceptedMessagesFilter")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<AcceptedMessagesFilter, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut messages__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Messages => {
+                            if messages__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("messages"));
+                            }
+                            messages__ =
+                                Some(map_.next_value::<alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                    .into_iter().map(|x| x.0).collect())
+                            ;
+                        }
+                    }
+                }
+                Ok(AcceptedMessagesFilter {
+                    messages: messages__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.AcceptedMessagesFilter",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for AccessConfig {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.permission != 0 {
+            len += 1;
+        }
+        if !self.addresses.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.AccessConfig", len)?;
+        if self.permission != 0 {
+            let v = AccessType::try_from(self.permission).map_err(|_| {
+                serde::ser::Error::custom(alloc::format!("Invalid variant {}", self.permission))
+            })?;
+            struct_ser.serialize_field("permission", &v)?;
+        }
+        if !self.addresses.is_empty() {
+            struct_ser.serialize_field("addresses", &self.addresses)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for AccessConfig {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["permission", "addresses"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Permission,
+            Addresses,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
                         match value {
                             "permission" => Ok(GeneratedField::Permission),
-                            "address" => Ok(GeneratedField::Address),
                             "addresses" => Ok(GeneratedField::Addresses),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
@@ -213,16 +424,15 @@ impl<'de> serde::Deserialize<'de> for AccessConfig {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = AccessConfig;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.AccessConfig")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<AccessConfig, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<AccessConfig, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
                 let mut permission__ = None;
-                let mut address__ = None;
                 let mut addresses__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
@@ -231,12 +441,6 @@ impl<'de> serde::Deserialize<'de> for AccessConfig {
                                 return Err(serde::de::Error::duplicate_field("permission"));
                             }
                             permission__ = Some(map_.next_value::<AccessType>()? as i32);
-                        }
-                        GeneratedField::Address => {
-                            if address__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("address"));
-                            }
-                            address__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Addresses => {
                             if addresses__.is_some() {
@@ -248,7 +452,6 @@ impl<'de> serde::Deserialize<'de> for AccessConfig {
                 }
                 Ok(AccessConfig {
                     permission: permission__.unwrap_or_default(),
-                    address: address__.unwrap_or_default(),
                     addresses: addresses__.unwrap_or_default(),
                 })
             }
@@ -259,7 +462,7 @@ impl<'de> serde::Deserialize<'de> for AccessConfig {
 #[cfg(feature = "serde")]
 impl serde::Serialize for AccessConfigUpdate {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -275,7 +478,10 @@ impl serde::Serialize for AccessConfigUpdate {
             serializer.serialize_struct("cosmwasm.wasm.v1.AccessConfigUpdate", len)?;
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if let Some(v) = self.instantiate_permission.as_ref() {
             struct_ser.serialize_field("instantiatePermission", v)?;
@@ -286,7 +492,7 @@ impl serde::Serialize for AccessConfigUpdate {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for AccessConfigUpdate {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -304,7 +510,7 @@ impl<'de> serde::Deserialize<'de> for AccessConfigUpdate {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -315,13 +521,13 @@ impl<'de> serde::Deserialize<'de> for AccessConfigUpdate {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -341,11 +547,11 @@ impl<'de> serde::Deserialize<'de> for AccessConfigUpdate {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = AccessConfigUpdate;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.AccessConfigUpdate")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<AccessConfigUpdate, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<AccessConfigUpdate, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -388,14 +594,13 @@ impl<'de> serde::Deserialize<'de> for AccessConfigUpdate {
 #[cfg(feature = "serde")]
 impl serde::Serialize for AccessType {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
         let variant = match self {
             Self::Unspecified => "ACCESS_TYPE_UNSPECIFIED",
             Self::Nobody => "ACCESS_TYPE_NOBODY",
-            Self::OnlyAddress => "ACCESS_TYPE_ONLY_ADDRESS",
             Self::Everybody => "ACCESS_TYPE_EVERYBODY",
             Self::AnyOfAddresses => "ACCESS_TYPE_ANY_OF_ADDRESSES",
         };
@@ -405,14 +610,13 @@ impl serde::Serialize for AccessType {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for AccessType {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
             "ACCESS_TYPE_UNSPECIFIED",
             "ACCESS_TYPE_NOBODY",
-            "ACCESS_TYPE_ONLY_ADDRESS",
             "ACCESS_TYPE_EVERYBODY",
             "ACCESS_TYPE_ANY_OF_ADDRESSES",
         ];
@@ -422,11 +626,11 @@ impl<'de> serde::Deserialize<'de> for AccessType {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = AccessType;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 write!(formatter, "expected one of: {:?}", &FIELDS)
             }
 
-            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            fn visit_i64<E>(self, v: i64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -438,7 +642,7 @@ impl<'de> serde::Deserialize<'de> for AccessType {
                     })
             }
 
-            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            fn visit_u64<E>(self, v: u64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -450,14 +654,13 @@ impl<'de> serde::Deserialize<'de> for AccessType {
                     })
             }
 
-            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            fn visit_str<E>(self, value: &str) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
                 match value {
                     "ACCESS_TYPE_UNSPECIFIED" => Ok(AccessType::Unspecified),
                     "ACCESS_TYPE_NOBODY" => Ok(AccessType::Nobody),
-                    "ACCESS_TYPE_ONLY_ADDRESS" => Ok(AccessType::OnlyAddress),
                     "ACCESS_TYPE_EVERYBODY" => Ok(AccessType::Everybody),
                     "ACCESS_TYPE_ANY_OF_ADDRESSES" => Ok(AccessType::AnyOfAddresses),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
@@ -470,7 +673,7 @@ impl<'de> serde::Deserialize<'de> for AccessType {
 #[cfg(feature = "serde")]
 impl serde::Serialize for AccessTypeParam {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -483,7 +686,7 @@ impl serde::Serialize for AccessTypeParam {
             serializer.serialize_struct("cosmwasm.wasm.v1.AccessTypeParam", len)?;
         if self.value != 0 {
             let v = AccessType::try_from(self.value).map_err(|_| {
-                serde::ser::Error::custom(format!("Invalid variant {}", self.value))
+                serde::ser::Error::custom(alloc::format!("Invalid variant {}", self.value))
             })?;
             struct_ser.serialize_field("value", &v)?;
         }
@@ -493,7 +696,7 @@ impl serde::Serialize for AccessTypeParam {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for AccessTypeParam {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -505,7 +708,7 @@ impl<'de> serde::Deserialize<'de> for AccessTypeParam {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -516,13 +719,13 @@ impl<'de> serde::Deserialize<'de> for AccessTypeParam {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -539,11 +742,11 @@ impl<'de> serde::Deserialize<'de> for AccessTypeParam {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = AccessTypeParam;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.AccessTypeParam")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<AccessTypeParam, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<AccessTypeParam, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -571,9 +774,91 @@ impl<'de> serde::Deserialize<'de> for AccessTypeParam {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for AllowAllMessagesFilter {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.AllowAllMessagesFilter", len)?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for AllowAllMessagesFilter {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = AllowAllMessagesFilter;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.AllowAllMessagesFilter")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<AllowAllMessagesFilter, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(AllowAllMessagesFilter {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.AllowAllMessagesFilter",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for ClearAdminProposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -605,7 +890,7 @@ impl serde::Serialize for ClearAdminProposal {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for ClearAdminProposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -619,7 +904,7 @@ impl<'de> serde::Deserialize<'de> for ClearAdminProposal {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -630,13 +915,13 @@ impl<'de> serde::Deserialize<'de> for ClearAdminProposal {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -655,11 +940,11 @@ impl<'de> serde::Deserialize<'de> for ClearAdminProposal {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ClearAdminProposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.ClearAdminProposal")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ClearAdminProposal, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ClearAdminProposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -705,7 +990,7 @@ impl<'de> serde::Deserialize<'de> for ClearAdminProposal {
 #[cfg(feature = "serde")]
 impl serde::Serialize for Code {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -726,7 +1011,10 @@ impl serde::Serialize for Code {
         let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.Code", len)?;
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if let Some(v) = self.code_info.as_ref() {
             struct_ser.serialize_field("codeInfo", v)?;
@@ -747,7 +1035,7 @@ impl serde::Serialize for Code {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Code {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -770,7 +1058,7 @@ impl<'de> serde::Deserialize<'de> for Code {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -781,13 +1069,13 @@ impl<'de> serde::Deserialize<'de> for Code {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -807,11 +1095,11 @@ impl<'de> serde::Deserialize<'de> for Code {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Code;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.Code")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Code, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Code, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -865,9 +1153,136 @@ impl<'de> serde::Deserialize<'de> for Code {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for CodeGrant {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.code_hash.is_empty() {
+            len += 1;
+        }
+        if self.instantiate_permission.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.CodeGrant", len)?;
+        if !self.code_hash.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "codeHash",
+                pbjson::private::base64::encode(&self.code_hash).as_str(),
+            )?;
+        }
+        if let Some(v) = self.instantiate_permission.as_ref() {
+            struct_ser.serialize_field("instantiatePermission", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for CodeGrant {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "code_hash",
+            "codeHash",
+            "instantiate_permission",
+            "instantiatePermission",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            CodeHash,
+            InstantiatePermission,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "codeHash" | "code_hash" => Ok(GeneratedField::CodeHash),
+                            "instantiatePermission" | "instantiate_permission" => {
+                                Ok(GeneratedField::InstantiatePermission)
+                            }
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = CodeGrant;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.CodeGrant")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<CodeGrant, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut code_hash__ = None;
+                let mut instantiate_permission__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::CodeHash => {
+                            if code_hash__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("codeHash"));
+                            }
+                            code_hash__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::InstantiatePermission => {
+                            if instantiate_permission__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "instantiatePermission",
+                                ));
+                            }
+                            instantiate_permission__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(CodeGrant {
+                    code_hash: code_hash__.unwrap_or_default(),
+                    instantiate_permission: instantiate_permission__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmwasm.wasm.v1.CodeGrant", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for CodeInfo {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -902,7 +1317,7 @@ impl serde::Serialize for CodeInfo {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for CodeInfo {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -922,7 +1337,7 @@ impl<'de> serde::Deserialize<'de> for CodeInfo {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -933,13 +1348,13 @@ impl<'de> serde::Deserialize<'de> for CodeInfo {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -960,11 +1375,11 @@ impl<'de> serde::Deserialize<'de> for CodeInfo {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = CodeInfo;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.CodeInfo")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<CodeInfo, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<CodeInfo, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1009,7 +1424,7 @@ impl<'de> serde::Deserialize<'de> for CodeInfo {
 #[cfg(feature = "serde")]
 impl serde::Serialize for CodeInfoResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1031,7 +1446,10 @@ impl serde::Serialize for CodeInfoResponse {
             serializer.serialize_struct("cosmwasm.wasm.v1.CodeInfoResponse", len)?;
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if !self.creator.is_empty() {
             struct_ser.serialize_field("creator", &self.creator)?;
@@ -1052,7 +1470,7 @@ impl serde::Serialize for CodeInfoResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for CodeInfoResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1075,7 +1493,7 @@ impl<'de> serde::Deserialize<'de> for CodeInfoResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1086,13 +1504,13 @@ impl<'de> serde::Deserialize<'de> for CodeInfoResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1114,11 +1532,11 @@ impl<'de> serde::Deserialize<'de> for CodeInfoResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = CodeInfoResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.CodeInfoResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<CodeInfoResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<CodeInfoResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1178,9 +1596,129 @@ impl<'de> serde::Deserialize<'de> for CodeInfoResponse {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for CombinedLimit {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.calls_remaining != 0 {
+            len += 1;
+        }
+        if !self.amounts.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.CombinedLimit", len)?;
+        if self.calls_remaining != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "callsRemaining",
+                alloc::string::ToString::to_string(&self.calls_remaining).as_str(),
+            )?;
+        }
+        if !self.amounts.is_empty() {
+            struct_ser.serialize_field("amounts", &self.amounts)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for CombinedLimit {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["calls_remaining", "callsRemaining", "amounts"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            CallsRemaining,
+            Amounts,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "callsRemaining" | "calls_remaining" => {
+                                Ok(GeneratedField::CallsRemaining)
+                            }
+                            "amounts" => Ok(GeneratedField::Amounts),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = CombinedLimit;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.CombinedLimit")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<CombinedLimit, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut calls_remaining__ = None;
+                let mut amounts__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::CallsRemaining => {
+                            if calls_remaining__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("callsRemaining"));
+                            }
+                            calls_remaining__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Amounts => {
+                            if amounts__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("amounts"));
+                            }
+                            amounts__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(CombinedLimit {
+                    calls_remaining: calls_remaining__.unwrap_or_default(),
+                    amounts: amounts__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmwasm.wasm.v1.CombinedLimit", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for Contract {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1195,6 +1733,9 @@ impl serde::Serialize for Contract {
         if !self.contract_state.is_empty() {
             len += 1;
         }
+        if !self.contract_code_history.is_empty() {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.Contract", len)?;
         if !self.contract_address.is_empty() {
             struct_ser.serialize_field("contractAddress", &self.contract_address)?;
@@ -1205,13 +1746,16 @@ impl serde::Serialize for Contract {
         if !self.contract_state.is_empty() {
             struct_ser.serialize_field("contractState", &self.contract_state)?;
         }
+        if !self.contract_code_history.is_empty() {
+            struct_ser.serialize_field("contractCodeHistory", &self.contract_code_history)?;
+        }
         struct_ser.end()
     }
 }
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Contract {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1222,6 +1766,8 @@ impl<'de> serde::Deserialize<'de> for Contract {
             "contractInfo",
             "contract_state",
             "contractState",
+            "contract_code_history",
+            "contractCodeHistory",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -1229,10 +1775,11 @@ impl<'de> serde::Deserialize<'de> for Contract {
             ContractAddress,
             ContractInfo,
             ContractState,
+            ContractCodeHistory,
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1243,13 +1790,13 @@ impl<'de> serde::Deserialize<'de> for Contract {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1259,6 +1806,9 @@ impl<'de> serde::Deserialize<'de> for Contract {
                             }
                             "contractInfo" | "contract_info" => Ok(GeneratedField::ContractInfo),
                             "contractState" | "contract_state" => Ok(GeneratedField::ContractState),
+                            "contractCodeHistory" | "contract_code_history" => {
+                                Ok(GeneratedField::ContractCodeHistory)
+                            }
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1270,17 +1820,18 @@ impl<'de> serde::Deserialize<'de> for Contract {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Contract;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.Contract")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Contract, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Contract, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
                 let mut contract_address__ = None;
                 let mut contract_info__ = None;
                 let mut contract_state__ = None;
+                let mut contract_code_history__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ContractAddress => {
@@ -1301,12 +1852,21 @@ impl<'de> serde::Deserialize<'de> for Contract {
                             }
                             contract_state__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::ContractCodeHistory => {
+                            if contract_code_history__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "contractCodeHistory",
+                                ));
+                            }
+                            contract_code_history__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(Contract {
                     contract_address: contract_address__.unwrap_or_default(),
                     contract_info: contract_info__,
                     contract_state: contract_state__.unwrap_or_default(),
+                    contract_code_history: contract_code_history__.unwrap_or_default(),
                 })
             }
         }
@@ -1316,7 +1876,7 @@ impl<'de> serde::Deserialize<'de> for Contract {
 #[cfg(feature = "serde")]
 impl serde::Serialize for ContractCodeHistoryEntry {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1338,13 +1898,16 @@ impl serde::Serialize for ContractCodeHistoryEntry {
             serializer.serialize_struct("cosmwasm.wasm.v1.ContractCodeHistoryEntry", len)?;
         if self.operation != 0 {
             let v = ContractCodeHistoryOperationType::try_from(self.operation).map_err(|_| {
-                serde::ser::Error::custom(format!("Invalid variant {}", self.operation))
+                serde::ser::Error::custom(alloc::format!("Invalid variant {}", self.operation))
             })?;
             struct_ser.serialize_field("operation", &v)?;
         }
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if let Some(v) = self.updated.as_ref() {
             struct_ser.serialize_field("updated", v)?;
@@ -1360,7 +1923,7 @@ impl serde::Serialize for ContractCodeHistoryEntry {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for ContractCodeHistoryEntry {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1375,7 +1938,7 @@ impl<'de> serde::Deserialize<'de> for ContractCodeHistoryEntry {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1386,13 +1949,13 @@ impl<'de> serde::Deserialize<'de> for ContractCodeHistoryEntry {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1412,14 +1975,14 @@ impl<'de> serde::Deserialize<'de> for ContractCodeHistoryEntry {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ContractCodeHistoryEntry;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.ContractCodeHistoryEntry")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<ContractCodeHistoryEntry, V::Error>
+            ) -> core::result::Result<ContractCodeHistoryEntry, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1480,7 +2043,7 @@ impl<'de> serde::Deserialize<'de> for ContractCodeHistoryEntry {
 #[cfg(feature = "serde")]
 impl serde::Serialize for ContractCodeHistoryOperationType {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1496,7 +2059,7 @@ impl serde::Serialize for ContractCodeHistoryOperationType {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for ContractCodeHistoryOperationType {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1512,11 +2075,11 @@ impl<'de> serde::Deserialize<'de> for ContractCodeHistoryOperationType {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ContractCodeHistoryOperationType;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 write!(formatter, "expected one of: {:?}", &FIELDS)
             }
 
-            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            fn visit_i64<E>(self, v: i64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -1528,7 +2091,7 @@ impl<'de> serde::Deserialize<'de> for ContractCodeHistoryOperationType {
                     })
             }
 
-            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            fn visit_u64<E>(self, v: u64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -1540,7 +2103,7 @@ impl<'de> serde::Deserialize<'de> for ContractCodeHistoryOperationType {
                     })
             }
 
-            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            fn visit_str<E>(self, value: &str) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -1565,9 +2128,239 @@ impl<'de> serde::Deserialize<'de> for ContractCodeHistoryOperationType {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for ContractExecutionAuthorization {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.grants.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.ContractExecutionAuthorization", len)?;
+        if !self.grants.is_empty() {
+            struct_ser.serialize_field("grants", &self.grants)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for ContractExecutionAuthorization {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["grants"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Grants,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "grants" => Ok(GeneratedField::Grants),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = ContractExecutionAuthorization;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.ContractExecutionAuthorization")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<ContractExecutionAuthorization, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut grants__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Grants => {
+                            if grants__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("grants"));
+                            }
+                            grants__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(ContractExecutionAuthorization {
+                    grants: grants__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.ContractExecutionAuthorization",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for ContractGrant {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.contract.is_empty() {
+            len += 1;
+        }
+        if self.limit.is_some() {
+            len += 1;
+        }
+        if self.filter.is_some() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.ContractGrant", len)?;
+        if !self.contract.is_empty() {
+            struct_ser.serialize_field("contract", &self.contract)?;
+        }
+        if let Some(v) = self.limit.as_ref() {
+            struct_ser.serialize_field("limit", v)?;
+        }
+        if let Some(v) = self.filter.as_ref() {
+            struct_ser.serialize_field("filter", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for ContractGrant {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["contract", "limit", "filter"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Contract,
+            Limit,
+            Filter,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "contract" => Ok(GeneratedField::Contract),
+                            "limit" => Ok(GeneratedField::Limit),
+                            "filter" => Ok(GeneratedField::Filter),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = ContractGrant;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.ContractGrant")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ContractGrant, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut contract__ = None;
+                let mut limit__ = None;
+                let mut filter__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Contract => {
+                            if contract__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("contract"));
+                            }
+                            contract__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Limit => {
+                            if limit__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("limit"));
+                            }
+                            limit__ = map_.next_value()?;
+                        }
+                        GeneratedField::Filter => {
+                            if filter__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("filter"));
+                            }
+                            filter__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(ContractGrant {
+                    contract: contract__.unwrap_or_default(),
+                    limit: limit__,
+                    filter: filter__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmwasm.wasm.v1.ContractGrant", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for ContractInfo {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1597,7 +2390,10 @@ impl serde::Serialize for ContractInfo {
         let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.ContractInfo", len)?;
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if !self.creator.is_empty() {
             struct_ser.serialize_field("creator", &self.creator)?;
@@ -1623,7 +2419,7 @@ impl serde::Serialize for ContractInfo {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for ContractInfo {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1651,7 +2447,7 @@ impl<'de> serde::Deserialize<'de> for ContractInfo {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1662,13 +2458,13 @@ impl<'de> serde::Deserialize<'de> for ContractInfo {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1691,11 +2487,11 @@ impl<'de> serde::Deserialize<'de> for ContractInfo {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ContractInfo;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.ContractInfo")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ContractInfo, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ContractInfo, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1770,9 +2566,112 @@ impl<'de> serde::Deserialize<'de> for ContractInfo {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for ContractMigrationAuthorization {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.grants.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.ContractMigrationAuthorization", len)?;
+        if !self.grants.is_empty() {
+            struct_ser.serialize_field("grants", &self.grants)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for ContractMigrationAuthorization {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["grants"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Grants,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "grants" => Ok(GeneratedField::Grants),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = ContractMigrationAuthorization;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.ContractMigrationAuthorization")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<ContractMigrationAuthorization, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut grants__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Grants => {
+                            if grants__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("grants"));
+                            }
+                            grants__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(ContractMigrationAuthorization {
+                    grants: grants__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.ContractMigrationAuthorization",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for ExecuteContractProposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1824,7 +2723,7 @@ impl serde::Serialize for ExecuteContractProposal {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for ExecuteContractProposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1849,7 +2748,7 @@ impl<'de> serde::Deserialize<'de> for ExecuteContractProposal {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1860,13 +2759,13 @@ impl<'de> serde::Deserialize<'de> for ExecuteContractProposal {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1888,14 +2787,14 @@ impl<'de> serde::Deserialize<'de> for ExecuteContractProposal {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ExecuteContractProposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.ExecuteContractProposal")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<ExecuteContractProposal, V::Error>
+            ) -> core::result::Result<ExecuteContractProposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -1968,7 +2867,7 @@ impl<'de> serde::Deserialize<'de> for ExecuteContractProposal {
 #[cfg(feature = "serde")]
 impl serde::Serialize for GenesisState {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1986,9 +2885,6 @@ impl serde::Serialize for GenesisState {
         if !self.sequences.is_empty() {
             len += 1;
         }
-        if !self.gen_msgs.is_empty() {
-            len += 1;
-        }
         let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.GenesisState", len)?;
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
@@ -2002,27 +2898,17 @@ impl serde::Serialize for GenesisState {
         if !self.sequences.is_empty() {
             struct_ser.serialize_field("sequences", &self.sequences)?;
         }
-        if !self.gen_msgs.is_empty() {
-            struct_ser.serialize_field("genMsgs", &self.gen_msgs)?;
-        }
         struct_ser.end()
     }
 }
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for GenesisState {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        const FIELDS: &[&str] = &[
-            "params",
-            "codes",
-            "contracts",
-            "sequences",
-            "gen_msgs",
-            "genMsgs",
-        ];
+        const FIELDS: &[&str] = &["params", "codes", "contracts", "sequences"];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
@@ -2030,11 +2916,10 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             Codes,
             Contracts,
             Sequences,
-            GenMsgs,
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2045,13 +2930,13 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2060,7 +2945,6 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             "codes" => Ok(GeneratedField::Codes),
                             "contracts" => Ok(GeneratedField::Contracts),
                             "sequences" => Ok(GeneratedField::Sequences),
-                            "genMsgs" | "gen_msgs" => Ok(GeneratedField::GenMsgs),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2072,11 +2956,11 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = GenesisState;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.GenesisState")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<GenesisState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GenesisState, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2084,7 +2968,6 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 let mut codes__ = None;
                 let mut contracts__ = None;
                 let mut sequences__ = None;
-                let mut gen_msgs__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Params => {
@@ -2111,12 +2994,6 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             }
                             sequences__ = Some(map_.next_value()?);
                         }
-                        GeneratedField::GenMsgs => {
-                            if gen_msgs__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("genMsgs"));
-                            }
-                            gen_msgs__ = Some(map_.next_value()?);
-                        }
                     }
                 }
                 Ok(GenesisState {
@@ -2124,7 +3001,6 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                     codes: codes__.unwrap_or_default(),
                     contracts: contracts__.unwrap_or_default(),
                     sequences: sequences__.unwrap_or_default(),
-                    gen_msgs: gen_msgs__.unwrap_or_default(),
                 })
             }
         }
@@ -2132,60 +3008,126 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
     }
 }
 #[cfg(feature = "serde")]
-impl serde::Serialize for genesis_state::GenMsgs {
+impl serde::Serialize for InstantiateContract2Proposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.sum.is_some() {
+        if !self.title.is_empty() {
+            len += 1;
+        }
+        if !self.description.is_empty() {
+            len += 1;
+        }
+        if !self.run_as.is_empty() {
+            len += 1;
+        }
+        if !self.admin.is_empty() {
+            len += 1;
+        }
+        if self.code_id != 0 {
+            len += 1;
+        }
+        if !self.label.is_empty() {
+            len += 1;
+        }
+        if !self.msg.is_empty() {
+            len += 1;
+        }
+        if !self.funds.is_empty() {
+            len += 1;
+        }
+        if !self.salt.is_empty() {
+            len += 1;
+        }
+        if self.fix_msg {
             len += 1;
         }
         let mut struct_ser =
-            serializer.serialize_struct("cosmwasm.wasm.v1.GenesisState.GenMsgs", len)?;
-        if let Some(v) = self.sum.as_ref() {
-            match v {
-                genesis_state::gen_msgs::Sum::StoreCode(v) => {
-                    struct_ser.serialize_field("storeCode", v)?;
-                }
-                genesis_state::gen_msgs::Sum::InstantiateContract(v) => {
-                    struct_ser.serialize_field("instantiateContract", v)?;
-                }
-                genesis_state::gen_msgs::Sum::ExecuteContract(v) => {
-                    struct_ser.serialize_field("executeContract", v)?;
-                }
-            }
+            serializer.serialize_struct("cosmwasm.wasm.v1.InstantiateContract2Proposal", len)?;
+        if !self.title.is_empty() {
+            struct_ser.serialize_field("title", &self.title)?;
+        }
+        if !self.description.is_empty() {
+            struct_ser.serialize_field("description", &self.description)?;
+        }
+        if !self.run_as.is_empty() {
+            struct_ser.serialize_field("runAs", &self.run_as)?;
+        }
+        if !self.admin.is_empty() {
+            struct_ser.serialize_field("admin", &self.admin)?;
+        }
+        if self.code_id != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
+        }
+        if !self.label.is_empty() {
+            struct_ser.serialize_field("label", &self.label)?;
+        }
+        if !self.msg.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser
+                .serialize_field("msg", pbjson::private::base64::encode(&self.msg).as_str())?;
+        }
+        if !self.funds.is_empty() {
+            struct_ser.serialize_field("funds", &self.funds)?;
+        }
+        if !self.salt.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser
+                .serialize_field("salt", pbjson::private::base64::encode(&self.salt).as_str())?;
+        }
+        if self.fix_msg {
+            struct_ser.serialize_field("fixMsg", &self.fix_msg)?;
         }
         struct_ser.end()
     }
 }
 #[cfg(feature = "serde")]
-impl<'de> serde::Deserialize<'de> for genesis_state::GenMsgs {
+impl<'de> serde::Deserialize<'de> for InstantiateContract2Proposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
-            "store_code",
-            "storeCode",
-            "instantiate_contract",
-            "instantiateContract",
-            "execute_contract",
-            "executeContract",
+            "title",
+            "description",
+            "run_as",
+            "runAs",
+            "admin",
+            "code_id",
+            "codeId",
+            "label",
+            "msg",
+            "funds",
+            "salt",
+            "fix_msg",
+            "fixMsg",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            StoreCode,
-            InstantiateContract,
-            ExecuteContract,
+            Title,
+            Description,
+            RunAs,
+            Admin,
+            CodeId,
+            Label,
+            Msg,
+            Funds,
+            Salt,
+            FixMsg,
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2196,24 +3138,27 @@ impl<'de> serde::Deserialize<'de> for genesis_state::GenMsgs {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
                         match value {
-                            "storeCode" | "store_code" => Ok(GeneratedField::StoreCode),
-                            "instantiateContract" | "instantiate_contract" => {
-                                Ok(GeneratedField::InstantiateContract)
-                            }
-                            "executeContract" | "execute_contract" => {
-                                Ok(GeneratedField::ExecuteContract)
-                            }
+                            "title" => Ok(GeneratedField::Title),
+                            "description" => Ok(GeneratedField::Description),
+                            "runAs" | "run_as" => Ok(GeneratedField::RunAs),
+                            "admin" => Ok(GeneratedField::Admin),
+                            "codeId" | "code_id" => Ok(GeneratedField::CodeId),
+                            "label" => Ok(GeneratedField::Label),
+                            "msg" => Ok(GeneratedField::Msg),
+                            "funds" => Ok(GeneratedField::Funds),
+                            "salt" => Ok(GeneratedField::Salt),
+                            "fixMsg" | "fix_msg" => Ok(GeneratedField::FixMsg),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2223,55 +3168,118 @@ impl<'de> serde::Deserialize<'de> for genesis_state::GenMsgs {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = genesis_state::GenMsgs;
+            type Value = InstantiateContract2Proposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct cosmwasm.wasm.v1.GenesisState.GenMsgs")
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.InstantiateContract2Proposal")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<genesis_state::GenMsgs, V::Error>
+            ) -> core::result::Result<InstantiateContract2Proposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
-                let mut sum__ = None;
+                let mut title__ = None;
+                let mut description__ = None;
+                let mut run_as__ = None;
+                let mut admin__ = None;
+                let mut code_id__ = None;
+                let mut label__ = None;
+                let mut msg__ = None;
+                let mut funds__ = None;
+                let mut salt__ = None;
+                let mut fix_msg__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::StoreCode => {
-                            if sum__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("storeCode"));
+                        GeneratedField::Title => {
+                            if title__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("title"));
                             }
-                            sum__ = map_
-                                .next_value::<::std::option::Option<_>>()?
-                                .map(genesis_state::gen_msgs::Sum::StoreCode);
+                            title__ = Some(map_.next_value()?);
                         }
-                        GeneratedField::InstantiateContract => {
-                            if sum__.is_some() {
-                                return Err(serde::de::Error::duplicate_field(
-                                    "instantiateContract",
-                                ));
+                        GeneratedField::Description => {
+                            if description__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("description"));
                             }
-                            sum__ = map_
-                                .next_value::<::std::option::Option<_>>()?
-                                .map(genesis_state::gen_msgs::Sum::InstantiateContract);
+                            description__ = Some(map_.next_value()?);
                         }
-                        GeneratedField::ExecuteContract => {
-                            if sum__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("executeContract"));
+                        GeneratedField::RunAs => {
+                            if run_as__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("runAs"));
                             }
-                            sum__ = map_
-                                .next_value::<::std::option::Option<_>>()?
-                                .map(genesis_state::gen_msgs::Sum::ExecuteContract);
+                            run_as__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Admin => {
+                            if admin__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("admin"));
+                            }
+                            admin__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CodeId => {
+                            if code_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("codeId"));
+                            }
+                            code_id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Label => {
+                            if label__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("label"));
+                            }
+                            label__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Msg => {
+                            if msg__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("msg"));
+                            }
+                            msg__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Funds => {
+                            if funds__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("funds"));
+                            }
+                            funds__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Salt => {
+                            if salt__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("salt"));
+                            }
+                            salt__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::FixMsg => {
+                            if fix_msg__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("fixMsg"));
+                            }
+                            fix_msg__ = Some(map_.next_value()?);
                         }
                     }
                 }
-                Ok(genesis_state::GenMsgs { sum: sum__ })
+                Ok(InstantiateContract2Proposal {
+                    title: title__.unwrap_or_default(),
+                    description: description__.unwrap_or_default(),
+                    run_as: run_as__.unwrap_or_default(),
+                    admin: admin__.unwrap_or_default(),
+                    code_id: code_id__.unwrap_or_default(),
+                    label: label__.unwrap_or_default(),
+                    msg: msg__.unwrap_or_default(),
+                    funds: funds__.unwrap_or_default(),
+                    salt: salt__.unwrap_or_default(),
+                    fix_msg: fix_msg__.unwrap_or_default(),
+                })
             }
         }
         deserializer.deserialize_struct(
-            "cosmwasm.wasm.v1.GenesisState.GenMsgs",
+            "cosmwasm.wasm.v1.InstantiateContract2Proposal",
             FIELDS,
             GeneratedVisitor,
         )
@@ -2280,7 +3288,7 @@ impl<'de> serde::Deserialize<'de> for genesis_state::GenMsgs {
 #[cfg(feature = "serde")]
 impl serde::Serialize for InstantiateContractProposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2326,7 +3334,10 @@ impl serde::Serialize for InstantiateContractProposal {
         }
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if !self.label.is_empty() {
             struct_ser.serialize_field("label", &self.label)?;
@@ -2345,7 +3356,7 @@ impl serde::Serialize for InstantiateContractProposal {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for InstantiateContractProposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2375,7 +3386,7 @@ impl<'de> serde::Deserialize<'de> for InstantiateContractProposal {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2386,13 +3397,13 @@ impl<'de> serde::Deserialize<'de> for InstantiateContractProposal {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2416,14 +3427,14 @@ impl<'de> serde::Deserialize<'de> for InstantiateContractProposal {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = InstantiateContractProposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.InstantiateContractProposal")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<InstantiateContractProposal, V::Error>
+            ) -> core::result::Result<InstantiateContractProposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2513,9 +3524,206 @@ impl<'de> serde::Deserialize<'de> for InstantiateContractProposal {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for MaxCallsLimit {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.remaining != 0 {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.MaxCallsLimit", len)?;
+        if self.remaining != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "remaining",
+                alloc::string::ToString::to_string(&self.remaining).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MaxCallsLimit {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["remaining"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Remaining,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "remaining" => Ok(GeneratedField::Remaining),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MaxCallsLimit;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MaxCallsLimit")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MaxCallsLimit, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut remaining__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Remaining => {
+                            if remaining__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("remaining"));
+                            }
+                            remaining__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MaxCallsLimit {
+                    remaining: remaining__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmwasm.wasm.v1.MaxCallsLimit", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MaxFundsLimit {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.amounts.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.MaxFundsLimit", len)?;
+        if !self.amounts.is_empty() {
+            struct_ser.serialize_field("amounts", &self.amounts)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MaxFundsLimit {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["amounts"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Amounts,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "amounts" => Ok(GeneratedField::Amounts),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MaxFundsLimit;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MaxFundsLimit")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MaxFundsLimit, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut amounts__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Amounts => {
+                            if amounts__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("amounts"));
+                            }
+                            amounts__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MaxFundsLimit {
+                    amounts: amounts__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmwasm.wasm.v1.MaxFundsLimit", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for MigrateContractProposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2549,7 +3757,10 @@ impl serde::Serialize for MigrateContractProposal {
         }
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if !self.msg.is_empty() {
             #[allow(clippy::needless_borrow)]
@@ -2562,7 +3773,7 @@ impl serde::Serialize for MigrateContractProposal {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MigrateContractProposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2585,7 +3796,7 @@ impl<'de> serde::Deserialize<'de> for MigrateContractProposal {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2596,13 +3807,13 @@ impl<'de> serde::Deserialize<'de> for MigrateContractProposal {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2623,14 +3834,14 @@ impl<'de> serde::Deserialize<'de> for MigrateContractProposal {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MigrateContractProposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MigrateContractProposal")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MigrateContractProposal, V::Error>
+            ) -> core::result::Result<MigrateContractProposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2698,7 +3909,7 @@ impl<'de> serde::Deserialize<'de> for MigrateContractProposal {
 #[cfg(feature = "serde")]
 impl serde::Serialize for Model {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2729,7 +3940,7 @@ impl serde::Serialize for Model {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Model {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2742,7 +3953,7 @@ impl<'de> serde::Deserialize<'de> for Model {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2753,13 +3964,13 @@ impl<'de> serde::Deserialize<'de> for Model {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2777,11 +3988,11 @@ impl<'de> serde::Deserialize<'de> for Model {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Model;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.Model")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Model, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Model, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2819,9 +4030,213 @@ impl<'de> serde::Deserialize<'de> for Model {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for MsgAddCodeUploadParamsAddresses {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if !self.addresses.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddresses", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if !self.addresses.is_empty() {
+            struct_ser.serialize_field("addresses", &self.addresses)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgAddCodeUploadParamsAddresses {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["authority", "addresses"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            Addresses,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "addresses" => Ok(GeneratedField::Addresses),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgAddCodeUploadParamsAddresses;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddresses")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgAddCodeUploadParamsAddresses, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut addresses__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Addresses => {
+                            if addresses__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("addresses"));
+                            }
+                            addresses__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MsgAddCodeUploadParamsAddresses {
+                    authority: authority__.unwrap_or_default(),
+                    addresses: addresses__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddresses",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgAddCodeUploadParamsAddressesResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser = serializer.serialize_struct(
+            "cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddressesResponse",
+            len,
+        )?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgAddCodeUploadParamsAddressesResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgAddCodeUploadParamsAddressesResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter
+                    .write_str("struct cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddressesResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgAddCodeUploadParamsAddressesResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgAddCodeUploadParamsAddressesResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddressesResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgClearAdmin {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2846,7 +4261,7 @@ impl serde::Serialize for MsgClearAdmin {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgClearAdmin {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2859,7 +4274,7 @@ impl<'de> serde::Deserialize<'de> for MsgClearAdmin {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2870,13 +4285,13 @@ impl<'de> serde::Deserialize<'de> for MsgClearAdmin {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2894,11 +4309,11 @@ impl<'de> serde::Deserialize<'de> for MsgClearAdmin {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgClearAdmin;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgClearAdmin")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgClearAdmin, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgClearAdmin, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -2932,7 +4347,7 @@ impl<'de> serde::Deserialize<'de> for MsgClearAdmin {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgClearAdminResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2946,7 +4361,7 @@ impl serde::Serialize for MsgClearAdminResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgClearAdminResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2956,7 +4371,7 @@ impl<'de> serde::Deserialize<'de> for MsgClearAdminResponse {
         enum GeneratedField {}
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2967,13 +4382,13 @@ impl<'de> serde::Deserialize<'de> for MsgClearAdminResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2987,14 +4402,14 @@ impl<'de> serde::Deserialize<'de> for MsgClearAdminResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgClearAdminResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgClearAdminResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MsgClearAdminResponse, V::Error>
+            ) -> core::result::Result<MsgClearAdminResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -3014,7 +4429,7 @@ impl<'de> serde::Deserialize<'de> for MsgClearAdminResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgExecuteContract {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3054,7 +4469,7 @@ impl serde::Serialize for MsgExecuteContract {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgExecuteContract {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3069,7 +4484,7 @@ impl<'de> serde::Deserialize<'de> for MsgExecuteContract {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3080,13 +4495,13 @@ impl<'de> serde::Deserialize<'de> for MsgExecuteContract {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3106,11 +4521,11 @@ impl<'de> serde::Deserialize<'de> for MsgExecuteContract {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgExecuteContract;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgExecuteContract")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgExecuteContract, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgExecuteContract, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -3167,7 +4582,7 @@ impl<'de> serde::Deserialize<'de> for MsgExecuteContract {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgExecuteContractResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3189,7 +4604,7 @@ impl serde::Serialize for MsgExecuteContractResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgExecuteContractResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3201,7 +4616,7 @@ impl<'de> serde::Deserialize<'de> for MsgExecuteContractResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3212,13 +4627,13 @@ impl<'de> serde::Deserialize<'de> for MsgExecuteContractResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3235,14 +4650,14 @@ impl<'de> serde::Deserialize<'de> for MsgExecuteContractResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgExecuteContractResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgExecuteContractResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MsgExecuteContractResponse, V::Error>
+            ) -> core::result::Result<MsgExecuteContractResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -3275,7 +4690,7 @@ impl<'de> serde::Deserialize<'de> for MsgExecuteContractResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgIbcCloseChannel {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3295,7 +4710,7 @@ impl serde::Serialize for MsgIbcCloseChannel {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgIbcCloseChannel {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3307,7 +4722,7 @@ impl<'de> serde::Deserialize<'de> for MsgIbcCloseChannel {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3318,13 +4733,13 @@ impl<'de> serde::Deserialize<'de> for MsgIbcCloseChannel {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3341,11 +4756,11 @@ impl<'de> serde::Deserialize<'de> for MsgIbcCloseChannel {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgIbcCloseChannel;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgIBCCloseChannel")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgIbcCloseChannel, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgIbcCloseChannel, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -3375,7 +4790,7 @@ impl<'de> serde::Deserialize<'de> for MsgIbcCloseChannel {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgIbcSend {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3401,14 +4816,14 @@ impl serde::Serialize for MsgIbcSend {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
                 "timeoutHeight",
-                ToString::to_string(&self.timeout_height).as_str(),
+                alloc::string::ToString::to_string(&self.timeout_height).as_str(),
             )?;
         }
         if self.timeout_timestamp != 0 {
             #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field(
                 "timeoutTimestamp",
-                ToString::to_string(&self.timeout_timestamp).as_str(),
+                alloc::string::ToString::to_string(&self.timeout_timestamp).as_str(),
             )?;
         }
         if !self.data.is_empty() {
@@ -3422,7 +4837,7 @@ impl serde::Serialize for MsgIbcSend {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgIbcSend {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3444,7 +4859,7 @@ impl<'de> serde::Deserialize<'de> for MsgIbcSend {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3455,13 +4870,13 @@ impl<'de> serde::Deserialize<'de> for MsgIbcSend {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3483,11 +4898,11 @@ impl<'de> serde::Deserialize<'de> for MsgIbcSend {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgIbcSend;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgIBCSend")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgIbcSend, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgIbcSend, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -3544,9 +4959,198 @@ impl<'de> serde::Deserialize<'de> for MsgIbcSend {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for MsgIbcSendResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.sequence != 0 {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgIBCSendResponse", len)?;
+        if self.sequence != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "sequence",
+                alloc::string::ToString::to_string(&self.sequence).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgIbcSendResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["sequence"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Sequence,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "sequence" => Ok(GeneratedField::Sequence),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgIbcSendResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgIBCSendResponse")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgIbcSendResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut sequence__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Sequence => {
+                            if sequence__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("sequence"));
+                            }
+                            sequence__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MsgIbcSendResponse {
+                    sequence: sequence__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgIBCSendResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgIbcWriteAcknowledgementResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser = serializer
+            .serialize_struct("cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse", len)?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgIbcWriteAcknowledgementResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgIbcWriteAcknowledgementResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgIbcWriteAcknowledgementResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgIbcWriteAcknowledgementResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgInstantiateContract {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3580,7 +5184,10 @@ impl serde::Serialize for MsgInstantiateContract {
         }
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if !self.label.is_empty() {
             struct_ser.serialize_field("label", &self.label)?;
@@ -3599,7 +5206,7 @@ impl serde::Serialize for MsgInstantiateContract {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgInstantiateContract {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3618,7 +5225,7 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3629,13 +5236,13 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3657,14 +5264,14 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgInstantiateContract;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgInstantiateContract")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MsgInstantiateContract, V::Error>
+            ) -> core::result::Result<MsgInstantiateContract, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -3740,7 +5347,7 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgInstantiateContract2 {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3780,7 +5387,10 @@ impl serde::Serialize for MsgInstantiateContract2 {
         }
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if !self.label.is_empty() {
             struct_ser.serialize_field("label", &self.label)?;
@@ -3807,7 +5417,7 @@ impl serde::Serialize for MsgInstantiateContract2 {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgInstantiateContract2 {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3829,7 +5439,7 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract2 {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3840,13 +5450,13 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract2 {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3870,14 +5480,14 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract2 {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgInstantiateContract2;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgInstantiateContract2")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MsgInstantiateContract2, V::Error>
+            ) -> core::result::Result<MsgInstantiateContract2, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -3972,7 +5582,7 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract2 {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgInstantiateContract2Response {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -4000,7 +5610,7 @@ impl serde::Serialize for MsgInstantiateContract2Response {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgInstantiateContract2Response {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -4013,7 +5623,7 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract2Response {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -4024,13 +5634,13 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract2Response {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -4048,14 +5658,14 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract2Response {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgInstantiateContract2Response;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgInstantiateContract2Response")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MsgInstantiateContract2Response, V::Error>
+            ) -> core::result::Result<MsgInstantiateContract2Response, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -4096,7 +5706,7 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContract2Response {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgInstantiateContractResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -4124,7 +5734,7 @@ impl serde::Serialize for MsgInstantiateContractResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgInstantiateContractResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -4137,7 +5747,7 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContractResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -4148,13 +5758,13 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContractResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -4172,14 +5782,14 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContractResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgInstantiateContractResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgInstantiateContractResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MsgInstantiateContractResponse, V::Error>
+            ) -> core::result::Result<MsgInstantiateContractResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -4220,7 +5830,7 @@ impl<'de> serde::Deserialize<'de> for MsgInstantiateContractResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgMigrateContract {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -4248,7 +5858,10 @@ impl serde::Serialize for MsgMigrateContract {
         }
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if !self.msg.is_empty() {
             #[allow(clippy::needless_borrow)]
@@ -4261,7 +5874,7 @@ impl serde::Serialize for MsgMigrateContract {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgMigrateContract {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -4276,7 +5889,7 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContract {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -4287,13 +5900,13 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContract {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -4313,11 +5926,11 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContract {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgMigrateContract;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgMigrateContract")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgMigrateContract, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgMigrateContract, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -4377,7 +5990,7 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContract {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgMigrateContractResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -4399,7 +6012,7 @@ impl serde::Serialize for MsgMigrateContractResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgMigrateContractResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -4411,7 +6024,7 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContractResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -4422,13 +6035,13 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContractResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -4445,14 +6058,14 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContractResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgMigrateContractResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgMigrateContractResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MsgMigrateContractResponse, V::Error>
+            ) -> core::result::Result<MsgMigrateContractResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -4483,9 +6096,1190 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContractResponse {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for MsgPinCodes {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if !self.code_ids.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.MsgPinCodes", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if !self.code_ids.is_empty() {
+            struct_ser.serialize_field(
+                "codeIds",
+                &self
+                    .code_ids
+                    .iter()
+                    .map(alloc::string::ToString::to_string)
+                    .collect::<alloc::vec::Vec<_>>(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgPinCodes {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["authority", "code_ids", "codeIds"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            CodeIds,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "codeIds" | "code_ids" => Ok(GeneratedField::CodeIds),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgPinCodes;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgPinCodes")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgPinCodes, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut code_ids__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CodeIds => {
+                            if code_ids__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("codeIds"));
+                            }
+                            code_ids__ =
+                                Some(map_.next_value::<alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                    .into_iter().map(|x| x.0).collect())
+                            ;
+                        }
+                    }
+                }
+                Ok(MsgPinCodes {
+                    authority: authority__.unwrap_or_default(),
+                    code_ids: code_ids__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmwasm.wasm.v1.MsgPinCodes", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgPinCodesResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgPinCodesResponse", len)?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgPinCodesResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgPinCodesResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgPinCodesResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgPinCodesResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgPinCodesResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgPinCodesResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgRemoveCodeUploadParamsAddresses {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if !self.addresses.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer
+            .serialize_struct("cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddresses", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if !self.addresses.is_empty() {
+            struct_ser.serialize_field("addresses", &self.addresses)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgRemoveCodeUploadParamsAddresses {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["authority", "addresses"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            Addresses,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "addresses" => Ok(GeneratedField::Addresses),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgRemoveCodeUploadParamsAddresses;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddresses")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgRemoveCodeUploadParamsAddresses, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut addresses__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Addresses => {
+                            if addresses__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("addresses"));
+                            }
+                            addresses__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MsgRemoveCodeUploadParamsAddresses {
+                    authority: authority__.unwrap_or_default(),
+                    addresses: addresses__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddresses",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgRemoveCodeUploadParamsAddressesResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser = serializer.serialize_struct(
+            "cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddressesResponse",
+            len,
+        )?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgRemoveCodeUploadParamsAddressesResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgRemoveCodeUploadParamsAddressesResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter
+                    .write_str("struct cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddressesResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgRemoveCodeUploadParamsAddressesResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgRemoveCodeUploadParamsAddressesResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddressesResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgStoreAndInstantiateContract {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if !self.wasm_byte_code.is_empty() {
+            len += 1;
+        }
+        if self.instantiate_permission.is_some() {
+            len += 1;
+        }
+        if self.unpin_code {
+            len += 1;
+        }
+        if !self.admin.is_empty() {
+            len += 1;
+        }
+        if !self.label.is_empty() {
+            len += 1;
+        }
+        if !self.msg.is_empty() {
+            len += 1;
+        }
+        if !self.funds.is_empty() {
+            len += 1;
+        }
+        if !self.source.is_empty() {
+            len += 1;
+        }
+        if !self.builder.is_empty() {
+            len += 1;
+        }
+        if !self.code_hash.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgStoreAndInstantiateContract", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if !self.wasm_byte_code.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "wasmByteCode",
+                pbjson::private::base64::encode(&self.wasm_byte_code).as_str(),
+            )?;
+        }
+        if let Some(v) = self.instantiate_permission.as_ref() {
+            struct_ser.serialize_field("instantiatePermission", v)?;
+        }
+        if self.unpin_code {
+            struct_ser.serialize_field("unpinCode", &self.unpin_code)?;
+        }
+        if !self.admin.is_empty() {
+            struct_ser.serialize_field("admin", &self.admin)?;
+        }
+        if !self.label.is_empty() {
+            struct_ser.serialize_field("label", &self.label)?;
+        }
+        if !self.msg.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser
+                .serialize_field("msg", pbjson::private::base64::encode(&self.msg).as_str())?;
+        }
+        if !self.funds.is_empty() {
+            struct_ser.serialize_field("funds", &self.funds)?;
+        }
+        if !self.source.is_empty() {
+            struct_ser.serialize_field("source", &self.source)?;
+        }
+        if !self.builder.is_empty() {
+            struct_ser.serialize_field("builder", &self.builder)?;
+        }
+        if !self.code_hash.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "codeHash",
+                pbjson::private::base64::encode(&self.code_hash).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgStoreAndInstantiateContract {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "authority",
+            "wasm_byte_code",
+            "wasmByteCode",
+            "instantiate_permission",
+            "instantiatePermission",
+            "unpin_code",
+            "unpinCode",
+            "admin",
+            "label",
+            "msg",
+            "funds",
+            "source",
+            "builder",
+            "code_hash",
+            "codeHash",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            WasmByteCode,
+            InstantiatePermission,
+            UnpinCode,
+            Admin,
+            Label,
+            Msg,
+            Funds,
+            Source,
+            Builder,
+            CodeHash,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "wasmByteCode" | "wasm_byte_code" => Ok(GeneratedField::WasmByteCode),
+                            "instantiatePermission" | "instantiate_permission" => {
+                                Ok(GeneratedField::InstantiatePermission)
+                            }
+                            "unpinCode" | "unpin_code" => Ok(GeneratedField::UnpinCode),
+                            "admin" => Ok(GeneratedField::Admin),
+                            "label" => Ok(GeneratedField::Label),
+                            "msg" => Ok(GeneratedField::Msg),
+                            "funds" => Ok(GeneratedField::Funds),
+                            "source" => Ok(GeneratedField::Source),
+                            "builder" => Ok(GeneratedField::Builder),
+                            "codeHash" | "code_hash" => Ok(GeneratedField::CodeHash),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgStoreAndInstantiateContract;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgStoreAndInstantiateContract")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgStoreAndInstantiateContract, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut wasm_byte_code__ = None;
+                let mut instantiate_permission__ = None;
+                let mut unpin_code__ = None;
+                let mut admin__ = None;
+                let mut label__ = None;
+                let mut msg__ = None;
+                let mut funds__ = None;
+                let mut source__ = None;
+                let mut builder__ = None;
+                let mut code_hash__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::WasmByteCode => {
+                            if wasm_byte_code__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("wasmByteCode"));
+                            }
+                            wasm_byte_code__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::InstantiatePermission => {
+                            if instantiate_permission__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "instantiatePermission",
+                                ));
+                            }
+                            instantiate_permission__ = map_.next_value()?;
+                        }
+                        GeneratedField::UnpinCode => {
+                            if unpin_code__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("unpinCode"));
+                            }
+                            unpin_code__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Admin => {
+                            if admin__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("admin"));
+                            }
+                            admin__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Label => {
+                            if label__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("label"));
+                            }
+                            label__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Msg => {
+                            if msg__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("msg"));
+                            }
+                            msg__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Funds => {
+                            if funds__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("funds"));
+                            }
+                            funds__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Source => {
+                            if source__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("source"));
+                            }
+                            source__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Builder => {
+                            if builder__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("builder"));
+                            }
+                            builder__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CodeHash => {
+                            if code_hash__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("codeHash"));
+                            }
+                            code_hash__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MsgStoreAndInstantiateContract {
+                    authority: authority__.unwrap_or_default(),
+                    wasm_byte_code: wasm_byte_code__.unwrap_or_default(),
+                    instantiate_permission: instantiate_permission__,
+                    unpin_code: unpin_code__.unwrap_or_default(),
+                    admin: admin__.unwrap_or_default(),
+                    label: label__.unwrap_or_default(),
+                    msg: msg__.unwrap_or_default(),
+                    funds: funds__.unwrap_or_default(),
+                    source: source__.unwrap_or_default(),
+                    builder: builder__.unwrap_or_default(),
+                    code_hash: code_hash__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgStoreAndInstantiateContract",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgStoreAndInstantiateContractResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.address.is_empty() {
+            len += 1;
+        }
+        if !self.data.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct(
+            "cosmwasm.wasm.v1.MsgStoreAndInstantiateContractResponse",
+            len,
+        )?;
+        if !self.address.is_empty() {
+            struct_ser.serialize_field("address", &self.address)?;
+        }
+        if !self.data.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser
+                .serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgStoreAndInstantiateContractResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["address", "data"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Address,
+            Data,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "address" => Ok(GeneratedField::Address),
+                            "data" => Ok(GeneratedField::Data),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgStoreAndInstantiateContractResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter
+                    .write_str("struct cosmwasm.wasm.v1.MsgStoreAndInstantiateContractResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgStoreAndInstantiateContractResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut address__ = None;
+                let mut data__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Address => {
+                            if address__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("address"));
+                            }
+                            address__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Data => {
+                            if data__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("data"));
+                            }
+                            data__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MsgStoreAndInstantiateContractResponse {
+                    address: address__.unwrap_or_default(),
+                    data: data__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgStoreAndInstantiateContractResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgStoreAndMigrateContract {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if !self.wasm_byte_code.is_empty() {
+            len += 1;
+        }
+        if self.instantiate_permission.is_some() {
+            len += 1;
+        }
+        if !self.contract.is_empty() {
+            len += 1;
+        }
+        if !self.msg.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgStoreAndMigrateContract", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if !self.wasm_byte_code.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "wasmByteCode",
+                pbjson::private::base64::encode(&self.wasm_byte_code).as_str(),
+            )?;
+        }
+        if let Some(v) = self.instantiate_permission.as_ref() {
+            struct_ser.serialize_field("instantiatePermission", v)?;
+        }
+        if !self.contract.is_empty() {
+            struct_ser.serialize_field("contract", &self.contract)?;
+        }
+        if !self.msg.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser
+                .serialize_field("msg", pbjson::private::base64::encode(&self.msg).as_str())?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgStoreAndMigrateContract {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "authority",
+            "wasm_byte_code",
+            "wasmByteCode",
+            "instantiate_permission",
+            "instantiatePermission",
+            "contract",
+            "msg",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            WasmByteCode,
+            InstantiatePermission,
+            Contract,
+            Msg,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "wasmByteCode" | "wasm_byte_code" => Ok(GeneratedField::WasmByteCode),
+                            "instantiatePermission" | "instantiate_permission" => {
+                                Ok(GeneratedField::InstantiatePermission)
+                            }
+                            "contract" => Ok(GeneratedField::Contract),
+                            "msg" => Ok(GeneratedField::Msg),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgStoreAndMigrateContract;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgStoreAndMigrateContract")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgStoreAndMigrateContract, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut wasm_byte_code__ = None;
+                let mut instantiate_permission__ = None;
+                let mut contract__ = None;
+                let mut msg__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::WasmByteCode => {
+                            if wasm_byte_code__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("wasmByteCode"));
+                            }
+                            wasm_byte_code__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::InstantiatePermission => {
+                            if instantiate_permission__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "instantiatePermission",
+                                ));
+                            }
+                            instantiate_permission__ = map_.next_value()?;
+                        }
+                        GeneratedField::Contract => {
+                            if contract__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("contract"));
+                            }
+                            contract__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Msg => {
+                            if msg__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("msg"));
+                            }
+                            msg__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MsgStoreAndMigrateContract {
+                    authority: authority__.unwrap_or_default(),
+                    wasm_byte_code: wasm_byte_code__.unwrap_or_default(),
+                    instantiate_permission: instantiate_permission__,
+                    contract: contract__.unwrap_or_default(),
+                    msg: msg__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgStoreAndMigrateContract",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgStoreAndMigrateContractResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if self.code_id != 0 {
+            len += 1;
+        }
+        if !self.checksum.is_empty() {
+            len += 1;
+        }
+        if !self.data.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer
+            .serialize_struct("cosmwasm.wasm.v1.MsgStoreAndMigrateContractResponse", len)?;
+        if self.code_id != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
+        }
+        if !self.checksum.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "checksum",
+                pbjson::private::base64::encode(&self.checksum).as_str(),
+            )?;
+        }
+        if !self.data.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser
+                .serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgStoreAndMigrateContractResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["code_id", "codeId", "checksum", "data"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            CodeId,
+            Checksum,
+            Data,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "codeId" | "code_id" => Ok(GeneratedField::CodeId),
+                            "checksum" => Ok(GeneratedField::Checksum),
+                            "data" => Ok(GeneratedField::Data),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgStoreAndMigrateContractResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgStoreAndMigrateContractResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgStoreAndMigrateContractResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut code_id__ = None;
+                let mut checksum__ = None;
+                let mut data__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::CodeId => {
+                            if code_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("codeId"));
+                            }
+                            code_id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Checksum => {
+                            if checksum__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("checksum"));
+                            }
+                            checksum__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Data => {
+                            if data__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("data"));
+                            }
+                            data__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MsgStoreAndMigrateContractResponse {
+                    code_id: code_id__.unwrap_or_default(),
+                    checksum: checksum__.unwrap_or_default(),
+                    data: data__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgStoreAndMigrateContractResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgStoreCode {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -4520,7 +7314,7 @@ impl serde::Serialize for MsgStoreCode {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgStoreCode {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -4540,7 +7334,7 @@ impl<'de> serde::Deserialize<'de> for MsgStoreCode {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -4551,13 +7345,13 @@ impl<'de> serde::Deserialize<'de> for MsgStoreCode {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -4578,11 +7372,11 @@ impl<'de> serde::Deserialize<'de> for MsgStoreCode {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgStoreCode;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgStoreCode")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgStoreCode, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgStoreCode, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -4629,7 +7423,7 @@ impl<'de> serde::Deserialize<'de> for MsgStoreCode {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgStoreCodeResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -4645,7 +7439,10 @@ impl serde::Serialize for MsgStoreCodeResponse {
             serializer.serialize_struct("cosmwasm.wasm.v1.MsgStoreCodeResponse", len)?;
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if !self.checksum.is_empty() {
             #[allow(clippy::needless_borrow)]
@@ -4660,7 +7457,7 @@ impl serde::Serialize for MsgStoreCodeResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgStoreCodeResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -4673,7 +7470,7 @@ impl<'de> serde::Deserialize<'de> for MsgStoreCodeResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -4684,13 +7481,13 @@ impl<'de> serde::Deserialize<'de> for MsgStoreCodeResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -4708,14 +7505,14 @@ impl<'de> serde::Deserialize<'de> for MsgStoreCodeResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgStoreCodeResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgStoreCodeResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MsgStoreCodeResponse, V::Error>
+            ) -> core::result::Result<MsgStoreCodeResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -4757,9 +7554,457 @@ impl<'de> serde::Deserialize<'de> for MsgStoreCodeResponse {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for MsgSudoContract {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if !self.contract.is_empty() {
+            len += 1;
+        }
+        if !self.msg.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgSudoContract", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if !self.contract.is_empty() {
+            struct_ser.serialize_field("contract", &self.contract)?;
+        }
+        if !self.msg.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser
+                .serialize_field("msg", pbjson::private::base64::encode(&self.msg).as_str())?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgSudoContract {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["authority", "contract", "msg"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            Contract,
+            Msg,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "contract" => Ok(GeneratedField::Contract),
+                            "msg" => Ok(GeneratedField::Msg),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgSudoContract;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgSudoContract")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgSudoContract, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut contract__ = None;
+                let mut msg__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Contract => {
+                            if contract__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("contract"));
+                            }
+                            contract__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Msg => {
+                            if msg__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("msg"));
+                            }
+                            msg__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MsgSudoContract {
+                    authority: authority__.unwrap_or_default(),
+                    contract: contract__.unwrap_or_default(),
+                    msg: msg__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgSudoContract",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgSudoContractResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.data.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgSudoContractResponse", len)?;
+        if !self.data.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser
+                .serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgSudoContractResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["data"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Data,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "data" => Ok(GeneratedField::Data),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgSudoContractResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgSudoContractResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgSudoContractResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut data__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Data => {
+                            if data__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("data"));
+                            }
+                            data__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(MsgSudoContractResponse {
+                    data: data__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgSudoContractResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgUnpinCodes {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if !self.code_ids.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmwasm.wasm.v1.MsgUnpinCodes", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if !self.code_ids.is_empty() {
+            struct_ser.serialize_field(
+                "codeIds",
+                &self
+                    .code_ids
+                    .iter()
+                    .map(alloc::string::ToString::to_string)
+                    .collect::<alloc::vec::Vec<_>>(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgUnpinCodes {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["authority", "code_ids", "codeIds"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            CodeIds,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "codeIds" | "code_ids" => Ok(GeneratedField::CodeIds),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUnpinCodes;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgUnpinCodes")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUnpinCodes, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut code_ids__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CodeIds => {
+                            if code_ids__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("codeIds"));
+                            }
+                            code_ids__ =
+                                Some(map_.next_value::<alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                    .into_iter().map(|x| x.0).collect())
+                            ;
+                        }
+                    }
+                }
+                Ok(MsgUnpinCodes {
+                    authority: authority__.unwrap_or_default(),
+                    code_ids: code_ids__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmwasm.wasm.v1.MsgUnpinCodes", FIELDS, GeneratedVisitor)
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgUnpinCodesResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgUnpinCodesResponse", len)?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgUnpinCodesResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUnpinCodesResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgUnpinCodesResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgUnpinCodesResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgUnpinCodesResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgUnpinCodesResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for MsgUpdateAdmin {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -4790,7 +8035,7 @@ impl serde::Serialize for MsgUpdateAdmin {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgUpdateAdmin {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -4804,7 +8049,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAdmin {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -4815,13 +8060,13 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAdmin {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -4840,11 +8085,11 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAdmin {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgUpdateAdmin;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgUpdateAdmin")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgUpdateAdmin, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpdateAdmin, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -4886,7 +8131,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAdmin {
 #[cfg(feature = "serde")]
 impl serde::Serialize for MsgUpdateAdminResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -4900,7 +8145,7 @@ impl serde::Serialize for MsgUpdateAdminResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for MsgUpdateAdminResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -4910,7 +8155,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAdminResponse {
         enum GeneratedField {}
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -4921,13 +8166,13 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAdminResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -4941,14 +8186,14 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAdminResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgUpdateAdminResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.MsgUpdateAdminResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<MsgUpdateAdminResponse, V::Error>
+            ) -> core::result::Result<MsgUpdateAdminResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -4966,9 +8211,658 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateAdminResponse {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for MsgUpdateContractLabel {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.sender.is_empty() {
+            len += 1;
+        }
+        if !self.new_label.is_empty() {
+            len += 1;
+        }
+        if !self.contract.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgUpdateContractLabel", len)?;
+        if !self.sender.is_empty() {
+            struct_ser.serialize_field("sender", &self.sender)?;
+        }
+        if !self.new_label.is_empty() {
+            struct_ser.serialize_field("newLabel", &self.new_label)?;
+        }
+        if !self.contract.is_empty() {
+            struct_ser.serialize_field("contract", &self.contract)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgUpdateContractLabel {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["sender", "new_label", "newLabel", "contract"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Sender,
+            NewLabel,
+            Contract,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "sender" => Ok(GeneratedField::Sender),
+                            "newLabel" | "new_label" => Ok(GeneratedField::NewLabel),
+                            "contract" => Ok(GeneratedField::Contract),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateContractLabel;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgUpdateContractLabel")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgUpdateContractLabel, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut sender__ = None;
+                let mut new_label__ = None;
+                let mut contract__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Sender => {
+                            if sender__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("sender"));
+                            }
+                            sender__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::NewLabel => {
+                            if new_label__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("newLabel"));
+                            }
+                            new_label__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Contract => {
+                            if contract__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("contract"));
+                            }
+                            contract__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MsgUpdateContractLabel {
+                    sender: sender__.unwrap_or_default(),
+                    new_label: new_label__.unwrap_or_default(),
+                    contract: contract__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgUpdateContractLabel",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgUpdateContractLabelResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgUpdateContractLabelResponse", len)?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgUpdateContractLabelResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateContractLabelResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgUpdateContractLabelResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgUpdateContractLabelResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgUpdateContractLabelResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgUpdateContractLabelResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgUpdateInstantiateConfig {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.sender.is_empty() {
+            len += 1;
+        }
+        if self.code_id != 0 {
+            len += 1;
+        }
+        if self.new_instantiate_permission.is_some() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgUpdateInstantiateConfig", len)?;
+        if !self.sender.is_empty() {
+            struct_ser.serialize_field("sender", &self.sender)?;
+        }
+        if self.code_id != 0 {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
+        }
+        if let Some(v) = self.new_instantiate_permission.as_ref() {
+            struct_ser.serialize_field("newInstantiatePermission", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgUpdateInstantiateConfig {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "sender",
+            "code_id",
+            "codeId",
+            "new_instantiate_permission",
+            "newInstantiatePermission",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Sender,
+            CodeId,
+            NewInstantiatePermission,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "sender" => Ok(GeneratedField::Sender),
+                            "codeId" | "code_id" => Ok(GeneratedField::CodeId),
+                            "newInstantiatePermission" | "new_instantiate_permission" => {
+                                Ok(GeneratedField::NewInstantiatePermission)
+                            }
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateInstantiateConfig;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgUpdateInstantiateConfig")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgUpdateInstantiateConfig, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut sender__ = None;
+                let mut code_id__ = None;
+                let mut new_instantiate_permission__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Sender => {
+                            if sender__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("sender"));
+                            }
+                            sender__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CodeId => {
+                            if code_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("codeId"));
+                            }
+                            code_id__ = Some(
+                                map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::NewInstantiatePermission => {
+                            if new_instantiate_permission__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "newInstantiatePermission",
+                                ));
+                            }
+                            new_instantiate_permission__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(MsgUpdateInstantiateConfig {
+                    sender: sender__.unwrap_or_default(),
+                    code_id: code_id__.unwrap_or_default(),
+                    new_instantiate_permission: new_instantiate_permission__,
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgUpdateInstantiateConfig",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgUpdateInstantiateConfigResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser = serializer
+            .serialize_struct("cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse", len)?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgUpdateInstantiateConfigResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateInstantiateConfigResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgUpdateInstantiateConfigResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgUpdateInstantiateConfigResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgUpdateParams {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.authority.is_empty() {
+            len += 1;
+        }
+        if self.params.is_some() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgUpdateParams", len)?;
+        if !self.authority.is_empty() {
+            struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if let Some(v) = self.params.as_ref() {
+            struct_ser.serialize_field("params", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["authority", "params"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Authority,
+            Params,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "authority" => Ok(GeneratedField::Authority),
+                            "params" => Ok(GeneratedField::Params),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateParams;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgUpdateParams")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpdateParams, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut authority__ = None;
+                let mut params__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Authority => {
+                            if authority__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("authority"));
+                            }
+                            authority__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Params => {
+                            if params__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("params"));
+                            }
+                            params__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(MsgUpdateParams {
+                    authority: authority__.unwrap_or_default(),
+                    params: params__,
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgUpdateParams",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for MsgUpdateParamsResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.MsgUpdateParamsResponse", len)?;
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {}
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgUpdateParamsResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.MsgUpdateParamsResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<MsgUpdateParamsResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgUpdateParamsResponse {})
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.MsgUpdateParamsResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for Params {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -4986,7 +8880,7 @@ impl serde::Serialize for Params {
         }
         if self.instantiate_default_permission != 0 {
             let v = AccessType::try_from(self.instantiate_default_permission).map_err(|_| {
-                serde::ser::Error::custom(format!(
+                serde::ser::Error::custom(alloc::format!(
                     "Invalid variant {}",
                     self.instantiate_default_permission
                 ))
@@ -4999,7 +8893,7 @@ impl serde::Serialize for Params {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Params {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -5017,7 +8911,7 @@ impl<'de> serde::Deserialize<'de> for Params {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -5028,13 +8922,13 @@ impl<'de> serde::Deserialize<'de> for Params {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -5056,11 +8950,11 @@ impl<'de> serde::Deserialize<'de> for Params {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Params;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.Params")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Params, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Params, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -5098,7 +8992,7 @@ impl<'de> serde::Deserialize<'de> for Params {
 #[cfg(feature = "serde")]
 impl serde::Serialize for PinCodesProposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -5127,8 +9021,8 @@ impl serde::Serialize for PinCodesProposal {
                 &self
                     .code_ids
                     .iter()
-                    .map(ToString::to_string)
-                    .collect::<Vec<_>>(),
+                    .map(alloc::string::ToString::to_string)
+                    .collect::<alloc::vec::Vec<_>>(),
             )?;
         }
         struct_ser.end()
@@ -5137,7 +9031,7 @@ impl serde::Serialize for PinCodesProposal {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for PinCodesProposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -5151,7 +9045,7 @@ impl<'de> serde::Deserialize<'de> for PinCodesProposal {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -5162,13 +9056,13 @@ impl<'de> serde::Deserialize<'de> for PinCodesProposal {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -5187,11 +9081,11 @@ impl<'de> serde::Deserialize<'de> for PinCodesProposal {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = PinCodesProposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.PinCodesProposal")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<PinCodesProposal, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<PinCodesProposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -5216,12 +9110,10 @@ impl<'de> serde::Deserialize<'de> for PinCodesProposal {
                             if code_ids__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("codeIds"));
                             }
-                            code_ids__ = Some(
-                                map_.next_value::<Vec<::pbjson::private::NumberDeserialize<_>>>()?
-                                    .into_iter()
-                                    .map(|x| x.0)
-                                    .collect(),
-                            );
+                            code_ids__ =
+                                Some(map_.next_value::<alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                    .into_iter().map(|x| x.0).collect())
+                            ;
                         }
                     }
                 }
@@ -5242,7 +9134,7 @@ impl<'de> serde::Deserialize<'de> for PinCodesProposal {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryAllContractStateRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -5268,7 +9160,7 @@ impl serde::Serialize for QueryAllContractStateRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryAllContractStateRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -5281,7 +9173,7 @@ impl<'de> serde::Deserialize<'de> for QueryAllContractStateRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -5292,13 +9184,13 @@ impl<'de> serde::Deserialize<'de> for QueryAllContractStateRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -5316,14 +9208,14 @@ impl<'de> serde::Deserialize<'de> for QueryAllContractStateRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryAllContractStateRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryAllContractStateRequest")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryAllContractStateRequest, V::Error>
+            ) -> core::result::Result<QueryAllContractStateRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -5361,7 +9253,7 @@ impl<'de> serde::Deserialize<'de> for QueryAllContractStateRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryAllContractStateResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -5387,7 +9279,7 @@ impl serde::Serialize for QueryAllContractStateResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryAllContractStateResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -5400,7 +9292,7 @@ impl<'de> serde::Deserialize<'de> for QueryAllContractStateResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -5411,13 +9303,13 @@ impl<'de> serde::Deserialize<'de> for QueryAllContractStateResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -5435,14 +9327,14 @@ impl<'de> serde::Deserialize<'de> for QueryAllContractStateResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryAllContractStateResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryAllContractStateResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryAllContractStateResponse, V::Error>
+            ) -> core::result::Result<QueryAllContractStateResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -5478,9 +9370,280 @@ impl<'de> serde::Deserialize<'de> for QueryAllContractStateResponse {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for QueryBuildAddressRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.code_hash.is_empty() {
+            len += 1;
+        }
+        if !self.creator_address.is_empty() {
+            len += 1;
+        }
+        if !self.salt.is_empty() {
+            len += 1;
+        }
+        if !self.init_args.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.QueryBuildAddressRequest", len)?;
+        if !self.code_hash.is_empty() {
+            struct_ser.serialize_field("codeHash", &self.code_hash)?;
+        }
+        if !self.creator_address.is_empty() {
+            struct_ser.serialize_field("creatorAddress", &self.creator_address)?;
+        }
+        if !self.salt.is_empty() {
+            struct_ser.serialize_field("salt", &self.salt)?;
+        }
+        if !self.init_args.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "initArgs",
+                pbjson::private::base64::encode(&self.init_args).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for QueryBuildAddressRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "code_hash",
+            "codeHash",
+            "creator_address",
+            "creatorAddress",
+            "salt",
+            "init_args",
+            "initArgs",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            CodeHash,
+            CreatorAddress,
+            Salt,
+            InitArgs,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "codeHash" | "code_hash" => Ok(GeneratedField::CodeHash),
+                            "creatorAddress" | "creator_address" => {
+                                Ok(GeneratedField::CreatorAddress)
+                            }
+                            "salt" => Ok(GeneratedField::Salt),
+                            "initArgs" | "init_args" => Ok(GeneratedField::InitArgs),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryBuildAddressRequest;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.QueryBuildAddressRequest")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<QueryBuildAddressRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut code_hash__ = None;
+                let mut creator_address__ = None;
+                let mut salt__ = None;
+                let mut init_args__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::CodeHash => {
+                            if code_hash__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("codeHash"));
+                            }
+                            code_hash__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CreatorAddress => {
+                            if creator_address__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("creatorAddress"));
+                            }
+                            creator_address__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Salt => {
+                            if salt__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("salt"));
+                            }
+                            salt__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::InitArgs => {
+                            if init_args__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("initArgs"));
+                            }
+                            init_args__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(QueryBuildAddressRequest {
+                    code_hash: code_hash__.unwrap_or_default(),
+                    creator_address: creator_address__.unwrap_or_default(),
+                    salt: salt__.unwrap_or_default(),
+                    init_args: init_args__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.QueryBuildAddressRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for QueryBuildAddressResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.address.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.QueryBuildAddressResponse", len)?;
+        if !self.address.is_empty() {
+            struct_ser.serialize_field("address", &self.address)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for QueryBuildAddressResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["address"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Address,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "address" => Ok(GeneratedField::Address),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryBuildAddressResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.QueryBuildAddressResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<QueryBuildAddressResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut address__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Address => {
+                            if address__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("address"));
+                            }
+                            address__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(QueryBuildAddressResponse {
+                    address: address__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.QueryBuildAddressResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryCodeRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -5493,7 +9656,10 @@ impl serde::Serialize for QueryCodeRequest {
             serializer.serialize_struct("cosmwasm.wasm.v1.QueryCodeRequest", len)?;
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         struct_ser.end()
     }
@@ -5501,7 +9667,7 @@ impl serde::Serialize for QueryCodeRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryCodeRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -5513,7 +9679,7 @@ impl<'de> serde::Deserialize<'de> for QueryCodeRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -5524,13 +9690,13 @@ impl<'de> serde::Deserialize<'de> for QueryCodeRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -5547,11 +9713,11 @@ impl<'de> serde::Deserialize<'de> for QueryCodeRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryCodeRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryCodeRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryCodeRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryCodeRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -5584,7 +9750,7 @@ impl<'de> serde::Deserialize<'de> for QueryCodeRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryCodeResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -5612,7 +9778,7 @@ impl serde::Serialize for QueryCodeResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryCodeResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -5625,7 +9791,7 @@ impl<'de> serde::Deserialize<'de> for QueryCodeResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -5636,13 +9802,13 @@ impl<'de> serde::Deserialize<'de> for QueryCodeResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -5660,11 +9826,11 @@ impl<'de> serde::Deserialize<'de> for QueryCodeResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryCodeResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryCodeResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryCodeResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryCodeResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -5705,7 +9871,7 @@ impl<'de> serde::Deserialize<'de> for QueryCodeResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryCodesRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -5725,7 +9891,7 @@ impl serde::Serialize for QueryCodesRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryCodesRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -5737,7 +9903,7 @@ impl<'de> serde::Deserialize<'de> for QueryCodesRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -5748,13 +9914,13 @@ impl<'de> serde::Deserialize<'de> for QueryCodesRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -5771,11 +9937,11 @@ impl<'de> serde::Deserialize<'de> for QueryCodesRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryCodesRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryCodesRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryCodesRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryCodesRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -5805,7 +9971,7 @@ impl<'de> serde::Deserialize<'de> for QueryCodesRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryCodesResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -5831,7 +9997,7 @@ impl serde::Serialize for QueryCodesResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryCodesResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -5844,7 +10010,7 @@ impl<'de> serde::Deserialize<'de> for QueryCodesResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -5855,13 +10021,13 @@ impl<'de> serde::Deserialize<'de> for QueryCodesResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -5879,11 +10045,11 @@ impl<'de> serde::Deserialize<'de> for QueryCodesResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryCodesResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryCodesResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryCodesResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryCodesResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -5921,7 +10087,7 @@ impl<'de> serde::Deserialize<'de> for QueryCodesResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryContractHistoryRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -5947,7 +10113,7 @@ impl serde::Serialize for QueryContractHistoryRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryContractHistoryRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -5960,7 +10126,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractHistoryRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -5971,13 +10137,13 @@ impl<'de> serde::Deserialize<'de> for QueryContractHistoryRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -5995,14 +10161,14 @@ impl<'de> serde::Deserialize<'de> for QueryContractHistoryRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryContractHistoryRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryContractHistoryRequest")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryContractHistoryRequest, V::Error>
+            ) -> core::result::Result<QueryContractHistoryRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -6040,7 +10206,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractHistoryRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryContractHistoryResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -6066,7 +10232,7 @@ impl serde::Serialize for QueryContractHistoryResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryContractHistoryResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -6079,7 +10245,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractHistoryResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -6090,13 +10256,13 @@ impl<'de> serde::Deserialize<'de> for QueryContractHistoryResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -6114,14 +10280,14 @@ impl<'de> serde::Deserialize<'de> for QueryContractHistoryResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryContractHistoryResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryContractHistoryResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryContractHistoryResponse, V::Error>
+            ) -> core::result::Result<QueryContractHistoryResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -6159,7 +10325,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractHistoryResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryContractInfoRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -6179,7 +10345,7 @@ impl serde::Serialize for QueryContractInfoRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryContractInfoRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -6191,7 +10357,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractInfoRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -6202,13 +10368,13 @@ impl<'de> serde::Deserialize<'de> for QueryContractInfoRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -6225,14 +10391,14 @@ impl<'de> serde::Deserialize<'de> for QueryContractInfoRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryContractInfoRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryContractInfoRequest")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryContractInfoRequest, V::Error>
+            ) -> core::result::Result<QueryContractInfoRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -6262,7 +10428,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractInfoRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryContractInfoResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -6288,7 +10454,7 @@ impl serde::Serialize for QueryContractInfoResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryContractInfoResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -6301,7 +10467,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractInfoResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -6312,13 +10478,13 @@ impl<'de> serde::Deserialize<'de> for QueryContractInfoResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -6336,14 +10502,14 @@ impl<'de> serde::Deserialize<'de> for QueryContractInfoResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryContractInfoResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryContractInfoResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryContractInfoResponse, V::Error>
+            ) -> core::result::Result<QueryContractInfoResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -6381,7 +10547,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractInfoResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryContractsByCodeRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -6397,7 +10563,10 @@ impl serde::Serialize for QueryContractsByCodeRequest {
             serializer.serialize_struct("cosmwasm.wasm.v1.QueryContractsByCodeRequest", len)?;
         if self.code_id != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("codeId", ToString::to_string(&self.code_id).as_str())?;
+            struct_ser.serialize_field(
+                "codeId",
+                alloc::string::ToString::to_string(&self.code_id).as_str(),
+            )?;
         }
         if let Some(v) = self.pagination.as_ref() {
             struct_ser.serialize_field("pagination", v)?;
@@ -6408,7 +10577,7 @@ impl serde::Serialize for QueryContractsByCodeRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryContractsByCodeRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -6421,7 +10590,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractsByCodeRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -6432,13 +10601,13 @@ impl<'de> serde::Deserialize<'de> for QueryContractsByCodeRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -6456,14 +10625,14 @@ impl<'de> serde::Deserialize<'de> for QueryContractsByCodeRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryContractsByCodeRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryContractsByCodeRequest")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryContractsByCodeRequest, V::Error>
+            ) -> core::result::Result<QueryContractsByCodeRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -6504,7 +10673,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractsByCodeRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryContractsByCodeResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -6530,7 +10699,7 @@ impl serde::Serialize for QueryContractsByCodeResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryContractsByCodeResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -6543,7 +10712,7 @@ impl<'de> serde::Deserialize<'de> for QueryContractsByCodeResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -6554,13 +10723,13 @@ impl<'de> serde::Deserialize<'de> for QueryContractsByCodeResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -6578,14 +10747,14 @@ impl<'de> serde::Deserialize<'de> for QueryContractsByCodeResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryContractsByCodeResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryContractsByCodeResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryContractsByCodeResponse, V::Error>
+            ) -> core::result::Result<QueryContractsByCodeResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -6621,9 +10790,251 @@ impl<'de> serde::Deserialize<'de> for QueryContractsByCodeResponse {
     }
 }
 #[cfg(feature = "serde")]
+impl serde::Serialize for QueryContractsByCreatorRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.creator_address.is_empty() {
+            len += 1;
+        }
+        if self.pagination.is_some() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.QueryContractsByCreatorRequest", len)?;
+        if !self.creator_address.is_empty() {
+            struct_ser.serialize_field("creatorAddress", &self.creator_address)?;
+        }
+        if let Some(v) = self.pagination.as_ref() {
+            struct_ser.serialize_field("pagination", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for QueryContractsByCreatorRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["creator_address", "creatorAddress", "pagination"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            CreatorAddress,
+            Pagination,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "creatorAddress" | "creator_address" => {
+                                Ok(GeneratedField::CreatorAddress)
+                            }
+                            "pagination" => Ok(GeneratedField::Pagination),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryContractsByCreatorRequest;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.QueryContractsByCreatorRequest")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<QueryContractsByCreatorRequest, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut creator_address__ = None;
+                let mut pagination__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::CreatorAddress => {
+                            if creator_address__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("creatorAddress"));
+                            }
+                            creator_address__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Pagination => {
+                            if pagination__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("pagination"));
+                            }
+                            pagination__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(QueryContractsByCreatorRequest {
+                    creator_address: creator_address__.unwrap_or_default(),
+                    pagination: pagination__,
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.QueryContractsByCreatorRequest",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for QueryContractsByCreatorResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.contract_addresses.is_empty() {
+            len += 1;
+        }
+        if self.pagination.is_some() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.QueryContractsByCreatorResponse", len)?;
+        if !self.contract_addresses.is_empty() {
+            struct_ser.serialize_field("contractAddresses", &self.contract_addresses)?;
+        }
+        if let Some(v) = self.pagination.as_ref() {
+            struct_ser.serialize_field("pagination", v)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for QueryContractsByCreatorResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["contract_addresses", "contractAddresses", "pagination"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            ContractAddresses,
+            Pagination,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "contractAddresses" | "contract_addresses" => {
+                                Ok(GeneratedField::ContractAddresses)
+                            }
+                            "pagination" => Ok(GeneratedField::Pagination),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryContractsByCreatorResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.QueryContractsByCreatorResponse")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<QueryContractsByCreatorResponse, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut contract_addresses__ = None;
+                let mut pagination__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::ContractAddresses => {
+                            if contract_addresses__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("contractAddresses"));
+                            }
+                            contract_addresses__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Pagination => {
+                            if pagination__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("pagination"));
+                            }
+                            pagination__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(QueryContractsByCreatorResponse {
+                    contract_addresses: contract_addresses__.unwrap_or_default(),
+                    pagination: pagination__,
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.QueryContractsByCreatorResponse",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
 impl serde::Serialize for QueryParamsRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -6636,7 +11047,7 @@ impl serde::Serialize for QueryParamsRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -6646,7 +11057,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
         enum GeneratedField {}
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -6657,13 +11068,13 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -6677,11 +11088,11 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryParamsRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryParamsRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryParamsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryParamsRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -6701,7 +11112,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryParamsResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -6721,7 +11132,7 @@ impl serde::Serialize for QueryParamsResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -6733,7 +11144,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -6744,13 +11155,13 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -6767,11 +11178,14 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryParamsResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryParamsResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryParamsResponse, V::Error>
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<QueryParamsResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -6799,7 +11213,7 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryPinnedCodesRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -6819,7 +11233,7 @@ impl serde::Serialize for QueryPinnedCodesRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryPinnedCodesRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -6831,7 +11245,7 @@ impl<'de> serde::Deserialize<'de> for QueryPinnedCodesRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -6842,13 +11256,13 @@ impl<'de> serde::Deserialize<'de> for QueryPinnedCodesRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -6865,14 +11279,14 @@ impl<'de> serde::Deserialize<'de> for QueryPinnedCodesRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryPinnedCodesRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryPinnedCodesRequest")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryPinnedCodesRequest, V::Error>
+            ) -> core::result::Result<QueryPinnedCodesRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -6902,7 +11316,7 @@ impl<'de> serde::Deserialize<'de> for QueryPinnedCodesRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryPinnedCodesResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -6922,8 +11336,8 @@ impl serde::Serialize for QueryPinnedCodesResponse {
                 &self
                     .code_ids
                     .iter()
-                    .map(ToString::to_string)
-                    .collect::<Vec<_>>(),
+                    .map(alloc::string::ToString::to_string)
+                    .collect::<alloc::vec::Vec<_>>(),
             )?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -6935,7 +11349,7 @@ impl serde::Serialize for QueryPinnedCodesResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryPinnedCodesResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -6948,7 +11362,7 @@ impl<'de> serde::Deserialize<'de> for QueryPinnedCodesResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -6959,13 +11373,13 @@ impl<'de> serde::Deserialize<'de> for QueryPinnedCodesResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -6983,14 +11397,14 @@ impl<'de> serde::Deserialize<'de> for QueryPinnedCodesResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryPinnedCodesResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryPinnedCodesResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryPinnedCodesResponse, V::Error>
+            ) -> core::result::Result<QueryPinnedCodesResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -7002,12 +11416,10 @@ impl<'de> serde::Deserialize<'de> for QueryPinnedCodesResponse {
                             if code_ids__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("codeIds"));
                             }
-                            code_ids__ = Some(
-                                map_.next_value::<Vec<::pbjson::private::NumberDeserialize<_>>>()?
-                                    .into_iter()
-                                    .map(|x| x.0)
-                                    .collect(),
-                            );
+                            code_ids__ =
+                                Some(map_.next_value::<alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                    .into_iter().map(|x| x.0).collect())
+                            ;
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
@@ -7033,7 +11445,7 @@ impl<'de> serde::Deserialize<'de> for QueryPinnedCodesResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryRawContractStateRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -7063,7 +11475,7 @@ impl serde::Serialize for QueryRawContractStateRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryRawContractStateRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -7076,7 +11488,7 @@ impl<'de> serde::Deserialize<'de> for QueryRawContractStateRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -7087,13 +11499,13 @@ impl<'de> serde::Deserialize<'de> for QueryRawContractStateRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -7111,14 +11523,14 @@ impl<'de> serde::Deserialize<'de> for QueryRawContractStateRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryRawContractStateRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryRawContractStateRequest")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryRawContractStateRequest, V::Error>
+            ) -> core::result::Result<QueryRawContractStateRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -7159,7 +11571,7 @@ impl<'de> serde::Deserialize<'de> for QueryRawContractStateRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QueryRawContractStateResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -7181,7 +11593,7 @@ impl serde::Serialize for QueryRawContractStateResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QueryRawContractStateResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -7193,7 +11605,7 @@ impl<'de> serde::Deserialize<'de> for QueryRawContractStateResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -7204,13 +11616,13 @@ impl<'de> serde::Deserialize<'de> for QueryRawContractStateResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -7227,14 +11639,14 @@ impl<'de> serde::Deserialize<'de> for QueryRawContractStateResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryRawContractStateResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QueryRawContractStateResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QueryRawContractStateResponse, V::Error>
+            ) -> core::result::Result<QueryRawContractStateResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -7267,7 +11679,7 @@ impl<'de> serde::Deserialize<'de> for QueryRawContractStateResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QuerySmartContractStateRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -7297,7 +11709,7 @@ impl serde::Serialize for QuerySmartContractStateRequest {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QuerySmartContractStateRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -7310,7 +11722,7 @@ impl<'de> serde::Deserialize<'de> for QuerySmartContractStateRequest {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -7321,13 +11733,13 @@ impl<'de> serde::Deserialize<'de> for QuerySmartContractStateRequest {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -7345,14 +11757,14 @@ impl<'de> serde::Deserialize<'de> for QuerySmartContractStateRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QuerySmartContractStateRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QuerySmartContractStateRequest")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QuerySmartContractStateRequest, V::Error>
+            ) -> core::result::Result<QuerySmartContractStateRequest, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -7393,7 +11805,7 @@ impl<'de> serde::Deserialize<'de> for QuerySmartContractStateRequest {
 #[cfg(feature = "serde")]
 impl serde::Serialize for QuerySmartContractStateResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -7415,7 +11827,7 @@ impl serde::Serialize for QuerySmartContractStateResponse {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for QuerySmartContractStateResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -7427,7 +11839,7 @@ impl<'de> serde::Deserialize<'de> for QuerySmartContractStateResponse {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -7438,13 +11850,13 @@ impl<'de> serde::Deserialize<'de> for QuerySmartContractStateResponse {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -7461,14 +11873,14 @@ impl<'de> serde::Deserialize<'de> for QuerySmartContractStateResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QuerySmartContractStateResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.QuerySmartContractStateResponse")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<QuerySmartContractStateResponse, V::Error>
+            ) -> core::result::Result<QuerySmartContractStateResponse, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -7501,7 +11913,7 @@ impl<'de> serde::Deserialize<'de> for QuerySmartContractStateResponse {
 #[cfg(feature = "serde")]
 impl serde::Serialize for Sequence {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -7523,7 +11935,10 @@ impl serde::Serialize for Sequence {
         }
         if self.value != 0 {
             #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("value", ToString::to_string(&self.value).as_str())?;
+            struct_ser.serialize_field(
+                "value",
+                alloc::string::ToString::to_string(&self.value).as_str(),
+            )?;
         }
         struct_ser.end()
     }
@@ -7531,7 +11946,7 @@ impl serde::Serialize for Sequence {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for Sequence {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -7544,7 +11959,7 @@ impl<'de> serde::Deserialize<'de> for Sequence {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -7555,13 +11970,13 @@ impl<'de> serde::Deserialize<'de> for Sequence {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -7579,11 +11994,11 @@ impl<'de> serde::Deserialize<'de> for Sequence {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Sequence;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.Sequence")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Sequence, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Sequence, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -7621,9 +12036,9 @@ impl<'de> serde::Deserialize<'de> for Sequence {
     }
 }
 #[cfg(feature = "serde")]
-impl serde::Serialize for StoreCodeProposal {
+impl serde::Serialize for StoreAndInstantiateContractProposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -7647,8 +12062,29 @@ impl serde::Serialize for StoreCodeProposal {
         if self.unpin_code {
             len += 1;
         }
-        let mut struct_ser =
-            serializer.serialize_struct("cosmwasm.wasm.v1.StoreCodeProposal", len)?;
+        if !self.admin.is_empty() {
+            len += 1;
+        }
+        if !self.label.is_empty() {
+            len += 1;
+        }
+        if !self.msg.is_empty() {
+            len += 1;
+        }
+        if !self.funds.is_empty() {
+            len += 1;
+        }
+        if !self.source.is_empty() {
+            len += 1;
+        }
+        if !self.builder.is_empty() {
+            len += 1;
+        }
+        if !self.code_hash.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser = serializer
+            .serialize_struct("cosmwasm.wasm.v1.StoreAndInstantiateContractProposal", len)?;
         if !self.title.is_empty() {
             struct_ser.serialize_field("title", &self.title)?;
         }
@@ -7671,13 +12107,40 @@ impl serde::Serialize for StoreCodeProposal {
         if self.unpin_code {
             struct_ser.serialize_field("unpinCode", &self.unpin_code)?;
         }
+        if !self.admin.is_empty() {
+            struct_ser.serialize_field("admin", &self.admin)?;
+        }
+        if !self.label.is_empty() {
+            struct_ser.serialize_field("label", &self.label)?;
+        }
+        if !self.msg.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser
+                .serialize_field("msg", pbjson::private::base64::encode(&self.msg).as_str())?;
+        }
+        if !self.funds.is_empty() {
+            struct_ser.serialize_field("funds", &self.funds)?;
+        }
+        if !self.source.is_empty() {
+            struct_ser.serialize_field("source", &self.source)?;
+        }
+        if !self.builder.is_empty() {
+            struct_ser.serialize_field("builder", &self.builder)?;
+        }
+        if !self.code_hash.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "codeHash",
+                pbjson::private::base64::encode(&self.code_hash).as_str(),
+            )?;
+        }
         struct_ser.end()
     }
 }
 #[cfg(feature = "serde")]
-impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
+impl<'de> serde::Deserialize<'de> for StoreAndInstantiateContractProposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -7692,6 +12155,14 @@ impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
             "instantiatePermission",
             "unpin_code",
             "unpinCode",
+            "admin",
+            "label",
+            "msg",
+            "funds",
+            "source",
+            "builder",
+            "code_hash",
+            "codeHash",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -7702,10 +12173,17 @@ impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
             WasmByteCode,
             InstantiatePermission,
             UnpinCode,
+            Admin,
+            Label,
+            Msg,
+            Funds,
+            Source,
+            Builder,
+            CodeHash,
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -7716,13 +12194,13 @@ impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -7735,6 +12213,13 @@ impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
                                 Ok(GeneratedField::InstantiatePermission)
                             }
                             "unpinCode" | "unpin_code" => Ok(GeneratedField::UnpinCode),
+                            "admin" => Ok(GeneratedField::Admin),
+                            "label" => Ok(GeneratedField::Label),
+                            "msg" => Ok(GeneratedField::Msg),
+                            "funds" => Ok(GeneratedField::Funds),
+                            "source" => Ok(GeneratedField::Source),
+                            "builder" => Ok(GeneratedField::Builder),
+                            "codeHash" | "code_hash" => Ok(GeneratedField::CodeHash),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -7744,13 +12229,16 @@ impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = StoreCodeProposal;
+            type Value = StoreAndInstantiateContractProposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                formatter.write_str("struct cosmwasm.wasm.v1.StoreCodeProposal")
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.StoreAndInstantiateContractProposal")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<StoreCodeProposal, V::Error>
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<StoreAndInstantiateContractProposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -7760,6 +12248,13 @@ impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
                 let mut wasm_byte_code__ = None;
                 let mut instantiate_permission__ = None;
                 let mut unpin_code__ = None;
+                let mut admin__ = None;
+                let mut label__ = None;
+                let mut msg__ = None;
+                let mut funds__ = None;
+                let mut source__ = None;
+                let mut builder__ = None;
+                let mut code_hash__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Title => {
@@ -7803,6 +12298,422 @@ impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
                             }
                             unpin_code__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::Admin => {
+                            if admin__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("admin"));
+                            }
+                            admin__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Label => {
+                            if label__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("label"));
+                            }
+                            label__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Msg => {
+                            if msg__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("msg"));
+                            }
+                            msg__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::Funds => {
+                            if funds__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("funds"));
+                            }
+                            funds__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Source => {
+                            if source__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("source"));
+                            }
+                            source__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Builder => {
+                            if builder__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("builder"));
+                            }
+                            builder__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CodeHash => {
+                            if code_hash__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("codeHash"));
+                            }
+                            code_hash__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                    }
+                }
+                Ok(StoreAndInstantiateContractProposal {
+                    title: title__.unwrap_or_default(),
+                    description: description__.unwrap_or_default(),
+                    run_as: run_as__.unwrap_or_default(),
+                    wasm_byte_code: wasm_byte_code__.unwrap_or_default(),
+                    instantiate_permission: instantiate_permission__,
+                    unpin_code: unpin_code__.unwrap_or_default(),
+                    admin: admin__.unwrap_or_default(),
+                    label: label__.unwrap_or_default(),
+                    msg: msg__.unwrap_or_default(),
+                    funds: funds__.unwrap_or_default(),
+                    source: source__.unwrap_or_default(),
+                    builder: builder__.unwrap_or_default(),
+                    code_hash: code_hash__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.StoreAndInstantiateContractProposal",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for StoreCodeAuthorization {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.grants.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.StoreCodeAuthorization", len)?;
+        if !self.grants.is_empty() {
+            struct_ser.serialize_field("grants", &self.grants)?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for StoreCodeAuthorization {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &["grants"];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Grants,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "grants" => Ok(GeneratedField::Grants),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StoreCodeAuthorization;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.StoreCodeAuthorization")
+            }
+
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<StoreCodeAuthorization, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut grants__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Grants => {
+                            if grants__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("grants"));
+                            }
+                            grants__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(StoreCodeAuthorization {
+                    grants: grants__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct(
+            "cosmwasm.wasm.v1.StoreCodeAuthorization",
+            FIELDS,
+            GeneratedVisitor,
+        )
+    }
+}
+#[cfg(feature = "serde")]
+impl serde::Serialize for StoreCodeProposal {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if !self.title.is_empty() {
+            len += 1;
+        }
+        if !self.description.is_empty() {
+            len += 1;
+        }
+        if !self.run_as.is_empty() {
+            len += 1;
+        }
+        if !self.wasm_byte_code.is_empty() {
+            len += 1;
+        }
+        if self.instantiate_permission.is_some() {
+            len += 1;
+        }
+        if self.unpin_code {
+            len += 1;
+        }
+        if !self.source.is_empty() {
+            len += 1;
+        }
+        if !self.builder.is_empty() {
+            len += 1;
+        }
+        if !self.code_hash.is_empty() {
+            len += 1;
+        }
+        let mut struct_ser =
+            serializer.serialize_struct("cosmwasm.wasm.v1.StoreCodeProposal", len)?;
+        if !self.title.is_empty() {
+            struct_ser.serialize_field("title", &self.title)?;
+        }
+        if !self.description.is_empty() {
+            struct_ser.serialize_field("description", &self.description)?;
+        }
+        if !self.run_as.is_empty() {
+            struct_ser.serialize_field("runAs", &self.run_as)?;
+        }
+        if !self.wasm_byte_code.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "wasmByteCode",
+                pbjson::private::base64::encode(&self.wasm_byte_code).as_str(),
+            )?;
+        }
+        if let Some(v) = self.instantiate_permission.as_ref() {
+            struct_ser.serialize_field("instantiatePermission", v)?;
+        }
+        if self.unpin_code {
+            struct_ser.serialize_field("unpinCode", &self.unpin_code)?;
+        }
+        if !self.source.is_empty() {
+            struct_ser.serialize_field("source", &self.source)?;
+        }
+        if !self.builder.is_empty() {
+            struct_ser.serialize_field("builder", &self.builder)?;
+        }
+        if !self.code_hash.is_empty() {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field(
+                "codeHash",
+                pbjson::private::base64::encode(&self.code_hash).as_str(),
+            )?;
+        }
+        struct_ser.end()
+    }
+}
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "title",
+            "description",
+            "run_as",
+            "runAs",
+            "wasm_byte_code",
+            "wasmByteCode",
+            "instantiate_permission",
+            "instantiatePermission",
+            "unpin_code",
+            "unpinCode",
+            "source",
+            "builder",
+            "code_hash",
+            "codeHash",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Title,
+            Description,
+            RunAs,
+            WasmByteCode,
+            InstantiatePermission,
+            UnpinCode,
+            Source,
+            Builder,
+            CodeHash,
+        }
+        #[cfg(feature = "serde")]
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(
+                        &self,
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "title" => Ok(GeneratedField::Title),
+                            "description" => Ok(GeneratedField::Description),
+                            "runAs" | "run_as" => Ok(GeneratedField::RunAs),
+                            "wasmByteCode" | "wasm_byte_code" => Ok(GeneratedField::WasmByteCode),
+                            "instantiatePermission" | "instantiate_permission" => {
+                                Ok(GeneratedField::InstantiatePermission)
+                            }
+                            "unpinCode" | "unpin_code" => Ok(GeneratedField::UnpinCode),
+                            "source" => Ok(GeneratedField::Source),
+                            "builder" => Ok(GeneratedField::Builder),
+                            "codeHash" | "code_hash" => Ok(GeneratedField::CodeHash),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = StoreCodeProposal;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmwasm.wasm.v1.StoreCodeProposal")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<StoreCodeProposal, V::Error>
+            where
+                V: serde::de::MapAccess<'de>,
+            {
+                let mut title__ = None;
+                let mut description__ = None;
+                let mut run_as__ = None;
+                let mut wasm_byte_code__ = None;
+                let mut instantiate_permission__ = None;
+                let mut unpin_code__ = None;
+                let mut source__ = None;
+                let mut builder__ = None;
+                let mut code_hash__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Title => {
+                            if title__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("title"));
+                            }
+                            title__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Description => {
+                            if description__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("description"));
+                            }
+                            description__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::RunAs => {
+                            if run_as__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("runAs"));
+                            }
+                            run_as__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::WasmByteCode => {
+                            if wasm_byte_code__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("wasmByteCode"));
+                            }
+                            wasm_byte_code__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
+                        GeneratedField::InstantiatePermission => {
+                            if instantiate_permission__.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "instantiatePermission",
+                                ));
+                            }
+                            instantiate_permission__ = map_.next_value()?;
+                        }
+                        GeneratedField::UnpinCode => {
+                            if unpin_code__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("unpinCode"));
+                            }
+                            unpin_code__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Source => {
+                            if source__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("source"));
+                            }
+                            source__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Builder => {
+                            if builder__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("builder"));
+                            }
+                            builder__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::CodeHash => {
+                            if code_hash__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("codeHash"));
+                            }
+                            code_hash__ = Some(
+                                map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?
+                                    .0,
+                            );
+                        }
                     }
                 }
                 Ok(StoreCodeProposal {
@@ -7812,6 +12723,9 @@ impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
                     wasm_byte_code: wasm_byte_code__.unwrap_or_default(),
                     instantiate_permission: instantiate_permission__,
                     unpin_code: unpin_code__.unwrap_or_default(),
+                    source: source__.unwrap_or_default(),
+                    builder: builder__.unwrap_or_default(),
+                    code_hash: code_hash__.unwrap_or_default(),
                 })
             }
         }
@@ -7825,7 +12739,7 @@ impl<'de> serde::Deserialize<'de> for StoreCodeProposal {
 #[cfg(feature = "serde")]
 impl serde::Serialize for SudoContractProposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -7865,7 +12779,7 @@ impl serde::Serialize for SudoContractProposal {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for SudoContractProposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -7880,7 +12794,7 @@ impl<'de> serde::Deserialize<'de> for SudoContractProposal {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -7891,13 +12805,13 @@ impl<'de> serde::Deserialize<'de> for SudoContractProposal {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -7917,14 +12831,14 @@ impl<'de> serde::Deserialize<'de> for SudoContractProposal {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SudoContractProposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.SudoContractProposal")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<SudoContractProposal, V::Error>
+            ) -> core::result::Result<SudoContractProposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -7981,7 +12895,7 @@ impl<'de> serde::Deserialize<'de> for SudoContractProposal {
 #[cfg(feature = "serde")]
 impl serde::Serialize for UnpinCodesProposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -8010,8 +12924,8 @@ impl serde::Serialize for UnpinCodesProposal {
                 &self
                     .code_ids
                     .iter()
-                    .map(ToString::to_string)
-                    .collect::<Vec<_>>(),
+                    .map(alloc::string::ToString::to_string)
+                    .collect::<alloc::vec::Vec<_>>(),
             )?;
         }
         struct_ser.end()
@@ -8020,7 +12934,7 @@ impl serde::Serialize for UnpinCodesProposal {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for UnpinCodesProposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -8034,7 +12948,7 @@ impl<'de> serde::Deserialize<'de> for UnpinCodesProposal {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -8045,13 +12959,13 @@ impl<'de> serde::Deserialize<'de> for UnpinCodesProposal {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -8070,11 +12984,11 @@ impl<'de> serde::Deserialize<'de> for UnpinCodesProposal {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = UnpinCodesProposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.UnpinCodesProposal")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<UnpinCodesProposal, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<UnpinCodesProposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -8099,12 +13013,10 @@ impl<'de> serde::Deserialize<'de> for UnpinCodesProposal {
                             if code_ids__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("codeIds"));
                             }
-                            code_ids__ = Some(
-                                map_.next_value::<Vec<::pbjson::private::NumberDeserialize<_>>>()?
-                                    .into_iter()
-                                    .map(|x| x.0)
-                                    .collect(),
-                            );
+                            code_ids__ =
+                                Some(map_.next_value::<alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                    .into_iter().map(|x| x.0).collect())
+                            ;
                         }
                     }
                 }
@@ -8125,7 +13037,7 @@ impl<'de> serde::Deserialize<'de> for UnpinCodesProposal {
 #[cfg(feature = "serde")]
 impl serde::Serialize for UpdateAdminProposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -8163,7 +13075,7 @@ impl serde::Serialize for UpdateAdminProposal {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for UpdateAdminProposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -8178,7 +13090,7 @@ impl<'de> serde::Deserialize<'de> for UpdateAdminProposal {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -8189,13 +13101,13 @@ impl<'de> serde::Deserialize<'de> for UpdateAdminProposal {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -8215,11 +13127,14 @@ impl<'de> serde::Deserialize<'de> for UpdateAdminProposal {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = UpdateAdminProposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.UpdateAdminProposal")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<UpdateAdminProposal, V::Error>
+            fn visit_map<V>(
+                self,
+                mut map_: V,
+            ) -> core::result::Result<UpdateAdminProposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
@@ -8273,7 +13188,7 @@ impl<'de> serde::Deserialize<'de> for UpdateAdminProposal {
 #[cfg(feature = "serde")]
 impl serde::Serialize for UpdateInstantiateConfigProposal {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -8305,7 +13220,7 @@ impl serde::Serialize for UpdateInstantiateConfigProposal {
 #[cfg(feature = "serde")]
 impl<'de> serde::Deserialize<'de> for UpdateInstantiateConfigProposal {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -8324,7 +13239,7 @@ impl<'de> serde::Deserialize<'de> for UpdateInstantiateConfigProposal {
         }
         #[cfg(feature = "serde")]
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -8335,13 +13250,13 @@ impl<'de> serde::Deserialize<'de> for UpdateInstantiateConfigProposal {
 
                     fn expecting(
                         &self,
-                        formatter: &mut std::fmt::Formatter<'_>,
-                    ) -> std::fmt::Result {
+                        formatter: &mut core::fmt::Formatter<'_>,
+                    ) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -8362,14 +13277,14 @@ impl<'de> serde::Deserialize<'de> for UpdateInstantiateConfigProposal {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = UpdateInstantiateConfigProposal;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmwasm.wasm.v1.UpdateInstantiateConfigProposal")
             }
 
             fn visit_map<V>(
                 self,
                 mut map_: V,
-            ) -> std::result::Result<UpdateInstantiateConfigProposal, V::Error>
+            ) -> core::result::Result<UpdateInstantiateConfigProposal, V::Error>
             where
                 V: serde::de::MapAccess<'de>,
             {
