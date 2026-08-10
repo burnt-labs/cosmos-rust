@@ -227,3 +227,32 @@ pub mod cosmwasm {
         }
     }
 }
+
+/// Abstract Account protobuf definitions used by XION.
+pub mod abstract_account {
+    pub mod v1 {
+        include!("prost/abstract-account/abstractaccount.v1.rs");
+    }
+}
+
+/// XION protobuf definitions.
+#[cfg(feature = "xion")]
+pub mod xion {
+    pub mod v1 {
+        include!("prost/xion/xion.v1.rs");
+
+        pub mod jwk {
+            include!("prost/xion/xion.jwk.v1.rs");
+        }
+    }
+}
+
+/// Tokenfactory protobuf definitions used by XION.
+#[cfg(feature = "tokenfactory")]
+pub mod osmosis {
+    pub mod tokenfactory {
+        pub mod v1beta1 {
+            include!("prost/tokenfactory/osmosis.tokenfactory.v1beta1.rs");
+        }
+    }
+}

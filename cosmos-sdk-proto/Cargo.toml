@@ -31,6 +31,8 @@ grpc = ["std", "tonic"]
 grpc-transport = ["grpc", "tonic/transport"]
 cosmwasm = []
 serde = ["dep:serde", "pbjson"]
+xion = []
+tokenfactory = []
 
 [package.metadata.docs.rs]
 all-features = true

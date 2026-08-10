@@ -25,6 +25,13 @@ const COSMOS_SDK_REV: &str = "v0.50.9";
 /// The wasmd commit or tag to be cloned and used to build the proto files
 const WASMD_REV: &str = "v0.52.0";
 
+/// The XION revision used to generate the checked-in protobuf bindings.
+const XION_REV: &str = "4bb2b97b43ae4d035e65505e2557b40e22521f68";
+/// The tokenfactory revision used to generate the checked-in protobuf bindings.
+const TOKENFACTORY_REV: &str = "v0.50.3-wasmvm2";
+/// The Abstract Account revision used to generate the checked-in protobuf bindings.
+const ABSTRACT_ACCOUNT_REV: &str = "2c933a7b2a8dacc0ae5bf4344159a7d4ab080135";
+
 // All paths must end with a / and either be absolute or include a ./ to reference the current
 // working directory.
 
@@ -34,6 +41,9 @@ const COSMOS_SDK_PROTO_DIR: &str = "../cosmos-sdk-proto/src/prost/";
 const COSMOS_SDK_DIR: &str = "../cosmos-sdk-go";
 /// Directory where the submodule is located
 const WASMD_DIR: &str = "../wasmd";
+const XION_DIR: &str = "../xion";
+const TOKENFACTORY_DIR: &str = "../tokenfactory";
+const ABSTRACT_ACCOUNT_DIR: &str = "../abstract-account";
 /// A temporary directory for proto building
 const TMP_BUILD_DIR: &str = "/tmp/tmp-protobuf/";
 
@@ -70,18 +80,44 @@ fn main() {
 
     let temp_sdk_dir = tmp_build_dir.join("cosmos-sdk");
     let temp_wasmd_dir = tmp_build_dir.join("wasmd");
+    let temp_xion_dir = tmp_build_dir.join("xion");
+    let temp_tokenfactory_dir = tmp_build_dir.join("tokenfactory");
+    let temp_abstract_account_dir = tmp_build_dir.join("abstract-account");
 
     fs::create_dir_all(&temp_sdk_dir).unwrap();
     fs::create_dir_all(&temp_wasmd_dir).unwrap();
+    fs::create_dir_all(&temp_xion_dir).unwrap();
+    fs::create_dir_all(&temp_tokenfactory_dir).unwrap();
+    fs::create_dir_all(&temp_abstract_account_dir).unwrap();
 
     update_submodules();
     output_sdk_version(&temp_sdk_dir);
     output_wasmd_version(&temp_wasmd_dir);
+    output_revision(&temp_xion_dir, "XION_COMMIT", XION_REV);
+    output_revision(
+        &temp_tokenfactory_dir,
+        "TOKENFACTORY_COMMIT",
+        TOKENFACTORY_REV,
+    );
+    output_revision(
+        &temp_abstract_account_dir,
+        "ABSTRACT_ACCOUNT_COMMIT",
+        ABSTRACT_ACCOUNT_REV,
+    );
     compile_sdk_protos_and_services(&temp_sdk_dir);
     compile_wasmd_proto_and_services(&temp_wasmd_dir);
+    compile_xion_proto_and_services(&temp_xion_dir);
+    compile_tokenfactory_proto_and_services(&temp_tokenfactory_dir);
+    compile_abstract_account_proto_and_services(&temp_abstract_account_dir);
 
     copy_generated_files(&temp_sdk_dir, &proto_dir.join("cosmos-sdk"));
     copy_generated_files(&temp_wasmd_dir, &proto_dir.join("wasmd"));
+    copy_generated_files(&temp_xion_dir, &proto_dir.join("xion"));
+    copy_generated_files(&temp_tokenfactory_dir, &proto_dir.join("tokenfactory"));
+    copy_generated_files(
+        &temp_abstract_account_dir,
+        &proto_dir.join("abstract-account"),
+    );
 
     apply_patches(&proto_dir);
 
@@ -184,6 +220,21 @@ fn update_submodules() {
     run_git(["submodule", "update", "--init"]);
     run_git(["-C", WASMD_DIR, "fetch"]);
     run_git(["-C", WASMD_DIR, "reset", "--hard", WASMD_REV]);
+
+    for (name, directory, revision) in [
+        ("XION", XION_DIR, XION_REV),
+        ("tokenfactory", TOKENFACTORY_DIR, TOKENFACTORY_REV),
+        (
+            "Abstract Account",
+            ABSTRACT_ACCOUNT_DIR,
+            ABSTRACT_ACCOUNT_REV,
+        ),
+    ] {
+        info!("Updating {} submodule...", name);
+        run_git(["submodule", "update", "--init", directory]);
+        run_git(["-C", directory, "fetch"]);
+        run_git(["-C", directory, "reset", "--hard", revision]);
+    }
 }
 
 fn output_sdk_version(out_dir: &Path) {
@@ -194,6 +245,10 @@ fn output_sdk_version(out_dir: &Path) {
 fn output_wasmd_version(out_dir: &Path) {
     let path = out_dir.join("WASMD_COMMIT");
     fs::write(path, WASMD_REV).unwrap();
+}
+
+fn output_revision(out_dir: &Path, filename: &str, revision: &str) {
+    fs::write(out_dir.join(filename), revision).unwrap();
 }
 
 fn compile_sdk_protos_and_services(out_dir: &Path) {
@@ -221,6 +276,27 @@ fn compile_wasmd_proto_and_services(out_dir: &Path) {
     // Compile all proto client for GRPC services
     info!("Compiling wasmd proto clients for GRPC services!");
     run_buf("buf.wasmd.gen.yaml", proto_path, out_dir);
+    info!("=> Done!");
+}
+
+fn compile_xion_proto_and_services(out_dir: &Path) {
+    let proto_path = Path::new(XION_DIR).join("proto");
+    info!("Compiling XION proto clients for GRPC services!");
+    run_buf("buf.sdk.gen.yaml", proto_path, out_dir);
+    info!("=> Done!");
+}
+
+fn compile_tokenfactory_proto_and_services(out_dir: &Path) {
+    let proto_path = Path::new(TOKENFACTORY_DIR).join("proto");
+    info!("Compiling tokenfactory proto clients for GRPC services!");
+    run_buf("buf.sdk.gen.yaml", proto_path, out_dir);
+    info!("=> Done!");
+}
+
+fn compile_abstract_account_proto_and_services(out_dir: &Path) {
+    let proto_path = Path::new(ABSTRACT_ACCOUNT_DIR).join("proto");
+    info!("Compiling Abstract Account proto clients for GRPC services!");
+    run_buf("buf.sdk.gen.yaml", proto_path, out_dir);
     info!("=> Done!");
 }
 
