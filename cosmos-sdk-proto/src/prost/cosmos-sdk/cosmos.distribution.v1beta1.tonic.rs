@@ -2,7 +2,13 @@
 /// Generated client implementations.
 #[cfg(feature = "grpc")]
 pub mod query_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
     #[derive(Debug, Clone)]
@@ -23,10 +29,10 @@ pub mod query_client {
     }
     impl<T> QueryClient<T>
     where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T: tonic::client::GrpcService<tonic::body::Body>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -44,13 +50,13 @@ pub mod query_client {
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
             T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
+                http::Request<tonic::body::Body>,
                 Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                    <T as tonic::client::GrpcService<tonic::body::Body>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<http::Request<tonic::body::Body>>>::Error:
+                Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             QueryClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -88,13 +94,10 @@ pub mod query_client {
         pub async fn params(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryParamsRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
@@ -106,18 +109,36 @@ pub mod query_client {
             ));
             self.inner.unary(req, path, codec).await
         }
+        pub async fn validator_distribution_info(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryValidatorDistributionInfoRequest>,
+        ) -> core::result::Result<
+            tonic::Response<super::QueryValidatorDistributionInfoResponse>,
+            tonic::Status,
+        > {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.distribution.v1beta1.Query/ValidatorDistributionInfo",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new(
+                "cosmos.distribution.v1beta1.Query",
+                "ValidatorDistributionInfo",
+            ));
+            self.inner.unary(req, path, codec).await
+        }
         pub async fn validator_outstanding_rewards(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryValidatorOutstandingRewardsRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryValidatorOutstandingRewardsResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -133,15 +154,12 @@ pub mod query_client {
         pub async fn validator_commission(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryValidatorCommissionRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryValidatorCommissionResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -157,13 +175,12 @@ pub mod query_client {
         pub async fn validator_slashes(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryValidatorSlashesRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryValidatorSlashesResponse>, tonic::Status>
-        {
+        ) -> core::result::Result<
+            tonic::Response<super::QueryValidatorSlashesResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -179,15 +196,12 @@ pub mod query_client {
         pub async fn delegation_rewards(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDelegationRewardsRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryDelegationRewardsResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -203,15 +217,12 @@ pub mod query_client {
         pub async fn delegation_total_rewards(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDelegationTotalRewardsRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryDelegationTotalRewardsResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -227,15 +238,12 @@ pub mod query_client {
         pub async fn delegator_validators(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDelegatorValidatorsRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryDelegatorValidatorsResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -251,15 +259,12 @@ pub mod query_client {
         pub async fn delegator_withdraw_address(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDelegatorWithdrawAddressRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryDelegatorWithdrawAddressResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -275,13 +280,10 @@ pub mod query_client {
         pub async fn community_pool(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryCommunityPoolRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryCommunityPoolResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::QueryCommunityPoolResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -299,81 +301,95 @@ pub mod query_client {
 /// Generated server implementations.
 #[cfg(feature = "grpc")]
 pub mod query_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::*;
     /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
-    pub trait Query: Send + Sync + 'static {
+    pub trait Query: std::marker::Send + std::marker::Sync + 'static {
         async fn params(
             &self,
             request: tonic::Request<super::QueryParamsRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>;
+        async fn validator_distribution_info(
+            &self,
+            request: tonic::Request<super::QueryValidatorDistributionInfoRequest>,
+        ) -> core::result::Result<
+            tonic::Response<super::QueryValidatorDistributionInfoResponse>,
+            tonic::Status,
+        >;
         async fn validator_outstanding_rewards(
             &self,
             request: tonic::Request<super::QueryValidatorOutstandingRewardsRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryValidatorOutstandingRewardsResponse>,
             tonic::Status,
         >;
         async fn validator_commission(
             &self,
             request: tonic::Request<super::QueryValidatorCommissionRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryValidatorCommissionResponse>,
             tonic::Status,
         >;
         async fn validator_slashes(
             &self,
             request: tonic::Request<super::QueryValidatorSlashesRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryValidatorSlashesResponse>, tonic::Status>;
+        ) -> core::result::Result<
+            tonic::Response<super::QueryValidatorSlashesResponse>,
+            tonic::Status,
+        >;
         async fn delegation_rewards(
             &self,
             request: tonic::Request<super::QueryDelegationRewardsRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryDelegationRewardsResponse>,
             tonic::Status,
         >;
         async fn delegation_total_rewards(
             &self,
             request: tonic::Request<super::QueryDelegationTotalRewardsRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryDelegationTotalRewardsResponse>,
             tonic::Status,
         >;
         async fn delegator_validators(
             &self,
             request: tonic::Request<super::QueryDelegatorValidatorsRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryDelegatorValidatorsResponse>,
             tonic::Status,
         >;
         async fn delegator_withdraw_address(
             &self,
             request: tonic::Request<super::QueryDelegatorWithdrawAddressRequest>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::QueryDelegatorWithdrawAddressResponse>,
             tonic::Status,
         >;
         async fn community_pool(
             &self,
             request: tonic::Request<super::QueryCommunityPoolRequest>,
-        ) -> std::result::Result<tonic::Response<super::QueryCommunityPoolResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::QueryCommunityPoolResponse>, tonic::Status>;
     }
     #[derive(Debug)]
-    pub struct QueryServer<T: Query> {
-        inner: _Inner<T>,
+    pub struct QueryServer<T> {
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
-    impl<T: Query> QueryServer<T> {
+    impl<T> QueryServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -420,20 +436,19 @@ pub mod query_server {
     impl<T, B> tonic::codegen::Service<http::Request<B>> for QueryServer<T>
     where
         T: Query,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
     {
-        type Response = http::Response<tonic::body::BoxBody>;
+        type Response = http::Response<tonic::body::Body>;
         type Error = std::convert::Infallible;
         type Future = BoxFuture<Self::Response, Self::Error>;
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/cosmos.distribution.v1beta1.Query/Params" => {
                     #[allow(non_camel_case_types)]
@@ -446,7 +461,7 @@ pub mod query_server {
                             request: tonic::Request<super::QueryParamsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).params(request).await };
+                            let fut = async move { <T as Query>::params(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -456,8 +471,49 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ParamsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.distribution.v1beta1.Query/ValidatorDistributionInfo" => {
+                    #[allow(non_camel_case_types)]
+                    struct ValidatorDistributionInfoSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query>
+                        tonic::server::UnaryService<super::QueryValidatorDistributionInfoRequest>
+                        for ValidatorDistributionInfoSvc<T>
+                    {
+                        type Response = super::QueryValidatorDistributionInfoResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryValidatorDistributionInfoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::validator_distribution_info(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ValidatorDistributionInfoSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -488,7 +544,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).validator_outstanding_rewards(request).await
+                                <T as Query>::validator_outstanding_rewards(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -499,7 +555,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ValidatorOutstandingRewardsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -530,7 +585,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryValidatorCommissionRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).validator_commission(request).await };
+                            let fut = async move {
+                                <T as Query>::validator_commission(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -540,7 +597,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ValidatorCommissionSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -570,7 +626,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryValidatorSlashesRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).validator_slashes(request).await };
+                            let fut = async move {
+                                <T as Query>::validator_slashes(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -580,7 +638,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ValidatorSlashesSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -610,7 +667,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryDelegationRewardsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).delegation_rewards(request).await };
+                            let fut = async move {
+                                <T as Query>::delegation_rewards(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -620,7 +679,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = DelegationRewardsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -651,8 +709,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryDelegationTotalRewardsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).delegation_total_rewards(request).await };
+                            let fut = async move {
+                                <T as Query>::delegation_total_rewards(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -662,7 +721,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = DelegationTotalRewardsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -693,7 +751,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryDelegatorValidatorsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).delegator_validators(request).await };
+                            let fut = async move {
+                                <T as Query>::delegator_validators(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -703,7 +763,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = DelegatorValidatorsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -734,8 +793,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryDelegatorWithdrawAddressRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).delegator_withdraw_address(request).await };
+                            let fut = async move {
+                                <T as Query>::delegator_withdraw_address(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -745,7 +805,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = DelegatorWithdrawAddressSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -775,7 +834,8 @@ pub mod query_server {
                             request: tonic::Request<super::QueryCommunityPoolRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).community_pool(request).await };
+                            let fut =
+                                async move { <T as Query>::community_pool(&inner, request).await };
                             Box::pin(fut)
                         }
                     }
@@ -785,7 +845,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = CommunityPoolSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -803,17 +862,22 @@ pub mod query_server {
                     Box::pin(fut)
                 }
                 _ => Box::pin(async move {
-                    Ok(http::Response::builder()
-                        .status(200)
-                        .header("grpc-status", "12")
-                        .header("content-type", "application/grpc")
-                        .body(empty_body())
-                        .unwrap())
+                    let mut response = http::Response::new(tonic::body::Body::default());
+                    let headers = response.headers_mut();
+                    headers.insert(
+                        tonic::Status::GRPC_STATUS,
+                        (tonic::Code::Unimplemented as i32).into(),
+                    );
+                    headers.insert(
+                        http::header::CONTENT_TYPE,
+                        tonic::metadata::GRPC_CONTENT_TYPE,
+                    );
+                    Ok(response)
                 }),
             }
         }
     }
-    impl<T: Query> Clone for QueryServer<T> {
+    impl<T> Clone for QueryServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -825,24 +889,22 @@ pub mod query_server {
             }
         }
     }
-    impl<T: Query> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: Query> tonic::server::NamedService for QueryServer<T> {
-        const NAME: &'static str = "cosmos.distribution.v1beta1.Query";
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "cosmos.distribution.v1beta1.Query";
+    impl<T> tonic::server::NamedService for QueryServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// Generated client implementations.
 #[cfg(feature = "grpc")]
 pub mod msg_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::http::Uri;
     use tonic::codegen::*;
     #[derive(Debug, Clone)]
@@ -863,10 +925,10 @@ pub mod msg_client {
     }
     impl<T> MsgClient<T>
     where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T: tonic::client::GrpcService<tonic::body::Body>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -881,13 +943,13 @@ pub mod msg_client {
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
             T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
+                http::Request<tonic::body::Body>,
                 Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                    <T as tonic::client::GrpcService<tonic::body::Body>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<http::Request<tonic::body::Body>>>::Error:
+                Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             MsgClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -925,13 +987,12 @@ pub mod msg_client {
         pub async fn set_withdraw_address(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgSetWithdrawAddress>,
-        ) -> std::result::Result<tonic::Response<super::MsgSetWithdrawAddressResponse>, tonic::Status>
-        {
+        ) -> core::result::Result<
+            tonic::Response<super::MsgSetWithdrawAddressResponse>,
+            tonic::Status,
+        > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -947,15 +1008,12 @@ pub mod msg_client {
         pub async fn withdraw_delegator_reward(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgWithdrawDelegatorReward>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgWithdrawDelegatorRewardResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -971,15 +1029,12 @@ pub mod msg_client {
         pub async fn withdraw_validator_commission(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgWithdrawValidatorCommission>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgWithdrawValidatorCommissionResponse>,
             tonic::Status,
         > {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -995,13 +1050,10 @@ pub mod msg_client {
         pub async fn fund_community_pool(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgFundCommunityPool>,
-        ) -> std::result::Result<tonic::Response<super::MsgFundCommunityPoolResponse>, tonic::Status>
+        ) -> core::result::Result<tonic::Response<super::MsgFundCommunityPoolResponse>, tonic::Status>
         {
             self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
@@ -1014,54 +1066,140 @@ pub mod msg_client {
             ));
             self.inner.unary(req, path, codec).await
         }
+        pub async fn update_params(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgUpdateParams>,
+        ) -> core::result::Result<tonic::Response<super::MsgUpdateParamsResponse>, tonic::Status>
+        {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.distribution.v1beta1.Msg/UpdateParams",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new(
+                "cosmos.distribution.v1beta1.Msg",
+                "UpdateParams",
+            ));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn community_pool_spend(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgCommunityPoolSpend>,
+        ) -> core::result::Result<
+            tonic::Response<super::MsgCommunityPoolSpendResponse>,
+            tonic::Status,
+        > {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.distribution.v1beta1.Msg/CommunityPoolSpend",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new(
+                "cosmos.distribution.v1beta1.Msg",
+                "CommunityPoolSpend",
+            ));
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn deposit_validator_rewards_pool(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgDepositValidatorRewardsPool>,
+        ) -> core::result::Result<
+            tonic::Response<super::MsgDepositValidatorRewardsPoolResponse>,
+            tonic::Status,
+        > {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::unknown(alloc::format!("Service was not ready: {}", e.into()))
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.distribution.v1beta1.Msg/DepositValidatorRewardsPool",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new(
+                "cosmos.distribution.v1beta1.Msg",
+                "DepositValidatorRewardsPool",
+            ));
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
 #[cfg(feature = "grpc")]
 pub mod msg_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value
+    )]
     use tonic::codegen::*;
     /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
     #[async_trait]
-    pub trait Msg: Send + Sync + 'static {
+    pub trait Msg: std::marker::Send + std::marker::Sync + 'static {
         async fn set_withdraw_address(
             &self,
             request: tonic::Request<super::MsgSetWithdrawAddress>,
-        ) -> std::result::Result<tonic::Response<super::MsgSetWithdrawAddressResponse>, tonic::Status>;
+        ) -> core::result::Result<
+            tonic::Response<super::MsgSetWithdrawAddressResponse>,
+            tonic::Status,
+        >;
         async fn withdraw_delegator_reward(
             &self,
             request: tonic::Request<super::MsgWithdrawDelegatorReward>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgWithdrawDelegatorRewardResponse>,
             tonic::Status,
         >;
         async fn withdraw_validator_commission(
             &self,
             request: tonic::Request<super::MsgWithdrawValidatorCommission>,
-        ) -> std::result::Result<
+        ) -> core::result::Result<
             tonic::Response<super::MsgWithdrawValidatorCommissionResponse>,
             tonic::Status,
         >;
         async fn fund_community_pool(
             &self,
             request: tonic::Request<super::MsgFundCommunityPool>,
-        ) -> std::result::Result<tonic::Response<super::MsgFundCommunityPoolResponse>, tonic::Status>;
+        ) -> core::result::Result<tonic::Response<super::MsgFundCommunityPoolResponse>, tonic::Status>;
+        async fn update_params(
+            &self,
+            request: tonic::Request<super::MsgUpdateParams>,
+        ) -> core::result::Result<tonic::Response<super::MsgUpdateParamsResponse>, tonic::Status>;
+        async fn community_pool_spend(
+            &self,
+            request: tonic::Request<super::MsgCommunityPoolSpend>,
+        ) -> core::result::Result<
+            tonic::Response<super::MsgCommunityPoolSpendResponse>,
+            tonic::Status,
+        >;
+        async fn deposit_validator_rewards_pool(
+            &self,
+            request: tonic::Request<super::MsgDepositValidatorRewardsPool>,
+        ) -> core::result::Result<
+            tonic::Response<super::MsgDepositValidatorRewardsPoolResponse>,
+            tonic::Status,
+        >;
     }
     #[derive(Debug)]
-    pub struct MsgServer<T: Msg> {
-        inner: _Inner<T>,
+    pub struct MsgServer<T> {
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
-    impl<T: Msg> MsgServer<T> {
+    impl<T> MsgServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -1108,20 +1246,19 @@ pub mod msg_server {
     impl<T, B> tonic::codegen::Service<http::Request<B>> for MsgServer<T>
     where
         T: Msg,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
     {
-        type Response = http::Response<tonic::body::BoxBody>;
+        type Response = http::Response<tonic::body::Body>;
         type Error = std::convert::Infallible;
         type Future = BoxFuture<Self::Response, Self::Error>;
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
+        ) -> Poll<core::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/cosmos.distribution.v1beta1.Msg/SetWithdrawAddress" => {
                     #[allow(non_camel_case_types)]
@@ -1136,7 +1273,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgSetWithdrawAddress>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).set_withdraw_address(request).await };
+                            let fut = async move {
+                                <T as Msg>::set_withdraw_address(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1146,7 +1285,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = SetWithdrawAddressSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1176,8 +1314,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgWithdrawDelegatorReward>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut =
-                                async move { (*inner).withdraw_delegator_reward(request).await };
+                            let fut = async move {
+                                <T as Msg>::withdraw_delegator_reward(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1187,7 +1326,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = WithdrawDelegatorRewardSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1218,7 +1356,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).withdraw_validator_commission(request).await
+                                <T as Msg>::withdraw_validator_commission(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1229,7 +1367,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = WithdrawValidatorCommissionSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1257,7 +1394,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgFundCommunityPool>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).fund_community_pool(request).await };
+                            let fut = async move {
+                                <T as Msg>::fund_community_pool(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1267,7 +1406,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = FundCommunityPoolSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1284,18 +1422,143 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
+                "/cosmos.distribution.v1beta1.Msg/UpdateParams" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateParamsSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgUpdateParams> for UpdateParamsSvc<T> {
+                        type Response = super::MsgUpdateParamsResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgUpdateParams>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut =
+                                async move { <T as Msg>::update_params(&inner, request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateParamsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.distribution.v1beta1.Msg/CommunityPoolSpend" => {
+                    #[allow(non_camel_case_types)]
+                    struct CommunityPoolSpendSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgCommunityPoolSpend>
+                        for CommunityPoolSpendSvc<T>
+                    {
+                        type Response = super::MsgCommunityPoolSpendResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgCommunityPoolSpend>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::community_pool_spend(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CommunityPoolSpendSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.distribution.v1beta1.Msg/DepositValidatorRewardsPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct DepositValidatorRewardsPoolSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgDepositValidatorRewardsPool>
+                        for DepositValidatorRewardsPoolSvc<T>
+                    {
+                        type Response = super::MsgDepositValidatorRewardsPoolResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgDepositValidatorRewardsPool>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::deposit_validator_rewards_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DepositValidatorRewardsPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 _ => Box::pin(async move {
-                    Ok(http::Response::builder()
-                        .status(200)
-                        .header("grpc-status", "12")
-                        .header("content-type", "application/grpc")
-                        .body(empty_body())
-                        .unwrap())
+                    let mut response = http::Response::new(tonic::body::Body::default());
+                    let headers = response.headers_mut();
+                    headers.insert(
+                        tonic::Status::GRPC_STATUS,
+                        (tonic::Code::Unimplemented as i32).into(),
+                    );
+                    headers.insert(
+                        http::header::CONTENT_TYPE,
+                        tonic::metadata::GRPC_CONTENT_TYPE,
+                    );
+                    Ok(response)
                 }),
             }
         }
     }
-    impl<T: Msg> Clone for MsgServer<T> {
+    impl<T> Clone for MsgServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -1307,17 +1570,9 @@ pub mod msg_server {
             }
         }
     }
-    impl<T: Msg> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
-        const NAME: &'static str = "cosmos.distribution.v1beta1.Msg";
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "cosmos.distribution.v1beta1.Msg";
+    impl<T> tonic::server::NamedService for MsgServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -30,10 +30,10 @@ and message passing.
 
 ## Minimum Supported Rust Version
 
-This crate is supported on Rust **1.72** or newer.
+This crate is supported on Rust **1.75** or newer.
 
 [//]: # "badges"
-[crate-image]: https://buildstats.info/crate/cosmrs
+[crate-image]: https://img.shields.io/crates/v/cosmrs?logo=rust
 [crate-link]: https://crates.io/crates/cosmrs
 [docs-image]: https://docs.rs/cosmrs/badge.svg
 [docs-link]: https://docs.rs/cosmrs/
@@ -41,11 +41,11 @@ This crate is supported on Rust **1.72** or newer.
 [build-link]: https://github.com/cosmos/cosmos-rust/actions/workflows/cosmrs.yml
 [license-image]: https://img.shields.io/badge/license-Apache2.0-blue.svg
 [license-link]: https://github.com/cosmos/cosmos-rust/blob/master/LICENSE
-[rustc-image]: https://img.shields.io/badge/rustc-1.72+-blue.svg
+[rustc-image]: https://img.shields.io/badge/rustc-1.75+-blue.svg
 
-[//]: # "general links"
+[//]: # "links"
 [Cosmos]: https://cosmos.network/
 [Cosmos SDK for Golang]: https://github.com/cosmos/cosmos-sdk
 [CosmWasm]: https://cosmwasm.com/
 [Staking]: https://docs.cosmos.network/master/modules/staking/
-[Transactions]: https://docs.cosmos.network/master/core/transactions.html
+[Transactions]: https://docs.cosmos.network/v0.50/learn/advanced/transactions
