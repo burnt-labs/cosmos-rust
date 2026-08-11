@@ -99,7 +99,7 @@ impl SubscriptionRouter {
             None => {
                 self.subscriptions.insert(query.clone(), HashMap::new());
                 self.subscriptions.get_mut(&query).unwrap()
-            },
+            }
         };
 
         subs_for_query.insert(id.to_string(), tx);

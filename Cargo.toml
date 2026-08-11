@@ -3,17 +3,6 @@ resolver = "2"
 members = [
     "proto-build",
     "cosmos-sdk-proto",
-    "cosmrs"
-]
-exclude = [
+    "cosmrs",
     "third_party/tendermint-rpc",
-    "third_party/time"
 ]
-
-[patch.crates-io]
-# tendermint-rpc 0.40.4 still pins reqwest 0.11, whose rustls stack cannot use
-# the patched rustls-webpki 0.103 line.
-tendermint-rpc = { path = "third_party/tendermint-rpc" }
-# time 0.3.47 fixes GHSA-r6v5-fh4h-64xc but raises its MSRV to Rust 1.88.
-# This local package carries the upstream fix while preserving our Rust 1.75 MSRV.
-time = { path = "third_party/time" }

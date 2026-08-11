@@ -11,7 +11,8 @@
 
 [package]
 edition = "2021"
-name = "tendermint-rpc"
+rust-version = "1.88"
+name = "burnt-tendermint-rpc"
 version = "0.40.4"
 authors = [
     "Informal Systems <hello@informal.systems>",
@@ -93,7 +94,7 @@ version = "0.1"
 default-features = false
 
 [dependencies.async-tungstenite]
-version = "0.24"
+version = "0.35"
 features = [
     "tokio-runtime",
     "tokio-rustls-native-certs",
@@ -185,7 +186,7 @@ version = "1"
 default-features = false
 
 [dependencies.time]
-version = "0.3"
+version = ">=0.3.47, <0.4"
 features = [
     "macros",
     "parsing",

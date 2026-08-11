@@ -1,6 +1,6 @@
 //! WebSocket-based clients for accessing Tendermint RPC functionality.
 
-use alloc::{borrow::Cow, collections::BTreeMap as HashMap, fmt};
+use alloc::{collections::BTreeMap as HashMap, fmt};
 use core::{ops::Add, str::FromStr};
 
 use async_trait::async_trait;
@@ -12,7 +12,7 @@ use async_tungstenite::{
     },
     WebSocketStream,
 };
-use futures::{SinkExt, StreamExt};
+use futures::StreamExt;
 use serde::{Deserialize, Serialize};
 use tokio::time::{Duration, Instant};
 use tracing::{debug, error};
@@ -291,7 +291,7 @@ impl Client for WebSocketClient {
                     .perform_with_dialect(endpoint::block::Request::new(height), v0_34::Dialect)
                     .await?;
                 Ok(resp.into())
-            },
+            }
         }
     }
 
@@ -303,11 +303,11 @@ impl Client for WebSocketClient {
             CompatMode::V0_38 => {
                 self.perform(endpoint::header_by_hash::Request::new(hash))
                     .await
-            },
+            }
             CompatMode::V0_37 => {
                 self.perform(endpoint::header_by_hash::Request::new(hash))
                     .await
-            },
+            }
             CompatMode::V0_34 => {
                 // Back-fill with a request to /block_by_hash endpoint and
                 // taking just the header from the response.
@@ -318,7 +318,7 @@ impl Client for WebSocketClient {
                     )
                     .await?;
                 Ok(resp.into())
-            },
+            }
         }
     }
 
@@ -802,7 +802,7 @@ impl WebSocketClientDriver {
 
     async fn simple_request(&mut self, cmd: SimpleRequestCommand) -> Result<(), Error> {
         if let Err(e) = self
-            .send_msg(Message::Text(cmd.wrapped_request.clone()))
+            .send_msg(Message::Text(cmd.wrapped_request.clone().into()))
             .await
         {
             cmd.response_tx.send(Err(e.clone()))?;
@@ -857,7 +857,7 @@ impl WebSocketClientDriver {
         R: Request,
     {
         self.send_msg(Message::Text(
-            serde_json::to_string_pretty(&wrapper).unwrap(),
+            serde_json::to_string_pretty(&wrapper).unwrap().into(),
         ))
         .await
     }
@@ -913,8 +913,8 @@ impl WebSocketClientDriver {
 
     async fn handle_incoming_msg(&mut self, msg: Message) -> Result<(), Error> {
         match msg {
-            Message::Text(s) => self.handle_text_msg(s).await,
-            Message::Ping(v) => self.pong(v).await,
+            Message::Text(s) => self.handle_text_msg(s.to_string()).await,
+            Message::Ping(v) => self.pong(v.to_vec()).await,
             _ => Ok(()),
         }
     }
@@ -943,7 +943,7 @@ impl WebSocketClientDriver {
                 debug!("JSON-RPC message: {}", msg);
 
                 return Ok(());
-            },
+            }
         };
 
         debug!("Generic JSON-RPC message: {:?}", wrapper);
@@ -1013,7 +1013,7 @@ impl WebSocketClientDriver {
                     (cmd.id, cmd.query, cmd.subscription_tx, cmd.response_tx);
                 self.router.add(id, query, subscription_tx);
                 response_tx.send(Ok(()))
-            },
+            }
             DriverCommand::Unsubscribe(cmd) => cmd.response_tx.send(Ok(())),
             DriverCommand::SimpleRequest(cmd) => cmd.response_tx.send(Ok(response)),
             _ => Ok(()),
@@ -1021,17 +1021,17 @@ impl WebSocketClientDriver {
     }
 
     async fn pong(&mut self, v: Vec<u8>) -> Result<(), Error> {
-        self.send_msg(Message::Pong(v)).await
+        self.send_msg(Message::Pong(v.into())).await
     }
 
     async fn ping(&mut self) -> Result<(), Error> {
-        self.send_msg(Message::Ping(Vec::new())).await
+        self.send_msg(Message::Ping(Vec::new().into())).await
     }
 
     async fn close(mut self) -> Result<(), Error> {
         self.send_msg(Message::Close(Some(CloseFrame {
             code: CloseCode::Normal,
-            reason: Cow::from("client closed WebSocket connection"),
+            reason: "client closed WebSocket connection".into(),
         })))
         .await?;
 
@@ -1262,29 +1262,29 @@ mod test {
                 TestRpcVersion::V0_38 => {
                     let ev: event::v0_38::SerEvent = ev.into();
                     self.send(subs_id, ev).await;
-                },
+                }
                 TestRpcVersion::V0_37 => {
                     let ev: event::v0_37::SerEvent = ev.into();
                     self.send(subs_id, ev).await;
-                },
+                }
                 TestRpcVersion::V0_34 => {
                     let ev: event::v0_34::SerEvent = ev.into();
                     self.send(subs_id, ev).await;
-                },
+                }
             }
         }
 
         async fn handle_incoming_msg(&mut self, msg: Message) -> Option<Result<(), Error>> {
             match msg {
-                Message::Text(s) => self.handle_incoming_text_msg(s).await,
+                Message::Text(s) => self.handle_incoming_text_msg(s.to_string()).await,
                 Message::Ping(v) => {
                     let _ = self.conn.send(Message::Pong(v)).await;
                     None
-                },
+                }
                 Message::Close(_) => {
                     self.terminate().await;
                     Some(Ok(()))
-                },
+                }
                 _ => None,
             }
         }
@@ -1306,7 +1306,7 @@ mod test {
                                         req.id().to_string(),
                                     );
                                     self.send(req.id().clone(), subscribe::Response {}).await;
-                                },
+                                }
                                 Method::Unsubscribe => {
                                     let req = serde_json::from_str::<
                                         request::Wrapper<unsubscribe::Request>,
@@ -1315,22 +1315,22 @@ mod test {
 
                                     self.remove_subscription(req.params().query.clone());
                                     self.send(req.id().clone(), unsubscribe::Response {}).await;
-                                },
+                                }
                                 _ => {
                                     println!("Unsupported method in incoming request: {}", &method);
-                                },
+                                }
                             },
                             Err(e) => {
                                 println!(
                                     "Unexpected method in incoming request: {json_method} ({e})"
                                 );
-                            },
+                            }
                         }
                     }
-                },
+                }
                 Err(e) => {
                     println!("Failed to parse incoming request: {} ({})", &msg, e);
-                },
+                }
             }
             None
         }
@@ -1353,7 +1353,8 @@ mod test {
             self.conn
                 .send(Message::Text(
                     serde_json::to_string(&response::Wrapper::new_with_id(id, Some(res), None))
-                        .unwrap(),
+                        .unwrap()
+                        .into(),
                 ))
                 .await
                 .unwrap();

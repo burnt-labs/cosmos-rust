@@ -223,7 +223,7 @@ pub trait Client {
             Paging::Default => {
                 self.perform(validators::Request::new(Some(height), None, None))
                     .await
-            },
+            }
             Paging::Specific {
                 page_number,
                 per_page,
@@ -234,7 +234,7 @@ pub trait Client {
                     Some(per_page),
                 ))
                 .await
-            },
+            }
             Paging::All => {
                 let mut page_num = 1_usize;
                 let mut validators = Vec::new();
@@ -257,7 +257,7 @@ pub trait Client {
                     }
                     page_num += 1;
                 }
-            },
+            }
         }
     }
 
@@ -309,7 +309,7 @@ pub trait Client {
                         // Emit this chunk and fetch the next chunk
                         Some((Ok(response.data), Some(response.chunk + 1)))
                     }
-                },
+                }
                 Err(e) => Some((Err(e), None)), // Abort the stream
             }
         }))

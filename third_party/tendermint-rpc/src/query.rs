@@ -537,12 +537,12 @@ impl fmt::Display for Operand {
                 write!(f, "DATE ")?;
                 fmt_date(*d, f)?;
                 Ok(())
-            },
+            }
             Operand::DateTime(dt) => {
                 write!(f, "TIME ")?;
                 timestamp::fmt_as_rfc3339_nanos(*dt, f)?;
                 Ok(())
-            },
+            }
         }
     }
 }
@@ -885,10 +885,10 @@ mod test {
                 match op {
                     Operand::Float(f) => {
                         assert!(floats_eq(*f, core::f64::consts::PI, 5));
-                    },
+                    }
                     _ => panic!("unexpected operand: {:?}", op),
                 }
-            },
+            }
             c => panic!("unexpected condition: {:?}", c),
         }
 
@@ -904,10 +904,10 @@ mod test {
                 match op {
                     Operand::Float(f) => {
                         assert!(floats_eq(*f, -core::f64::consts::PI, 5));
-                    },
+                    }
                     _ => panic!("unexpected operand: {:?}", op),
                 }
-            },
+            }
             c => panic!("unexpected condition: {:?}", c),
         }
     }

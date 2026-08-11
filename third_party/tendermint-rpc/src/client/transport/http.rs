@@ -130,7 +130,7 @@ impl Builder {
                             .map_err(Error::invalid_proxy)?
                     };
                     builder.proxy(proxy).build().map_err(Error::http)?
-                },
+                }
             }
         };
 
@@ -308,11 +308,11 @@ impl Client for HttpClient {
             CompatMode::V0_38 => {
                 self.perform_with_dialect(endpoint::header::Request::new(height), v0_38::Dialect)
                     .await
-            },
+            }
             CompatMode::V0_37 => {
                 self.perform_with_dialect(endpoint::header::Request::new(height), v0_37::Dialect)
                     .await
-            },
+            }
             CompatMode::V0_34 => {
                 // Back-fill with a request to /block endpoint and
                 // taking just the header from the response.
@@ -320,7 +320,7 @@ impl Client for HttpClient {
                     .perform_with_dialect(endpoint::block::Request::new(height), v0_34::Dialect)
                     .await?;
                 Ok(resp.into())
-            },
+            }
         }
     }
 
@@ -335,14 +335,14 @@ impl Client for HttpClient {
                     v0_38::Dialect,
                 )
                 .await
-            },
+            }
             CompatMode::V0_37 => {
                 self.perform_with_dialect(
                     endpoint::header_by_hash::Request::new(hash),
                     v0_37::Dialect,
                 )
                 .await
-            },
+            }
             CompatMode::V0_34 => {
                 // Back-fill with a request to /block_by_hash endpoint and
                 // taking just the header from the response.
@@ -353,7 +353,7 @@ impl Client for HttpClient {
                     )
                     .await?;
                 Ok(resp.into())
-            },
+            }
         }
     }
 
@@ -367,17 +367,17 @@ impl Client for HttpClient {
                 let request = endpoint::evidence::Request::new(evidence);
                 self.perform_with_dialect(request, crate::dialect::v0_38::Dialect)
                     .await
-            },
+            }
             CompatMode::V0_37 => {
                 let request = endpoint::evidence::Request::new(evidence);
                 self.perform_with_dialect(request, crate::dialect::v0_37::Dialect)
                     .await
-            },
+            }
             CompatMode::V0_34 => {
                 let request = endpoint::evidence::Request::new(evidence);
                 self.perform_with_dialect(request, crate::dialect::v0_34::Dialect)
                     .await
-            },
+            }
         }
     }
 

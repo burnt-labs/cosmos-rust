@@ -11,17 +11,17 @@ macro_rules! perform_with_compat {
                 $self
                     .perform_with_dialect(request, crate::dialect::v0_38::Dialect)
                     .await
-            },
+            }
             CompatMode::V0_37 => {
                 $self
                     .perform_with_dialect(request, crate::dialect::v0_37::Dialect)
                     .await
-            },
+            }
             CompatMode::V0_34 => {
                 $self
                     .perform_with_dialect(request, crate::dialect::v0_34::Dialect)
                     .await
-            },
+            }
         }
     }};
 }
