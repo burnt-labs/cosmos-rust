@@ -1,0 +1,45 @@
+name: Publish crates
+
+on:
+  push:
+    tags:
+      - "burnt-tendermint-rpc/v*"
+      - "cosmrs/v*"
+
+permissions:
+  contents: read
+
+env:
+  CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+  CARGO_TERM_COLOR: always
+
+jobs:
+  publish-tendermint-rpc:
+    if: startsWith(github.ref_name, 'burnt-tendermint-rpc/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@6c977a6ca4077a0ceb28ffbe03f59d46e9ac8772
+        with:
+          toolchain: 1.90.0
+      - name: Verify tag and publish
+        run: |
+          test "${GITHUB_REF_NAME}" = "burnt-tendermint-rpc/v0.40.4"
+          cargo publish --locked --package burnt-tendermint-rpc
+
+  publish-cosmrs:
+    if: startsWith(github.ref_name, 'cosmrs/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@6c977a6ca4077a0ceb28ffbe03f59d46e9ac8772
+        with:
+          toolchain: 1.90.0
+      - name: Verify tag and publish
+        run: |
+          test "${GITHUB_REF_NAME}" = "cosmrs/v0.22.1"
+          cargo publish --locked --package cosmrs

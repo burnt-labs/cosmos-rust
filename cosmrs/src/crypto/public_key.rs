@@ -9,7 +9,7 @@ use crate::{
 };
 use eyre::WrapErr;
 use serde::{Deserialize, Serialize};
-use std::str::FromStr;
+use std::{fmt, str::FromStr};
 use subtle_encoding::base64;
 
 /// Public keys
@@ -113,7 +113,7 @@ impl TryFrom<&Any> for PublicKey {
                 proto::cosmos::crypto::secp256k1::PubKey::decode(&*any.value)?.try_into()
             }
             other => Err(Error::Crypto)
-                .wrap_err_with(|| format!("invalid type URL for public key: {}", other)),
+                .wrap_err_with(|| format!("invalid type URL for public key: {other}")),
         }
     }
 }
@@ -166,9 +166,9 @@ impl FromStr for PublicKey {
     }
 }
 
-impl ToString for PublicKey {
-    fn to_string(&self) -> String {
-        self.to_json()
+impl fmt::Display for PublicKey {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str(&self.to_json())
     }
 }
 
@@ -218,7 +218,7 @@ impl TryFrom<&PublicKeyJson> for PublicKey {
             Self::SECP256K1_TYPE_URL => tendermint::PublicKey::from_raw_secp256k1(&pk_bytes),
             other => {
                 return Err(Error::Crypto)
-                    .wrap_err_with(|| format!("invalid public key @type: {}", other))
+                    .wrap_err_with(|| format!("invalid public key @type: {other}"))
             }
         };
 

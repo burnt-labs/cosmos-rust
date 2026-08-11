@@ -23,13 +23,15 @@ jobs:
     strategy:
       matrix:
         rust:
-          - 1.75.0 # MSRV
+          - 1.88.0 # MSRV
         target:
           - x86_64-unknown-linux-gnu
           - wasm32-unknown-unknown
     steps:
-      - uses: actions/checkout@v1
-      - uses: dtolnay/rust-toolchain@master
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@6c977a6ca4077a0ceb28ffbe03f59d46e9ac8772
         with:
           toolchain: ${{ matrix.rust }}
           target: ${{ matrix.target }}
@@ -42,11 +44,13 @@ jobs:
     strategy:
       matrix:
         rust:
-          - 1.75.0 # MSRV
+          - 1.88.0 # MSRV
           - stable
     steps:
-      - uses: actions/checkout@v1
-      - uses: dtolnay/rust-toolchain@master
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@6c977a6ca4077a0ceb28ffbe03f59d46e9ac8772
         with:
           toolchain: ${{ matrix.rust }}
       - run: cargo test --release

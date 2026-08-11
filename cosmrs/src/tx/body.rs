@@ -50,7 +50,7 @@ impl Body {
         I: IntoIterator<Item = Any>,
     {
         Body {
-            messages: messages.into_iter().map(Into::into).collect(),
+            messages: messages.into_iter().collect(),
             memo: memo.into(),
             timeout_height: timeout_height.into(),
             extension_options: Default::default(),
@@ -78,7 +78,7 @@ impl Default for Body {
 impl From<Body> for proto::cosmos::tx::v1beta1::TxBody {
     fn from(body: Body) -> proto::cosmos::tx::v1beta1::TxBody {
         proto::cosmos::tx::v1beta1::TxBody {
-            messages: body.messages.into_iter().map(Into::into).collect(),
+            messages: body.messages,
             memo: body.memo,
             timeout_height: body.timeout_height.into(),
             extension_options: body.extension_options,
@@ -92,7 +92,7 @@ impl TryFrom<proto::cosmos::tx::v1beta1::TxBody> for Body {
 
     fn try_from(proto: proto::cosmos::tx::v1beta1::TxBody) -> Result<Body> {
         Ok(Body {
-            messages: proto.messages.into_iter().map(Into::into).collect(),
+            messages: proto.messages,
             memo: proto.memo,
             timeout_height: proto.timeout_height.try_into()?,
             extension_options: proto.extension_options,
