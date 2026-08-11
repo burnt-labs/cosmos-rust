@@ -6,6 +6,7 @@
 #![allow(
     rustdoc::bare_urls,
     rustdoc::broken_intra_doc_links,
+    clippy::doc_lazy_continuation,
     clippy::derive_partial_eq_without_eq
 )]
 #![forbid(unsafe_code)]

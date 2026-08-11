@@ -54,7 +54,7 @@ impl From<&AllowedMsgAllowance> for proto::cosmos::feegrant::v1beta1::AllowedMsg
         allowance: &AllowedMsgAllowance,
     ) -> proto::cosmos::feegrant::v1beta1::AllowedMsgAllowance {
         proto::cosmos::feegrant::v1beta1::AllowedMsgAllowance {
-            allowance: allowance.allowance.clone().map(Into::into),
+            allowance: allowance.allowance.clone(),
             allowed_messages: allowance.allowed_messages.iter().map(Into::into).collect(),
         }
     }

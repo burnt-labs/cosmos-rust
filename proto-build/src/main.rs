@@ -90,8 +90,7 @@ fn main() {
 
     if is_github() {
         println!(
-            "Rebuild protos with proto-build (cosmos-sdk rev: {}, wasmd rev: {}))",
-            COSMOS_SDK_REV, WASMD_REV
+            "Rebuild protos with proto-build (cosmos-sdk rev: {COSMOS_SDK_REV}, wasmd rev: {WASMD_REV}))"
         );
     }
 }
@@ -269,7 +268,7 @@ fn copy_generated_files(from_dir: &Path, to_dir: &Path) {
 
     if !errors.is_empty() {
         for e in errors {
-            eprintln!("[error] Error while copying compiled file: {}", e);
+            eprintln!("[error] Error while copying compiled file: {e}");
         }
 
         panic!("[error] Aborted.");
@@ -326,7 +325,7 @@ fn copy_and_patch(src: impl AsRef<Path>, dest: impl AsRef<Path>) -> io::Result<(
     // Skip proto files belonging to `EXCLUDED_PROTO_PACKAGES`
     for package in EXCLUDED_PROTO_PACKAGES {
         if let Some(filename) = src.as_ref().file_name().and_then(OsStr::to_str) {
-            if filename.starts_with(&format!("{}.", package)) {
+            if filename.starts_with(&format!("{package}.")) {
                 return Ok(());
             }
         }
@@ -360,7 +359,7 @@ fn apply_patches(proto_dir: &Path) {
         ),
     ] {
         patch_file(
-            &proto_dir.join("cosmos-sdk/cosmos.staking.v1beta1.rs"),
+            proto_dir.join("cosmos-sdk/cosmos.staking.v1beta1.rs"),
             &Regex::new(pattern).unwrap(),
             replacement,
         )
@@ -378,7 +377,7 @@ fn apply_patches(proto_dir: &Path) {
         ),
     ] {
         patch_file(
-            &proto_dir.join("cosmos-sdk/cosmos.staking.v1beta1.serde.rs"),
+            proto_dir.join("cosmos-sdk/cosmos.staking.v1beta1.serde.rs"),
             &Regex::new(pattern).unwrap(),
             replacement,
         )

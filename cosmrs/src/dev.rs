@@ -38,7 +38,7 @@ where
         let logs = exec_docker_command("logs", [&container_id]);
 
         println!("\n---- docker stdout ----");
-        println!("{}", logs);
+        println!("{logs}");
     }
 
     exec_docker_command("kill", [&container_id]);
@@ -63,10 +63,10 @@ where
         .args(args)
         .stdout(process::Stdio::piped())
         .output()
-        .unwrap_or_else(|err| panic!("error invoking `docker {}`: {}", name, err));
+        .unwrap_or_else(|err| panic!("error invoking `docker {name}`: {err}"));
 
     if !output.status.success() {
-        panic!("`docker {}` exited with error status: {:?}", name, output);
+        panic!("`docker {name}` exited with error status: {output:?}");
     }
 
     str::from_utf8(&output.stdout)
@@ -89,7 +89,7 @@ pub async fn poll_for_first_block(rpc_client: &rpc::HttpClient) {
 
     while let Err(e) = rpc_client.latest_block().await {
         if !matches!(e.detail(), rpc::error::ErrorDetail::Serde(_)) {
-            panic!("unexpected error waiting for first block: {:?}", e);
+            panic!("unexpected error waiting for first block: {e:?}");
         }
 
         if attempts_remaining == 0 {
@@ -116,5 +116,5 @@ pub async fn poll_for_tx(rpc_client: &rpc::HttpClient, tx_hash: Hash) -> Tx {
         }
     }
 
-    panic!("couldn't find transaction after {} attempts!", attempts);
+    panic!("couldn't find transaction after {attempts} attempts!");
 }

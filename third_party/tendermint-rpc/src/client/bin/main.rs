@@ -569,6 +569,6 @@ fn print_event(event: Event) -> Result<(), Error> {
             serde_json::to_string_pretty(&ser_event).map_err(Error::serde)?
         }
     };
-    println!("{}", json);
+    println!("{json}");
     Ok(())
 }

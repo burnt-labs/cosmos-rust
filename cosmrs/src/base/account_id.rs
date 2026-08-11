@@ -84,7 +84,7 @@ impl FromStr for AccountId {
         } else {
             bech32::decode(s)
         }
-        .wrap_err(format!("invalid bech32: '{}'", s))?;
+        .wrap_err(format!("invalid bech32: '{s}'"))?;
         Self::new(&hrp, &bytes)
     }
 }
@@ -116,7 +116,7 @@ impl TryFrom<&AccountId> for tendermint::account::Id {
             _ => Err(Error::AccountId {
                 id: id.bech32.clone(),
             })
-            .wrap_err_with(|| format!("invalid length for account ID: {}", len)),
+            .wrap_err_with(|| format!("invalid length for account ID: {len}")),
         }
     }
 }

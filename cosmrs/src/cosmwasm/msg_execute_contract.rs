@@ -30,7 +30,7 @@ impl TryFrom<proto::cosmwasm::wasm::v1::MsgExecuteContract> for MsgExecuteContra
         Ok(MsgExecuteContract {
             sender: proto.sender.parse()?,
             contract: proto.contract.parse()?,
-            msg: proto.msg.into_iter().map(Into::into).collect(),
+            msg: proto.msg,
             funds: proto
                 .funds
                 .iter()
