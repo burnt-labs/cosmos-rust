@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 ## Project Overview
 
@@ -28,8 +28,9 @@ cargo fmt
 # Lint
 cargo clippy
 
-# Regenerate protobuf bindings (requires proto-build)
-cargo run --bin proto-build
+# Regenerate protobuf bindings (must run from proto-build/: it resolves
+# ../cosmos-sdk-go, ../ibc-go, ../wasmd and ../cosmos-sdk-proto relative to the cwd)
+cd proto-build && cargo run
 ```
 
 ## Workspace Structure
